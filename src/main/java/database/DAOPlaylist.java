@@ -1,25 +1,41 @@
 package database;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Model.Account;
 import Model.Playlist;
 import Model.Song;
 
-public class DAOPlaylist {
+public class DAOPlaylist extends AbsModel<Playlist>{
 	Connection connection = fileUtils.connectDb();
 
+	@Override
+	public int insert(Playlist t) {
+		return 0;
+	}
+
+
+	@Override
+	public ArrayList<Playlist> selectAll() {
+		return null;
+	}
+
+
+	@Override
+	public int update(Playlist t) {
+		return 0;
+	}
+
+
+	@Override
+	public int delete(Playlist t) {
+		return 0;
+	}
 	public Playlist selectById(String id_playlist, String username) {
-		// TODO Auto-generated method stub
 		Playlist playlist = null;
 		try {
 			PreparedStatement stmt = connection
@@ -120,16 +136,7 @@ public class DAOPlaylist {
 		}
 		return count;
 	}
-//
-//	public int insertAll(ArrayList<Playlist> playlists, ArrayList<String> id_accounts, ArrayList<String> id_songs) {
-//		// TODO Auto-generated method stub
-//		int count = 0;
-//		for (int i = 0; i < playlists.size(); i++) {
-//			insert(playlists.get(i), id_accounts.get(i), id_songs.get(i));
-//			count++;
-//		}
-//		return count;
-//	}
+	
 	public int update(String id_Playlist, String name_Playlist, String username) {
 		// TODO Auto-generated method stub
 		try {
@@ -166,7 +173,6 @@ public class DAOPlaylist {
 		return 0;
 	}
 	public int deleteSong(String id_song) {
-		// TODO Auto-generated method stub
 		try {
 			PreparedStatement stmt = connection
 					.prepareStatement("delete from playlists_songs where id_song = ?");
@@ -175,7 +181,6 @@ public class DAOPlaylist {
 			return 1;
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.getStackTrace();
 		}
 		return 0;
@@ -201,37 +206,5 @@ public class DAOPlaylist {
 			e.getStackTrace();
 		}
 		return 0;
-	}
-
-//	public int deleteAll(ArrayList<Playlist> playlists, ArrayList<String> id_accounts, ArrayList<String> id_songs) {
-//		// TODO Auto-generated method stub
-//		int count = 0;
-//		for (int i = 0; i < playlists.size(); i++) {
-//			delete(playlists.get(i), id_accounts.get(i), id_songs.get(i));
-//			count++;
-//		}
-//		return count;
-//	}
-
-//	public int update(Playlist t, String id_account, String id_song) {
-//		// TODO Auto-generated method stub
-//		if (selectById(t.getId_Playlist()) != null) {
-//			delete(t, id_account, id_song);
-//			insert(t, id_account, id_song);
-//		}
-//		return 0;
-//	}
-	public static void main(String[] args) throws URISyntaxException {
-//		Path currentPath = Paths.get(DAOAccount.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-//		File file = new File(currentPath+"/"+"sa");
-//		try {
-//			file.createNewFile();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//        System.out.println("Vị trí file đang chạy: " + currentPath);
-//        Path currentPath = Paths.get("");
-		System.out.println(new DAOPlaylist().update("PLA1", "hashdg", "dat"));
 	}
 }

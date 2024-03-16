@@ -1,8 +1,5 @@
 package database;
 
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,11 +9,79 @@ import Model.Account;
 import Model.Playlist;
 import Model.Song;
 
-public class DAOAccount {
+public class DAOAccount extends AbsModel<Account> {
 	Connection connection = fileUtils.connectDb();
+	
+	@Override
+	public int insert(Account t) {
+		try {
+			PreparedStatement stmt = connection
+					.prepareStatement("insert into accounts (username,password_account,email) values(?,?,?)");
+
+			stmt.setString(1, t.getUsername());
+			stmt.setString(2, t.getPassword());
+			stmt.setString(3, t.getEmail());
+			stmt.execute();
+			return 1;
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Account> selectAll() {
+		ArrayList<Account> result = new ArrayList<Account>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select * from accounts ");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+
+				String username = rs.getString("username");
+				String password = rs.getString("password_account");
+				String email = rs.getString("email");
+				
+				Account account = new Account(username, password, email, null, null, null);
+				result.add(account);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return result;
+	}
+	
+	@Override
+	public int update(Account t) {
+		try {
+			PreparedStatement stmt = connection
+					.prepareStatement("update accounts set email=? and password_account=? where usename=? ");
+			stmt.setString(1, t.getEmail());
+			stmt.setString(2, t.getPassword());
+			stmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return 0;
+	}
+	
+	@Override
+	public int delete(Account t) {
+		try {
+			PreparedStatement stmt = connection
+					.prepareStatement("delete from accounts where usename=? ");
+			stmt.setString(1, t.getUsername());
+			stmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return 0;
+	}
 
 	public Account selectByEmail(String email) {
-	
 		try {
 			PreparedStatement stmt = connection.prepareStatement("select * from accounts where email=?");
 			stmt.setString(1, email);
@@ -103,55 +168,8 @@ public class DAOAccount {
 		return account;
 
 	}
-
-	public ArrayList<Account> selectAll() {
-		ArrayList<Account> result = new ArrayList<Account>();
-		try {
-			PreparedStatement stmt = connection.prepareStatement("select * from accounts ");
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-
-				String username = rs.getString("username");
-				String password = rs.getString("password_account");
-				String email = rs.getString("email");
-				
-				Account account = new Account(username, password, email, null, null, null);
-				result.add(account);
-			}
-			stmt.close();
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		return result;
-
-	}
-
-	public int insert(Account t) {
-		// TODO Auto-generated method stub
-		try {
-			PreparedStatement stmt = connection
-					.prepareStatement("insert into accounts (username,password_account,email) values(?,?,?)");
-
-			stmt.setString(1, t.getUsername());
-			stmt.setString(2, t.getPassword());
-			stmt.setString(3, t.getEmail());
-			stmt.execute();
-			return 1;
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.getStackTrace();
-		}
-		return 0;
-	}
-
-	public int delete(Account t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 	public int updateRoles(String username, String newRoles) {
-		// TODO Auto-generated method stub
 		try {
 			PreparedStatement stmt = connection
 					.prepareStatement("update accounts set roles=? where usename=? ");
@@ -160,14 +178,12 @@ public class DAOAccount {
 			stmt.executeUpdate();
 			return 1;
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.getStackTrace();
 		}
 		return 0;
 	}
 	
 	public int updatePassword(String email, String newPass) {
-		// TODO Auto-generated method stub
 		try {
 			PreparedStatement stmt = connection
 					.prepareStatement("update accounts set password_account=? where email=? ");
@@ -194,7 +210,6 @@ public class DAOAccount {
 			
 			stmt.executeQuery();
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		
@@ -203,9 +218,6 @@ public class DAOAccount {
 	
 	public Account rereshAccount(Account account) {	
 		return selectByUsername(account.getUsername());
-	}
-	public static void main(String[] args) {
-		System.out.println(new DAOAccount().updatePassword("21130022@st.hcmuaf.edu.vn", "123456"));;
 	}
 
 }

@@ -9,11 +9,30 @@ import Model.Favorite;
 import Model.Playlist;
 import Model.Song;
 
-public class DAOFavorite  {
+public class DAOFavorite extends AbsModel<Song> {
 	Connection connection = fileUtils.connectDb();
 	
+	@Override
+	public int insert(Song t) {
+		return 0;
+	}
+	
+	@Override
+	public ArrayList<Song> selectAll() {
+		return null;
+	}
+	
+	@Override
+	public int update(Song t) {
+		return 0;
+	}
+	
+	@Override
+	public int delete(Song t) {
+		return 0;
+	}
+	
 	public ArrayList<Song> selectAll(String usernameAccount) {
-		// TODO Auto-generated method stub
 		ArrayList<Song>  result = new ArrayList<Song>();
 		try {
 			PreparedStatement stmt = connection.prepareStatement("select * from favorites where username=?");
@@ -31,6 +50,7 @@ public class DAOFavorite  {
 	
 		return result;
 	}
+	
 	public ArrayList<Song> selectSongNotInAcc(String username){
 		ArrayList<Song>  result = new ArrayList<Song>();
 		try {
@@ -53,11 +73,7 @@ public class DAOFavorite  {
 		return result;
 	}
 	
-	public Song selectById(String t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public boolean deleteById(String idSong,String username) {
+	public boolean deleteById(String idSong, String username) {
 		try {
 			PreparedStatement stmt = connection.prepareStatement("delete from favorites where id_song=? and username=?");
 			stmt.setString(1, idSong);
@@ -73,7 +89,6 @@ public class DAOFavorite  {
 
 	
 	public int insert(String id_song, String username) {
-		// TODO Auto-generated method stub
 		try {
 			PreparedStatement stmt = connection.prepareStatement("insert into favorites values(?,?)");
 			stmt.setString(1,id_song);
@@ -90,8 +105,7 @@ public class DAOFavorite  {
 	}
 
 	
-	public int insertAll(ArrayList<Song> arr,String username) {
-		// TODO Auto-generated method stub
+	public int insertAll(ArrayList<Song> arr, String username) {
 		int count =0;
 		for (Song song : arr) {
 			insert(song.getId_Song(), username);
@@ -99,7 +113,4 @@ public class DAOFavorite  {
 			}
 		return count;
 	}
-
-
-	
 }
