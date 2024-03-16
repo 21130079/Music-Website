@@ -1,4 +1,4 @@
-﻿--create table
+--create table
 use MusicWeb;
 create table singers(
 	id_singer varchar(20) primary key,
@@ -60,15 +60,25 @@ create table favorites(
 
 create table logs(
 	id_log varchar(255) primary key,
-	ip_log  varchar(255),
-	level_log varchar(255),
-	nationality_log
-
+	nationality varchar(255) not null ,
+	level_log varchar(255) not null,
+	address_performing varchar(255) not null,
+	pre_value varchar(255) ,
+	current_value varchar(255),
+	updated_date date not null
 );
+CREATE SEQUENCE seq_logs
+	START WITH 1  INCREMENT BY 1;
+
+	ALTER TABLE logs
+	ADD CONSTRAINT logs_insert 
+	DEFAULT  'lOG' + CAST(NEXT VALUE FOR seq_logs AS VARCHAR(252))
+	FOR id_log ;
+
 
 --VALUE	
 --singer
-INSERT INTO SINGERS (id_singer,name_Singer)
+IINSERT INTO SINGERS (id_singer,name_Singer)
 VALUES	('SN1', N'Anh Quân Idol, FreakD'),
 		('SN2', N'Như Việt'),
 		('SN3', N'EmceeL, Muoii'),
@@ -190,6 +200,8 @@ INSERT INTO SONGS(id_song,name_song,duration,genre,urlImg,urlAudio,songview,id_s
 ('SO53', N'Tình Nhỏ Mau Quên', '00:04:47', 'Ballad',  'assets/img/Ballad/TinhNhoMauQuen - QuangLe,HuongThuy.png', 'assets/audio/Ballad/TinhNhoMauQuen - QuangLe,HuongThuy.mp3', 0,'SN50'),
 ('SO54', N'Trách Ai Vô Tình', '00:04:38', 'Ballad',  'assets/img/Ballad/TrachAiVoTinh - PhiNhung.png', 'assets/audio/Ballad/TrachAiVoTinh - PhiNhung.mp3', 0,'SN51'),
 ('SO55', N'Vùng Lá Me Bay', '00:05:16', 'Ballad',  'assets/img/Ballad/VungLaMeBay - NhuQuynh.png', 'assets/audio/Ballad/VungLaMeBay - NhuQuynh.mp3', 0,'SN48');
+	
+
 	
 
 	CREATE SEQUENCE seq_songs
