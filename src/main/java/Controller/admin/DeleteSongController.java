@@ -35,12 +35,11 @@ public class DeleteSongController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		DAOSong daoSong = new DAOSong();
 		String idSong = request.getParameter("idSong");
 		Song song = daoSong.selectById(idSong);
 		// xóa file trong sql server
-		daoSong.delete(idSong);
+		daoSong.delete(song);
 		// xóa file trog cấu trúc thư mục
 		String realpathImg = request.getServletContext().getRealPath(song.getUrl_Img());
 

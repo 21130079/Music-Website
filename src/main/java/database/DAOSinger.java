@@ -5,18 +5,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.StringTokenizer;
 
-import Model.Account;
 import Model.Singer;
 import Model.Song;
 
-public class DAOSinger{
+public class DAOSinger extends AbsModel<Singer> {
 	Connection connection = fileUtils.connectDb();
 
+	@Override
+	public int insert(Singer t) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("insert into singers(name_singer) values(?)");
+			stmt.setString(1, t.getName_Singer());
+
+			stmt.execute();
+			return 1;
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return 0;
+	}
+	
+	@Override
 	public ArrayList<Singer> selectAll() {
-		// TODO Auto-generated method stub
 		ArrayList<Singer> result = new ArrayList<Singer>();
 		try {
 			PreparedStatement stmt = connection.prepareStatement("select * from singers");
@@ -24,7 +37,7 @@ public class DAOSinger{
 			while (rs.next()) {
 				String id_singer = rs.getString("id_singer");
 				String name_Singer = rs.getString("name_singer");
-
+				
 				Singer singer = new Singer(id_singer, name_Singer);
 				result.add(singer);
 			}
@@ -32,8 +45,36 @@ public class DAOSinger{
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-
+		
 		return result;
+	}
+
+	@Override
+	public int update(Singer t) {
+		try {
+			PreparedStatement stmt = connection
+					.prepareStatement("update singers set name_singer=? where id_singer=? ");
+			stmt.setString(1, t.getName_Singer());
+			stmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public int delete(Singer t) {
+		try {
+			PreparedStatement stmt = connection
+					.prepareStatement("delete from singers where id_singer=? ");
+			stmt.setString(1, t.getId_Singer());
+			stmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return 0;
 	}
 
 	public HashMap<String, ArrayList<Song>> getSongsOfSinger() {
@@ -106,49 +147,4 @@ public class DAOSinger{
 
 		return null;
 	}
-
-	public int insert(Singer t) {
-		// TODO Auto-generated method stub
-		try {
-			PreparedStatement stmt = connection.prepareStatement("insert into singers(name_singer) values(?)");
-			stmt.setString(1, t.getName_Singer());
-
-			stmt.execute();
-			return 1;
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.getStackTrace();
-		}
-		return 0;
-	}
-
-
-
-
-
-//	public int deleteAll() {
-//		// TODO Auto-generated method stub
-//		int count=0;
-//		try {
-//			count=deleteAll(selectAll());
-//			PreparedStatement stmt = connection.prepareStatement("delete from singer");
-//			stmt.execute();
-//			
-//			return count;
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			e.getStackTrace();
-//		}
-//			return 0;
-//	}
-
-
-
-	public static void main(String[] args) {
-		
-		
-
-	}
-
 }

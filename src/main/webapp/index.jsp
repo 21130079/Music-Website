@@ -36,10 +36,6 @@
 body {
 	overflow-x: hidden;
 }
-
-.content-bg {
-	
-}
 </style>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {

@@ -19,6 +19,5 @@ public class fileUtils {
 
 	public static void main(String[] args) {
 		Connection connection = connectDb();
-		
 	}
 }
