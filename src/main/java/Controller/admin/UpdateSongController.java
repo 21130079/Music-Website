@@ -1,13 +1,5 @@
 package Controller.admin;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,10 +8,19 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import Model.ELevel.Level;
+import Model.IPAddress;
+import Model.Log;
 import Model.Singer;
 import Model.Song;
-
+import database.DAOLog;
 import database.DAOSong;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 /**
  * Servlet implementation class UpdateSongController
@@ -142,6 +143,15 @@ public class UpdateSongController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		//LOG
+		String ipAddress = request.getRemoteAddr();
+		if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
+			ipAddress = IPAddress.getIPPublic();
+
+		}
+		Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", song.toString(),
+				newSong.toString(), null, true);
+		new DAOLog().insert(log);
 		response.sendRedirect("/MusicWebsite/views/admin/admin.jsp");
 	}
 

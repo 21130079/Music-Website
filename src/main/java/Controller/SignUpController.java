@@ -12,7 +12,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Model.Account;
+import Model.IPAddress;
+import Model.Log;
+import Model.ELevel.Level;
 import database.DAOAccount;
+import database.DAOLog;
 
 /**
  * Servlet implementation class SignUpController
@@ -36,7 +40,6 @@ public class SignUpController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		
 	}
 
 	/**
@@ -52,16 +55,22 @@ public class SignUpController extends HttpServlet {
 		String errorSignUp = "";
 		Account account = null;
 
+		// lay ipaddress
+		String ipAddress = request.getRemoteAddr();
+		if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
+			ipAddress = IPAddress.getIPPublic();
+
+		}
+
 		DAOAccount daoAccount = new DAOAccount();
 		for (Account acc : daoAccount.selectAll()) {
 			if (acc.getUsername().equals(username)) {
 				errorSignUp = "Username already exists";
 				break;
-			}else if(acc.getEmail().equals(email)) {
+			} else if (acc.getEmail().equals(email)) {
 				errorSignUp = "Email already exists";
 				break;
-			}
-			else {
+			} else {
 				if (username.trim().length() < 4 && username.trim().length() > 16) {
 					errorSignUp = "Username must be from 4 to 16 characters";
 					break;
@@ -71,19 +80,25 @@ public class SignUpController extends HttpServlet {
 					errorSignUp = "Password must be longer than 6 characters";
 					break;
 				}
-				ArrayList<String> roles  = new ArrayList<String>();	
+				ArrayList<String> roles = new ArrayList<String>();
 				roles.add("user");
-				account = new Account(username, password, email,roles, null, null);
+				account = new Account(username, password, email, roles, null, null);
 				daoAccount.insert(account);
 			}
 		}
 
 		if (account == null) {
+
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
+					"SignUp: username = " + username + ", password = " + password, null, false);
+			new DAOLog().insert(log);
 			request.setAttribute("message", errorSignUp);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		} else {
-
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
+					"SignUp: username = " + username + ", password = " + password, null, true);
+			new DAOLog().insert(log);
 			HttpSession session = request.getSession();
 			session.setAttribute("account", account);
 			response.sendRedirect("index.jsp");
