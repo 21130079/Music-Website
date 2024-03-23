@@ -54,15 +54,15 @@ public class SignUpController extends HttpServlet {
 		String email = request.getParameter("email");
 		String errorSignUp = "";
 		Account account = null;
-
+		DAOAccount daoAccount = new DAOAccount();
 		// lay ipaddress
 		String ipAddress = request.getRemoteAddr();
 		if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
 			ipAddress = IPAddress.getIPPublic();
-
 		}
+		daoAccount.setIpAddress(ipAddress);
 
-		DAOAccount daoAccount = new DAOAccount();
+		
 		for (Account acc : daoAccount.selectAll()) {
 			if (acc.getUsername().equals(username)) {
 				errorSignUp = "Username already exists";
@@ -89,16 +89,12 @@ public class SignUpController extends HttpServlet {
 
 		if (account == null) {
 
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
-					"SignUp: username = " + username + ", password = " + password, null, false);
-			new DAOLog().insert(log);
+		
 			request.setAttribute("message", errorSignUp);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		} else {
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
-					"SignUp: username = " + username + ", password = " + password, null, true);
-			new DAOLog().insert(log);
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("account", account);
 			response.sendRedirect("index.jsp");

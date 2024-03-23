@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import Model.Playlist;
 import Model.Song;
 
-public class DAOPlaylist extends AbsModel<Playlist>{
+public class DAOPlaylist extends AbsDao<Playlist>{
 	Connection connection = fileUtils.connectDb();
 
 	@Override

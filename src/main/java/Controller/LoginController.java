@@ -54,19 +54,19 @@ public class LoginController extends HttpServlet {
 		boolean checkFAccount =false;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
-		// khai bao cho insert logs
+		DAOAccount daoAccount = new DAOAccount();
+		// ip address
 		 String ipAddress = request.getRemoteAddr();
 		 if(ipAddress.equals("0:0:0:0:0:0:0:1")) {
 			 ipAddress = IPAddress.getIPPublic();
-			 System.out.println(IPAddress.getClientIpAddress(request));
 		 }
+		 daoAccount.setIpAddress(ipAddress);
 		
-		  Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+		
 		  
 		String errorAccount="";
 		Account ac = null;
-		DAOAccount daoAccount = new DAOAccount();
+		
 		
 		for (Account account : daoAccount.selectAll()) {
 			if(username.equals(account.getUsername())&&password.equals(account.getPassword())) {
@@ -78,8 +78,7 @@ public class LoginController extends HttpServlet {
 		}
 		HttpSession session = request.getSession();
 		if(!checkFAccount) {
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + username,currentTimestamp,false);
-			new DAOLog().insert(log); 
+			
 			errorAccount = "Username or password is wrong";
 			 request.setAttribute("errorAccount", errorAccount);
 			 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
@@ -87,8 +86,7 @@ public class LoginController extends HttpServlet {
 			
 		}else {
 			
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + ac,currentTimestamp,true);
-			new DAOLog().insert(log);
+			
 			session.setAttribute("account", ac);
 			response.sendRedirect("index.jsp");
 		}

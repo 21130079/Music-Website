@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import Model.ELevel;
 import Model.Log;
 
-public class DAOLog extends AbsModel<Log> {
+public class DAOLog extends AbsDao<Log>{
 	Connection connection = fileUtils.connectDb();
 
 	@Override

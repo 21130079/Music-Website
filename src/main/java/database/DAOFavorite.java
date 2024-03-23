@@ -9,7 +9,7 @@ import Model.Favorite;
 import Model.Playlist;
 import Model.Song;
 
-public class DAOFavorite extends AbsModel<Song> {
+public class DAOFavorite extends AbsDao<Song> {
 	Connection connection = fileUtils.connectDb();
 	
 	@Override

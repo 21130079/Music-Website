@@ -51,9 +51,8 @@ public class DeleteSongController extends HttpServlet {
 			ipAddress = IPAddress.getIPPublic();
 
 		}
-		Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", song.toString(),null, null,
-				true);
-		new DAOLog().insert(log);
+		daoSong.setIpAddress(ipAddress);
+		
 		
 		// xóa file trog cấu trúc thư mục
 		String realpathImg = request.getServletContext().getRealPath(song.getUrl_Img());

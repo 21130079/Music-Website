@@ -36,18 +36,9 @@ public class LogOutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 String ipAddress = request.getRemoteAddr();
-		 if(ipAddress.equals("0:0:0:0:0:0:0:1")) {
-			 ipAddress = IPAddress.getIPPublic();
-			 System.out.println(ipAddress);
-		 }
-		HttpSession session = request.getSession();
-		Account ac = (Account) session.getAttribute("account");
-	
-		Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 		
-		Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts",null ,"LogOut: " + ac ,currentTimestamp,true);
-		new DAOLog().insert(log);
+		HttpSession session = request.getSession();
+		session.invalidate();
 		
 		
 		response.sendRedirect(request.getHeader("referer"));

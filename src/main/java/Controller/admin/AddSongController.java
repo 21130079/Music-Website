@@ -66,6 +66,9 @@ public class AddSongController extends HttpServlet {
 					ipAddress = IPAddress.getIPPublic();
 
 				}
+				DAOSong daoSong = new DAOSong();
+				daoSong.setIpAddress(ipAddress);
+				
 
 				// XỬ LÝ ADD ĐỐI TƯỢNG SONG VÀO DATABASE
 				String nameSong = request.getParameter("name-song");
@@ -108,18 +111,13 @@ public class AddSongController extends HttpServlet {
 			Song song = new Song(null, nameSong, new Time(0, minute, second), genre, new Singer(null, nameSinger),
 					url_Img, url_Audio, 0);
 
-			new DAOSong().insert(song);
+			daoSong.insert(song);
 			
-			//LOG
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", null,
-					song.toString(), null, true);
-			new DAOLog().insert(log);
+			
 			response.sendRedirect("/MusicWebsite/views/admin/admin.jsp");
 		} catch (Exception e) {
 			// TODO: handle exception
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", null,
-					"NameSong = "+nameSong+", NameSinger = "+nameSinger, null, false);
-			new DAOLog().insert(log);
+		
 			e.printStackTrace();
 		}
 

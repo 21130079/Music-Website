@@ -55,6 +55,14 @@ public class UpdateSongController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		DAOSong daoSong = new DAOSong();
+		
+		//LOG
+		String ipAddress = request.getRemoteAddr();
+			if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
+				ipAddress = IPAddress.getIPPublic();
+			}
+		daoSong.setIpAddress(ipAddress);
+		
 		// getpara của các thuộc tính
 		String idSong = request.getParameter("idSong");
 		Song song = daoSong.selectById(idSong);
@@ -92,9 +100,9 @@ public class UpdateSongController extends HttpServlet {
 		
 		Song newSong = new Song(idSong, nameSong, duratime, genre,
 				new Singer(song.getSinger().getId_Singer(), nameSinger), url_Img, url_Audio, song.getSongView());
-		System.out.println(newSong);
+		
 		// update
-		System.out.println(daoSong.update(newSong));
+		daoSong.update(newSong);
 
 		// xóa cấu trúc thư mục cũ
 		if (!fileImg.getSubmittedFileName().isEmpty()) {
@@ -143,15 +151,7 @@ public class UpdateSongController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		//LOG
-		String ipAddress = request.getRemoteAddr();
-		if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
-			ipAddress = IPAddress.getIPPublic();
-
-		}
-		Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", song.toString(),
-				newSong.toString(), null, true);
-		new DAOLog().insert(log);
+		
 		response.sendRedirect("/MusicWebsite/views/admin/admin.jsp");
 	}
 

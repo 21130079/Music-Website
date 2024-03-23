@@ -42,12 +42,14 @@ public class NewPasswordController extends HttpServlet {
 		String messageNewPass = null;
 		session.setAttribute("account", acc);
 		
+		DAOAccount daoAccount = new DAOAccount();
 		//get ip adrress
 		 String ipAddress = request.getRemoteAddr();
 		 if(ipAddress.equals("0:0:0:0:0:0:0:1")) {
 			 ipAddress = IPAddress.getIPPublic();
 			
 		 }
+		 daoAccount.setIpAddress(ipAddress);
 		 boolean isValid = false;
 		
 		if (acc.getPassword().equals(oldPass)) {
@@ -62,7 +64,7 @@ public class NewPasswordController extends HttpServlet {
 				isValid =true;
 				request.setAttribute("messageOldPass", null);
 				request.setAttribute("messageNewPass", null);
-				new DAOAccount().updatePassword(acc.getEmail(), newPass);
+				daoAccount.updatePassword(acc.getEmail(), newPass);
 				
 			}
 		} else {
@@ -73,12 +75,10 @@ public class NewPasswordController extends HttpServlet {
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		if (isValid) {
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Accounts", acc.getUsername()+": "+oldPass, acc+": "+newPass,null,true);
-			new DAOLog().insert(log);
+		
 			response.sendRedirect("/MusicWebsite/index.jsp");
 		}else {
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", acc.getUsername()+": "+oldPass, acc+": "+newPass,null,false);
-			new DAOLog().insert(log);
+			
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		session.setAttribute("account", acc);
