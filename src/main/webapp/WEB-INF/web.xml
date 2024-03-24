@@ -304,12 +304,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>aaaaaaaaaa</display-name>
-    <servlet-name>aaaaaaaaaa</servlet-name>
-    <servlet-class>Controller.user.aaaaaaaaaa</servlet-class>
+    <display-name>LoadMoreSong</display-name>
+    <servlet-name>LoadMoreSong</servlet-name>
+    <servlet-class>Controller.ajax.LoadMoreSong</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>aaaaaaaaaa</servlet-name>
-    <url-pattern>/aaaaaaaaaa</url-pattern>
+    <servlet-name>LoadMoreSong</servlet-name>
+    <url-pattern>/LoadMoreSong</url-pattern>
   </servlet-mapping>
 </web-app>

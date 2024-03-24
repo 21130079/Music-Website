@@ -17,8 +17,7 @@
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <link rel="stylesheet" href="./assets/css/style.css" />
 
 <style type="text/css">
@@ -56,7 +55,7 @@ body {
 	<!--Container-->
 	<div class="container">
 		<!--SLIDER-->
-		<div class="</div>">
+		<div>
 			<div class="content-bg active">
 				<h1 class="topic-top" style="overflow: hidden;">Music For Gen Z</h1>
 				<c:if test="${sessionScope.account==null}">

@@ -76,6 +76,7 @@ public class LoginController extends HttpServlet {
 				break;
 			}
 		}
+		
 		HttpSession session = request.getSession();
 		if(!checkFAccount) {
 			

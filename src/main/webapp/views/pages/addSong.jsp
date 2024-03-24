@@ -60,7 +60,7 @@
 	jQuery(document).ready(function($) {
 		$(".show-more-btn-add-song").click(function(e) {
 			$(".listSong-item:hidden").slice(0, 4).fadeIn();
-			if ($(".listSong-item:hidden").length < 5) {
+			if ($(".listSong-item:hidden").length < 1) {
 				$(this).fadeOut();
 			}
 		});

@@ -171,8 +171,7 @@ p {
 						style="font-size: 20px" for="">Duration</label>
 				</div>
 				<div style="height: 20px"></div>
-
-
+				
 				<c:forEach begin="0" end="${fn:length(listSong) - 1 }" var="i">
 					<c:set var="idSong" value="${listSong[i].id_Song }"></c:set>
 					<c:set var="idAuTag" value="au${listSong[i].id_Song }"></c:set>
