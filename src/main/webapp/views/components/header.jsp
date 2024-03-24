@@ -91,7 +91,7 @@
 				<button type="submit" class="btn-search">
 					<i class="bi bi-search" style="font-size: 22px"></i>
 				</button>
-				<input type="text" class="input-search"
+				<input type="text" class="input-search" oninput="searchByName(this)"
 					placeholder="Search by name..." name="search-input">
 			</form>
 		</div>

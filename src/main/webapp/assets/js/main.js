@@ -235,6 +235,24 @@ function shuffleMode() {
 	}
 }
 
+function searchByName(searchElement) {
+	var inputText = searchElement.value;
+	$.ajax({
+		url: "/MusicWebsite/SearchController",
+		type: "get",
+		data: {
+			input: inputText
+		},
+		success: function (data) {
+			var content = document.querySelector(".table-divMusic");
+			content.innerHTML(data);
+		},
+		error: function (xhr) {
+			
+		}
+	});
+}
+
 
 
 

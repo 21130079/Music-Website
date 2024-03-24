@@ -245,7 +245,7 @@
     <servlet-name>AddNavPlaylist</servlet-name>
     <servlet-class>Controller.user.AddNavPlaylist</servlet-class>
   </servlet>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>AddNavPlaylist</servlet-name>
     <url-pattern>/AddNavPlaylist</url-pattern>
   </servlet-mapping>
@@ -272,7 +272,6 @@
     <filter-name>AdminAuthenFilter</filter-name>
     <url-pattern>/views/admin/*</url-pattern>
   </filter-mapping>
-   
   <servlet>
     <description></description>
     <display-name>ConfirmEmailController</display-name>
@@ -302,5 +301,15 @@
   <servlet-mapping>
     <servlet-name>NewPasswordController</servlet-name>
     <url-pattern>/NewPasswordController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoadMoreSong</display-name>
+    <servlet-name>LoadMoreSong</servlet-name>
+    <servlet-class>Controller.ajax.LoadMoreSong</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoadMoreSong</servlet-name>
+    <url-pattern>/LoadMoreSong</url-pattern>
   </servlet-mapping>
 </web-app>
