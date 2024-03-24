@@ -25,13 +25,13 @@ public class DAOAccount extends AbsDao<Account>  {
 			stmt.setString(3, t.getEmail());
 			stmt.execute();
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
-					t.toString(), null, false);
+					t.toString(), null, true);
 			daoLog.insert(log);
 			return 1;
 			
 		} catch (Exception e) {
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
-					t.toString(), null, true);
+					t.toString(), null, false);
 			daoLog.insert(log);
 		}
 		return 0;
@@ -168,10 +168,10 @@ public class DAOAccount extends AbsDao<Account>  {
 			}
 			account = new Account(username, password, email, roles, favorite, playlists);
 			stmt.close();
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + account,null,false);
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + account,null,true);
 			daoLog.insert(log); 
 		} catch (Exception e) {
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + username,null,true);
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + username,null,false);
 			daoLog.insert(log);
 		}
 		return account;

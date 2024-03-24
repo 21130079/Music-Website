@@ -36,12 +36,12 @@ public class DAOSong extends AbsDao<Song>{
 			Singer singer = new DAOSinger().selectByName(song.getSinger().getName_Singer());
 			
 			stmt.setString(7, singer.getId_Singer());
-			
+			stmt.execute();
 			//LOG
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", null,
 					song.toString(), null, true);
 			new DAOLog().insert(log);
-			stmt.execute();
+			
 			return 1;
 			
 		} catch (Exception e) {
@@ -111,6 +111,9 @@ public class DAOSong extends AbsDao<Song>{
 			new DAOLog().insert(log);
 			return 1;
 		} catch (Exception e) {
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", song.toString(),
+					null, null, false);
+			new DAOLog().insert(log);
 			e.getStackTrace();
 		}
 		return 0;
