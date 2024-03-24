@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 import Model.Singer;
 import Model.Song;
 
-public class DAOSinger extends AbsModel<Singer> {
+public class DAOSinger extends AbsDao<Singer> {
 	Connection connection = fileUtils.connectDb();
 
 	@Override

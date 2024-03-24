@@ -19,8 +19,12 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import Model.IPAddress;
+import Model.Log;
 import Model.Singer;
 import Model.Song;
+import Model.ELevel.Level;
+import database.DAOLog;
 import database.DAOSong;
 
 /**
@@ -56,6 +60,20 @@ public class AddSongController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html;charset=UTF-8");
+		// lay ipaddress
+				String ipAddress = request.getRemoteAddr();
+				if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
+					ipAddress = IPAddress.getIPPublic();
+
+				}
+				DAOSong daoSong = new DAOSong();
+				daoSong.setIpAddress(ipAddress);
+				
+
+				// XỬ LÝ ADD ĐỐI TƯỢNG SONG VÀO DATABASE
+				String nameSong = request.getParameter("name-song");
+				String nameSinger = request.getParameter("name-singer");
+				String duration = request.getParameter("duration");
 		try {
 			// XU LI LƯU DỮ LIỆU
 			String genre = request.getParameter("genre");
@@ -79,10 +97,6 @@ public class AddSongController extends HttpServlet {
 			String path_Audio = realpathAudio + "\\" + fileNameAudio;
 			fileAudio.write(path_Audio);
 
-			// XỬ LÝ ADD ĐỐI TƯỢNG SONG VÀO DATABASE
-			String nameSong = request.getParameter("name-song");
-			String nameSinger = request.getParameter("name-singer");
-			String duration = request.getParameter("duration");
 			String url_Img = "assets/img/" + genre + "/" + fileNameImg;
 			String url_Audio = "assets/audio/" + genre + "/" + fileNameAudio;
 
@@ -97,10 +111,13 @@ public class AddSongController extends HttpServlet {
 			Song song = new Song(null, nameSong, new Time(0, minute, second), genre, new Singer(null, nameSinger),
 					url_Img, url_Audio, 0);
 
-			new DAOSong().insert(song);
+			daoSong.insert(song);
+			
+			
 			response.sendRedirect("/MusicWebsite/views/admin/admin.jsp");
 		} catch (Exception e) {
 			// TODO: handle exception
+		
 			e.printStackTrace();
 		}
 

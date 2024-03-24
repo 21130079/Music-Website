@@ -38,6 +38,8 @@ public class AddPlaylistController extends HttpServlet {
 		new DAOPlaylist().insertPlaylist("New Playlist",account.getUsername());
 		Account newAccount = new DAOAccount().selectByUsername(account.getUsername());
 		session.setAttribute("account", newAccount);
+		
+		
 		response.sendRedirect("/MusicWebsite/views/pages/playlist.jsp");
 	}
 

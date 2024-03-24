@@ -11,8 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Model.Account;
+import Model.IPAddress;
+import Model.Log;
 import Model.Song;
+import Model.ELevel.Level;
 import database.DAOAccount;
+import database.DAOLog;
 import database.DAOPlaylist;
 import database.DAOSong;
 
@@ -56,14 +60,21 @@ public class AddNavPlaylist extends HttpServlet {
 		Account account = (Account) session.getAttribute("account");
 		String idplaylist = request.getParameter("idplaylist");
 		DAOPlaylist daoPlaylist = new DAOPlaylist();
-		
-		try {
-			daoPlaylist.insertAllSong(idplaylist, account.getUsername(), chosenSongs);
-			session.setAttribute("account", new DAOAccount().rereshAccount(account) );
-		}catch (NullPointerException e) {
-			
-		}
-		
+
+		daoPlaylist.insertAllSong(idplaylist, account.getUsername(), chosenSongs);
+		session.setAttribute("account", new DAOAccount().rereshAccount(account));
+
+//		// log
+//		String ipAddress = request.getRemoteAddr();
+//		if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
+//			ipAddress = IPAddress.getIPPublic();
+//
+//		}
+//		for (Song song : chosenSongs) {
+//			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "playlist_songs", null,
+//					"username=" + account.getUsername() + ", id_song=" + song.getId_Song(), null, true);
+//			new DAOLog().insert(log);
+//		}
 		request.setAttribute("idplaylist", idplaylist);
 		request.getRequestDispatcher("/views/pages/navPlaylist.jsp").forward(request, response);
 	}

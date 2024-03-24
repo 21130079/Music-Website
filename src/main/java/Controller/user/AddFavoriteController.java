@@ -11,9 +11,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Model.Account;
+import Model.IPAddress;
+import Model.Log;
 import Model.Song;
+import Model.ELevel.Level;
 import database.DAOAccount;
 import database.DAOFavorite;
+import database.DAOLog;
 import database.DAOPlaylist;
 import database.DAOSong;
 
@@ -44,21 +48,35 @@ public class AddFavoriteController extends HttpServlet {
 		// tao danh sach moi de add cac bai hat duoc tim thay vao
 		ArrayList<Song> chosenSongs = new ArrayList<Song>();
 
+		
+		// insert all bai hat tim dc
+		HttpSession session = request.getSession();
+		Account account = (Account) session.getAttribute("account");
 		// tien hanh tim kiem
 		ArrayList<Song> allSong = new DAOSong().selectAll();
 		for (String idSong : idSongs) {
 			for (Song song : allSong) {
 				if (idSong.equals(song.getId_Song())) {
+
 					chosenSongs.add(song);
 				}
 			}
 		}
-		// insert all bai hat tim dc
-		HttpSession session = request.getSession();
-		Account account = (Account) session.getAttribute("account");
 
 		DAOFavorite daoFavorite = new DAOFavorite();
 		daoFavorite.insertAll(chosenSongs, account.getUsername());
+		
+//		//log
+//		String ipAddress = request.getRemoteAddr();
+//		if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
+//			ipAddress = IPAddress.getIPPublic();
+//
+//		}
+//		for (Song song : chosenSongs) {
+//			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Favorites", null,
+//					"username=" + account.getUsername() + ", id_song=" + song.getId_Song(), null, true);
+//			new DAOLog().insert(log);
+//		}
 
 		session.setAttribute("account", new DAOAccount().rereshAccount(account));
 

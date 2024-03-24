@@ -65,7 +65,8 @@ create table logs(
 	address_performing varchar(255) not null,
 	pre_value varchar(255) ,
 	current_value varchar(255),
-	updated_date date not null
+	updated_date DATETIME DEFAULT GETDATE() not null ,
+	exec_status char(25) not null
 );
 CREATE SEQUENCE seq_logs
 	START WITH 1  INCREMENT BY 1;
@@ -245,6 +246,7 @@ BEGIN
     END
 
 END;
+drop  trigger insertAcc_Trigger
 	Insert into accounts(username,password_account,email)
 	VALUES ('user1','user1','user1@gmail.com');
 
@@ -258,7 +260,6 @@ END;
 	select * from accounts
 	update accounts set password_account = 'aaa' where username = 'aaa'
 
-
-
+	select * from logs
 
 

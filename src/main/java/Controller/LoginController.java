@@ -9,9 +9,14 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 
 import Model.Account;
+import Model.IPAddress;
+import Model.Log;
+import Model.ELevel.Level;
 import database.DAOAccount;
+import database.DAOLog;
 
 /**
  * Servlet implementation class LoginController
@@ -49,11 +54,19 @@ public class LoginController extends HttpServlet {
 		boolean checkFAccount =false;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		System.out.println(username);
-		System.out.println(password);
+		DAOAccount daoAccount = new DAOAccount();
+		// ip address
+		 String ipAddress = request.getRemoteAddr();
+		 if(ipAddress.equals("0:0:0:0:0:0:0:1")) {
+			 ipAddress = IPAddress.getIPPublic();
+		 }
+		 daoAccount.setIpAddress(ipAddress);
+		
+		
+		  
 		String errorAccount="";
 		Account ac = null;
-		DAOAccount daoAccount = new DAOAccount();
+		
 		
 		for (Account account : daoAccount.selectAll()) {
 			if(username.equals(account.getUsername())&&password.equals(account.getPassword())) {
@@ -65,13 +78,15 @@ public class LoginController extends HttpServlet {
 		}
 		HttpSession session = request.getSession();
 		if(!checkFAccount) {
-		
-			 errorAccount = "Username or password is wrong";
+			
+			errorAccount = "Username or password is wrong";
 			 request.setAttribute("errorAccount", errorAccount);
 			 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 				rd.include(request, response);
 			
 		}else {
+			
+			
 			session.setAttribute("account", ac);
 			response.sendRedirect("index.jsp");
 		}

@@ -7,12 +7,15 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 import Model.Account;
+import Model.IPAddress;
+import Model.Log;
 import Model.Singer;
 import Model.Song;
+import Model.ELevel.Level;
 
-public class DAOSong extends AbsModel<Song>{
+public class DAOSong extends AbsDao<Song>{
 	Connection connection = fileUtils.connectDb();
-
+	DAOLog daolog = new DAOLog();
 	@Override
 	public int insert(Song song) {
 		try {
@@ -31,14 +34,20 @@ public class DAOSong extends AbsModel<Song>{
 			stmt.setString(5, song.getUrl_Audio());
 			stmt.setLong(6, song.getSongView());
 			Singer singer = new DAOSinger().selectByName(song.getSinger().getName_Singer());
-			System.out.println(singer);
-			stmt.setString(7, singer.getId_Singer());
 			
+			stmt.setString(7, singer.getId_Singer());
 			stmt.execute();
+			//LOG
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", null,
+					song.toString(), null, true);
+			new DAOLog().insert(log);
+			
 			return 1;
 			
 		} catch (Exception e) {
-			e.getStackTrace();
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", null,
+					song.toString(), null, false);
+			daolog.insert(log);
 		}
 		return 0;
 	}
@@ -76,6 +85,7 @@ public class DAOSong extends AbsModel<Song>{
 	
 	@Override
 	public int update(Song song) {
+		Song oldSong = selectById(song.getId_Song());
 		try {
 			PreparedStatement stmt;
 			if (new DAOSinger().selectByName(song.getSinger().getName_Singer()) == null) {
@@ -95,9 +105,15 @@ public class DAOSong extends AbsModel<Song>{
 			stmt.setString(7, new DAOSinger().selectByName(song.getSinger().getName_Singer()).getId_Singer());
 			stmt.setString(8, song.getId_Song());
 			stmt.executeUpdate();
-			return 1;
 			
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Songs", oldSong.toString(),
+					song.toString(), null, true);
+			new DAOLog().insert(log);
+			return 1;
 		} catch (Exception e) {
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", song.toString(),
+					null, null, false);
+			new DAOLog().insert(log);
 			e.getStackTrace();
 		}
 		return 0;
@@ -171,6 +187,10 @@ public class DAOSong extends AbsModel<Song>{
 			
 			stmt.setString(1, t.getId_Song());
 			stmt.execute();
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.DANGER, "Songs", t.toString(),null, null,
+					true);
+			daolog.insert(log);
+			
 			return 1;
 		} catch (Exception e) {
 			e.getStackTrace();

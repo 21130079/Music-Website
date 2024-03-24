@@ -82,10 +82,11 @@ public class Account {
 
 	
 
+	
+
 	@Override
 	public String toString() {
-		return "Account [username=" + username + ", password=" + password + ", email=" + email + ", favoriteList="
-				+ favoriteList + ", playlists=" + playlists + "]";
+		return "Account [username=" + username + ", email=" + email + ", roles=" + roles + "]";
 	}
 
 	public Playlist getPlaylist(String idplaylist) {
