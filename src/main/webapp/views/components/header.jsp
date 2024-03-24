@@ -91,8 +91,8 @@
 				<button type="submit" class="btn-search">
 					<i class="bi bi-search" style="font-size: 22px"></i>
 				</button>
-				<input type="text" class="input-search" oninput="searchByName(this)"
-					placeholder="Search by name..." name="search-input">
+				<input type="text" class="input-search" oninput="searchByName(this)" onblur="appearImg(this)"
+					placeholder="Search by name..." name="searchInput">
 			</form>
 		</div>
 

@@ -55,7 +55,7 @@ body {
 	<!--Container-->
 	<div class="container">
 		<!--SLIDER-->
-		<div class="</div>">
+		<div>
 			<div class="content-bg active">
 				<h1 class="topic-top" style="overflow: hidden;">Music For Gen Z</h1>
 				<c:if test="${sessionScope.account==null}">

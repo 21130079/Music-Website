@@ -34,16 +34,9 @@ public class SearchController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		String searchInput = request.getParameter("search-input");
-//		request.setAttribute("searchInput", searchInput);
-//		
-//		request.getRequestDispatcher("/views/pages/search.jsp").forward(request, response);
-
-		String searchInput = request.getParameter("search-input");
+		String searchInput = request.getParameter("searchInput");
 		ArrayList<Song> songs = new DAOSong().selectAllBySearch(searchInput);
 		PrintWriter out = response.getWriter();
-		
-		System.out.println(123);
 
 		for (Song song : songs) {
 			out.println("<div class=\"item all-music-item\">\r\n"

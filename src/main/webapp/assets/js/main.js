@@ -237,21 +237,42 @@ function shuffleMode() {
 
 function searchByName(searchElement) {
 	var inputText = searchElement.value;
+	searchElement.addEventListener("keypress", function(event) {
+	    if (event.key === "Enter") {
+	        event.preventDefault();
+	    }
+	});
+	var bgElement = document.querySelector(".content-bg");
+	bgElement.style.display = 'none';
+	var showMoreBtn = document.querySelector(".show-more-btn");
+	showMoreBtn.style.display = 'none';
+	var contentDiv = document.querySelector(".background-music");
+	contentDiv.querySelector("b").innerHTML = 'Search For: ' + inputText;
 	$.ajax({
 		url: "/MusicWebsite/SearchController",
 		type: "get",
 		data: {
-			input: inputText
+			searchInput: inputText
 		},
 		success: function (data) {
 			var content = document.querySelector(".table-divMusic");
-			content.innerHTML(data);
+			content.innerHTML = data;
 		},
 		error: function (xhr) {
 			
 		}
 	});
 }
+
+function appearImg(searchElement) {
+	if (searchElement.value == "") {
+		var contentDiv = document.querySelector(".background-music");
+		contentDiv.querySelector("b").innerHTML = 'All Music';
+		var bgElement = document.querySelector(".content-bg");
+		bgElement.style.display = 'block';
+	}
+}
+
 
 
 
