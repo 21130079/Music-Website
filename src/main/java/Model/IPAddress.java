@@ -1,17 +1,21 @@
 package Model;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalDateTime;
 
 import org.json.JSONObject;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 public class IPAddress {
 	
-	public String getIPPublic() {
+	public static String getIPPublic() {
 		String result = "";
 		  try {
 	            URL url = new URL("http://checkip.amazonaws.com");
@@ -25,7 +29,46 @@ public class IPAddress {
 	        }
 		return result;
 	}
-	public String nameCountry(String ipAddress) {
+	
+	    public static String getClientIpAddress(HttpServletRequest request) {
+	        String ipAddress = request.getHeader("X-Forwarded-For");
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("Proxy-Client-IP");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("WL-Proxy-Client-IP");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("HTTP_X_FORWARDED_FOR");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("HTTP_X_FORWARDED");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("HTTP_X_CLUSTER_CLIENT_IP");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("HTTP_CLIENT_IP");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("HTTP_FORWARDED_FOR");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("HTTP_FORWARDED");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("HTTP_VIA");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getHeader("REMOTE_ADDR");
+	        }
+	        if (ipAddress == null || ipAddress.isEmpty() || "unknown".equalsIgnoreCase(ipAddress)) {
+	            ipAddress = request.getRemoteAddr();
+	        }
+	        return ipAddress;
+	    }
+	
+	public static String getNameCountry(String ipAddress) {
 		String result = "";
 		try {  
             URL url = new URL("https://ipinfo.io/" + ipAddress + "/json");
@@ -60,11 +103,5 @@ public class IPAddress {
         }
 		return result;
 	}
-	public static void main(String[] args) {
-		IPAddress t = new IPAddress();
-		String ip = t.getIPPublic();
-		String name = t.nameCountry(ip);
-		System.out.println(name);
-		
-	}
+
 }

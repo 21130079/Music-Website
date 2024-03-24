@@ -1,4 +1,4 @@
-﻿--create table
+--create table
 use MusicWeb;
 create table singers(
 	id_singer varchar(20) primary key,
@@ -60,15 +60,26 @@ create table favorites(
 
 create table logs(
 	id_log varchar(255) primary key,
-	ip_log  varchar(255),
-	level_log varchar(255),
-	nationality_log
-
+	nationality varchar(255) not null ,
+	level_log varchar(255) not null,
+	address_performing varchar(255) not null,
+	pre_value varchar(255) ,
+	current_value varchar(255),
+	updated_date DATETIME DEFAULT GETDATE() not null ,
+	exec_status char(25) not null
 );
+CREATE SEQUENCE seq_logs
+	START WITH 1  INCREMENT BY 1;
+
+	ALTER TABLE logs
+	ADD CONSTRAINT logs_insert 
+	DEFAULT  'lOG' + CAST(NEXT VALUE FOR seq_logs AS VARCHAR(252))
+	FOR id_log ;
+
 
 --VALUE	
 --singer
-INSERT INTO SINGERS (id_singer,name_Singer)
+IINSERT INTO SINGERS (id_singer,name_Singer)
 VALUES	('SN1', N'Anh Quân Idol, FreakD'),
 		('SN2', N'Như Việt'),
 		('SN3', N'EmceeL, Muoii'),
@@ -192,6 +203,8 @@ INSERT INTO SONGS(id_song,name_song,duration,genre,urlImg,urlAudio,songview,id_s
 ('SO55', N'Vùng Lá Me Bay', '00:05:16', 'Ballad',  'assets/img/Ballad/VungLaMeBay - NhuQuynh.png', 'assets/audio/Ballad/VungLaMeBay - NhuQuynh.mp3', 0,'SN48');
 	
 
+	
+
 	CREATE SEQUENCE seq_songs
 	START WITH 56  INCREMENT BY 1;
 
@@ -233,6 +246,7 @@ BEGIN
     END
 
 END;
+drop  trigger insertAcc_Trigger
 	Insert into accounts(username,password_account,email)
 	VALUES ('user1','user1','user1@gmail.com');
 
@@ -246,7 +260,6 @@ END;
 	select * from accounts
 	update accounts set password_account = 'aaa' where username = 'aaa'
 
-
-
+	select * from logs
 
 

@@ -5,12 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import Model.Account;
-import Model.Playlist;
-import Model.Song;
+import Model.*;
+import Model.ELevel.Level;
 
-public class DAOAccount extends AbsModel<Account> {
+public class DAOAccount extends AbsDao<Account>  {
+	
+	
 	Connection connection = fileUtils.connectDb();
+	DAOLog daoLog = new DAOLog();
 	
 	@Override
 	public int insert(Account t) {
@@ -22,10 +24,15 @@ public class DAOAccount extends AbsModel<Account> {
 			stmt.setString(2, t.getPassword());
 			stmt.setString(3, t.getEmail());
 			stmt.execute();
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
+					t.toString(), null, true);
+			daoLog.insert(log);
 			return 1;
-
+			
 		} catch (Exception e) {
-			e.getStackTrace();
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
+					t.toString(), null, false);
+			daoLog.insert(log);
 		}
 		return 0;
 	}
@@ -161,9 +168,11 @@ public class DAOAccount extends AbsModel<Account> {
 			}
 			account = new Account(username, password, email, roles, favorite, playlists);
 			stmt.close();
-
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + account,null,true);
+			daoLog.insert(log); 
 		} catch (Exception e) {
-			e.getStackTrace();
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + username,null,false);
+			daoLog.insert(log);
 		}
 		return account;
 
@@ -184,16 +193,21 @@ public class DAOAccount extends AbsModel<Account> {
 	}
 	
 	public int updatePassword(String email, String newPass) {
+		Account acc = selectByEmail(email);
 		try {
 			PreparedStatement stmt = connection
 					.prepareStatement("update accounts set password_account=? where email=? ");
 			stmt.setString(1, newPass);
 			stmt.setString(2, email);
 			stmt.executeUpdate();
+			Account newacc = selectByEmail(email);
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Accounts", acc.toString(), newacc.toString(),null,true);
+			daoLog.insert(log);
 			return 1;
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.getStackTrace();
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", acc.toString(), null,null,false);
+			daoLog.insert(log);
 		}
 		return 0;
 	}
@@ -220,4 +234,5 @@ public class DAOAccount extends AbsModel<Account> {
 		return selectByUsername(account.getUsername());
 	}
 
+	
 }

@@ -7,6 +7,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+
+import Model.IPAddress;
+import Model.Log;
+import Model.Account;
+import Model.ELevel.Level;
+import database.DAOLog;
 
 /**
  * Servlet implementation class LogOutController
@@ -21,7 +28,7 @@ public class LogOutController extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -29,10 +36,11 @@ public class LogOutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		HttpSession session = request.getSession();
-		if (session.getAttribute("account") != null) {
-			session.invalidate();
-		}
+		session.invalidate();
+		
+		
 		response.sendRedirect(request.getHeader("referer"));
 	}
 
