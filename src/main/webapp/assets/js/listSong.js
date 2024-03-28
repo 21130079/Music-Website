@@ -11,12 +11,13 @@ var isShuffle = false;
 var isMute = false;
 var played = [];
 var currentValue = 50;
-
+var playedArrayTest2 = [];
 if (played.length <= 1) {
 	skipBeforeBtn.disabled = true;
 }
 
 function playMusic(id) {
+
 	var iTagMain = document.querySelector('.footer-play');
 	var progress = document.querySelector('#progress');
 	var mainButton = document.querySelector('.pause-footer');
@@ -29,7 +30,12 @@ function playMusic(id) {
 	}
 
 	for (let i = 0; i < songElements.length; i++) {
+
 		if (!isPlaying && id == songElements[i].id) {
+			console.log("first: " + songElements[i].id);
+
+
+
 			iTagMain.classList.add('bi-pause-circle');
 			iTagMain.classList.remove('bi-play-circle');
 
@@ -47,8 +53,11 @@ function playMusic(id) {
 			idPlaying = id;
 			mainButton.id = idPlaying;
 			isPlaying = true;
+			
 			break;
 		} else if (isPlaying && id == idPlaying) {
+			console.log("second: " + songElements[i].id);
+
 			iTagMain.classList.add('bi-play-circle');
 			iTagMain.classList.remove('bi-pause-circle');
 
@@ -60,6 +69,8 @@ function playMusic(id) {
 			isPlaying = false;
 			break;
 		} else if (isPlaying && id != idPlaying) {
+
+		
 			iTagMain.classList.add('bi-pause-circle');
 			iTagMain.classList.remove('bi-play-circle');
 
@@ -68,6 +79,8 @@ function playMusic(id) {
 			auTagPlaying.pause();
 			for (let j = 0; j < songElements.length; j++) {
 				if (id == songElements[j].id) {
+
+
 					iTagPlaying = songElements[j].querySelector(`.bi${id}`)
 					iTagPlaying.classList.add('bi-pause-circle');
 					iTagPlaying.classList.remove('bi-play-circle');
@@ -90,20 +103,20 @@ function playMusic(id) {
 			break;
 		}
 	}
-	
-	auTagPlaying.ontimeupdate = function () {
+
+	auTagPlaying.ontimeupdate = function() {
 		if (auTagPlaying.duration) {
 			const currentProgress = Math.floor(auTagPlaying.currentTime / auTagPlaying.duration * 100);
 			progress.value = currentProgress;
 		}
 	}
-	
-	progress.onchange = function () {
+
+	progress.onchange = function() {
 		const seekTime = progress.value / 100 * auTagPlaying.duration;
 		auTagPlaying.currentTime = seekTime;
 	}
-	
-	auTagPlaying.onended = function () {
+
+	auTagPlaying.onended = function() {
 		if (isRepeat) {
 			auTagPlaying.play();
 		} else {
@@ -113,14 +126,17 @@ function playMusic(id) {
 }
 
 function playMainMusic(id) {
+
+	
 	for (let i = 0; i < songElements.length; i++) {
 		if (songElements[i].id == id) {
 			idPlaying = id;
 			auTagPlaying = songElements[i].querySelector('audio');
 			iTagPlaying = songElements[i].querySelector(`.bi${idPlaying}`);
-			break;			
+			break;
 		}
 	}
+
 	played.push(idPlaying);
 	playMusic(idPlaying);
 }
@@ -128,11 +144,11 @@ function playMainMusic(id) {
 function skipAfter() {
 	if (isShuffle) {
 		var randomId = Math.floor(Math.random() * 11);
-		
+
 		while (songElements[randomId].id == idPlaying) {
 			randomId = Math.floor(Math.random() * 11);
 		}
-		
+
 		playMusic(songElements[randomId].id);
 	} else {
 		for (let i = 0; i < songElements.length; i++) {
@@ -144,7 +160,7 @@ function skipAfter() {
 					playMusic(songElements[i + 1].id);
 					break;
 				}
-				
+
 			}
 		}
 	}
@@ -183,7 +199,7 @@ function shuffleMode() {
 
 function muteVolume() {
 	var iTagVolume = document.querySelector('.volume');
-	
+
 	if (isMute) {
 		iTagVolume.classList.remove('bi-volume-mute');
 		iTagVolume.classList.add('bi-volume-up');

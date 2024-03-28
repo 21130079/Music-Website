@@ -243,6 +243,18 @@ public class DAOSong extends AbsDao<Song>{
 		}
 		return false;
 	}
+	public boolean updateViewSongByID(String id) {
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement("update songs set songview = songview + 1 where id_song =?");
+			stmt.setString(1,id);
+			stmt.executeUpdate();
+			return true;	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	public ArrayList<Song> selectRecommendedSongs(Account acc) {
 		if (acc.getFavoriteList()==null) {
@@ -286,4 +298,5 @@ public class DAOSong extends AbsDao<Song>{
 		}
 		return null;
 	}
+
 }

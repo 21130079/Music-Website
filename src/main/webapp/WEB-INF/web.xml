@@ -312,4 +312,14 @@
     <servlet-name>LoadMoreSong</servlet-name>
     <url-pattern>/LoadMoreSong</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddCountView</display-name>
+    <servlet-name>AddCountView</servlet-name>
+    <servlet-class>Controller.AddCountView</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddCountView</servlet-name>
+    <url-pattern>/AddCountView</url-pattern>
+  </servlet-mapping>
 </web-app>
