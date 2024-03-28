@@ -322,4 +322,14 @@
     <servlet-name>AddCountView</servlet-name>
     <url-pattern>/AddCountView</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CountViewController</display-name>
+    <servlet-name>CountViewController</servlet-name>
+    <servlet-class>Controller.CountViewController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CountViewController</servlet-name>
+    <url-pattern>/CountViewController</url-pattern>
+  </servlet-mapping>
 </web-app>

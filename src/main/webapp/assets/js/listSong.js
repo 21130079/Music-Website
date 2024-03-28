@@ -17,6 +17,7 @@ if (played.length <= 1) {
 }
 
 function playMusic(id) {
+	playedArrayTest2.push(songElements[0].id);
 
 	var iTagMain = document.querySelector('.footer-play');
 	var progress = document.querySelector('#progress');
@@ -32,8 +33,6 @@ function playMusic(id) {
 	for (let i = 0; i < songElements.length; i++) {
 
 		if (!isPlaying && id == songElements[i].id) {
-			console.log("first: " + songElements[i].id);
-
 
 
 			iTagMain.classList.add('bi-pause-circle');
@@ -53,10 +52,31 @@ function playMusic(id) {
 			idPlaying = id;
 			mainButton.id = idPlaying;
 			isPlaying = true;
-			
+			if (playedArrayTest2.indexOf(id) === -1) {
+				playedArrayTest2.push(id);
+				$.ajax({
+					url: "/MusicWebsite/CountViewController",
+					type: "get",
+					data: {
+						idSong: id
+					},
+					success: function(reponse) {
+						console.log("Lượt view đã được cập nhật");
+					},
+					error: function(xhr, status, error) {
+						// Xử lý lỗi (nếu có)
+						console.error("Lỗi: " + error);
+					}
+				});
+				if (playedArrayTest2.length > 1) {
+					playedArrayTest2.splice(playedArrayTest.length - 2, 1);
+				}
+			} else {
+				return;
+			}
+
 			break;
 		} else if (isPlaying && id == idPlaying) {
-			console.log("second: " + songElements[i].id);
 
 			iTagMain.classList.add('bi-play-circle');
 			iTagMain.classList.remove('bi-pause-circle');
@@ -70,7 +90,20 @@ function playMusic(id) {
 			break;
 		} else if (isPlaying && id != idPlaying) {
 
-		
+			$.ajax({
+				url: "/MusicWebsite/CountViewController",
+				type: "get",
+				data: {
+					idSong: id
+				},
+				success: function(reponse) {
+					console.log("Lượt view đã được cập nhật");
+				},
+				error: function(xhr, status, error) {
+					// Xử lý lỗi (nếu có)
+					console.error("Lỗi: " + error);
+				}
+			});
 			iTagMain.classList.add('bi-pause-circle');
 			iTagMain.classList.remove('bi-play-circle');
 
@@ -127,7 +160,7 @@ function playMusic(id) {
 
 function playMainMusic(id) {
 
-	
+	playedArrayTest2.push(songElements[0].id);
 	for (let i = 0; i < songElements.length; i++) {
 		if (songElements[i].id == id) {
 			idPlaying = id;
