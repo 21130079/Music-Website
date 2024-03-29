@@ -103,6 +103,8 @@ p {
 }
 </style>
 <link rel="icon" type="image/x-icon" href="/MusicWebsite/assets/img/Other/logoPage.png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <title>List Song</title>
 </head>
 <body>
