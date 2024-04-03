@@ -1,5 +1,13 @@
 --create table
 use MusicWeb;
+create table history_prenium_accounts(
+	username varchar(255) foreign key references  accounts(username),
+	type_prenium int ,
+	started_date date,
+	finish_date date,
+	primary key(username,started_date,finish_date)
+);
+
 create table singers(
 	id_singer varchar(20) primary key,
 	name_singer nvarchar(255) not null,
