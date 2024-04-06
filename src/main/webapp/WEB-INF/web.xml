@@ -362,4 +362,24 @@
     <servlet-name>vnpayRefund</servlet-name>
     <url-pattern>/vnpayRefund</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginGoogleController</display-name>
+    <servlet-name>LoginGoogleController</servlet-name>
+    <servlet-class>Controller.LoginGoogleController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginGoogleController</servlet-name>
+    <url-pattern>/LoginGoogleController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SongAPI</display-name>
+    <servlet-name>SongAPI</servlet-name>
+    <servlet-class>Controller.API.SongAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SongAPI</servlet-name>
+    <url-pattern>/SongAPI</url-pattern>
+  </servlet-mapping>
 </web-app>
