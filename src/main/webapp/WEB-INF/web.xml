@@ -382,4 +382,24 @@
     <servlet-name>SongAPI</servlet-name>
     <url-pattern>/SongAPI</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemoveLogController</display-name>
+    <servlet-name>RemoveLogController</servlet-name>
+    <servlet-class>Controller.admin.RemoveLogController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveLogController</servlet-name>
+    <url-pattern>/RemoveLogController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogAPI</display-name>
+    <servlet-name>LogAPI</servlet-name>
+    <servlet-class>Controller.API.LogAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogAPI</servlet-name>
+    <url-pattern>/LogAPI</url-pattern>
+  </servlet-mapping>
 </web-app>
