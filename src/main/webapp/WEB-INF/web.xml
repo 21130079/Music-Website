@@ -332,4 +332,54 @@
     <servlet-name>CountViewController</servlet-name>
     <url-pattern>/CountViewController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ajaxServlet</display-name>
+    <servlet-name>ajaxServlet</servlet-name>
+    <servlet-class>Controller.vnpay.ajaxServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ajaxServlet</servlet-name>
+    <url-pattern>/ajaxServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>vnpayQuery</display-name>
+    <servlet-name>vnpayQuery</servlet-name>
+    <servlet-class>Controller.vnpay.vnpayQuery</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>vnpayQuery</servlet-name>
+    <url-pattern>/vnpayQuery</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>vnpayRefund</display-name>
+    <servlet-name>vnpayRefund</servlet-name>
+    <servlet-class>Controller.vnpay.vnpayRefund</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>vnpayRefund</servlet-name>
+    <url-pattern>/vnpayRefund</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginGoogleController</display-name>
+    <servlet-name>LoginGoogleController</servlet-name>
+    <servlet-class>Controller.LoginGoogleController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginGoogleController</servlet-name>
+    <url-pattern>/LoginGoogleController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SongAPI</display-name>
+    <servlet-name>SongAPI</servlet-name>
+    <servlet-class>Controller.API.SongAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SongAPI</servlet-name>
+    <url-pattern>/SongAPI</url-pattern>
+  </servlet-mapping>
 </web-app>
