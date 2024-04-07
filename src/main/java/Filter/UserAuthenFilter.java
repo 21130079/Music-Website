@@ -6,6 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import Model.Account;
+import database.DAOHistoryPremium;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -60,6 +61,10 @@ public class UserAuthenFilter extends HttpFilter {
 		
 		if (!account.hasRole("user") ) {
 			res.sendRedirect("/MusicWebsite/views/errors/403-error.jsp");
+			return;
+		}
+		if (! new DAOHistoryPremium().checkPremium(account)) {
+			res.sendRedirect("/MusicWebsite/views/pages/upgradePre.jsp");
 			return;
 		}
 

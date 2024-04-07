@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prenium</title>
+    <title>Premium</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
    
 
@@ -132,9 +132,9 @@
                 <div class="option_wrapper">
                     <div class="option_header">
                         <div><i class="fa-solid fa-music"></i>
-                            Prenium</div>
+                            Premium</div>
                         <h2>Mini</h2>
-                        <p>2.300 ₫ cho 1 ngày</p>
+                        <p>2.000₫ cho 1 ngày</p>
                         <br>
                         <hr>
                     </div>
@@ -143,9 +143,9 @@
                         <li>Cho phép thêm tối đa 5 Playlist</li>
                         <li>Thanh toán một lần</li>
                     </ul>
-                    <button class="inner_button">
-                        Mua Prenium Mini
-                    </button>
+                    <a href="/MusicWebsite/upgradeSelectorController?type=mini"><button class="inner_button">
+                        Mua Premium Mini
+                    </button></a>
                 </div>
             </div>
 
@@ -153,22 +153,22 @@
                 <div class="option_wrapper">
                     <div class="option_header">
                         <div><i class="fa-solid fa-music"></i>
-                            Prenium</div>
+                            Premium</div>
                         <h2>Individual</h2>
-                        <p>59.000 ₫ cho 2 tháng
-                            <br>
-                           <a>Sau đó là 59.000 ₫/tháng.</a>
+                        <p>55.000₫ cho 2 tháng
                         </p>
                         <hr>
                     </div>
                     <ul class="option_content">
                         <li>Không giới hạn số bài hát Favorite </li>
-                        <li>Tạo không giới hạn các Playlist </li>
-                        <li>Đăng ký hoặc thanh toán một lần</li>
+                         <li>Không giới hạn số bài hát Favorite</li>
+	                    <li>Không giới hạn số lượng Playlist</li>
+	                    <li>Thanh toán một lần</li>
+	                    <li>Dowload Nhạc miễn phí</li>
                     </ul>
-                    <button class="inner_button">
-                        Mua Prenium Individual
-                    </button>
+                   <a href="/MusicWebsite/upgradeSelectorController?type=individual"> <button class="inner_button">
+                        Mua Premium Individual
+                    </button></a>
                 </div>
             </div>
 
@@ -176,11 +176,9 @@
                 <div class="option_wrapper">
                 <div class="option_header">
                     <div><i class="fa-solid fa-music"></i>
-                        Prenium</div>
+                        Premium</div>
                     <h2>Student</h2>
-                    <p>29.500 ₫ cho 2 tháng
-                        <br>
-                        <a>Sau đó là 29.500 ₫/tháng.</a>
+                    <p>45.000₫ cho 2 tháng
                     </p>
 
                     <hr>
@@ -188,12 +186,12 @@
                   <ul class="option_content">
                   	<li>Giảm giá cho sinh viên đủ điều kiện</li>
                     <li>Không giới hạn số bài hát Favorite</li>
-                    <li>Hủy bất cứ lúc nào</li>
-                    <li>Đăng ký hoặc thanh toán một lần</li>
+                    <li>Không giới hạn số lượng Playlist</li>
+                    <li>Thanh toán một lần</li>
                   </ul>
-                  <button class="inner_button">
-                    Mua Prenium Student
-                  </button>
+                 <a href="/MusicWebsite/upgradeSelectorController?type=student"> <button class="inner_button">
+                    Mua Premium Student
+                  </button></a>
                 </div>
             </div>
         </div>

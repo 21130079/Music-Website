@@ -302,14 +302,15 @@
     <servlet-name>NewPasswordController</servlet-name>
     <url-pattern>/NewPasswordController</url-pattern>
   </servlet-mapping>
+ 
   <servlet>
     <description></description>
-    <display-name>aaaaaaaaaa</display-name>
-    <servlet-name>aaaaaaaaaa</servlet-name>
-    <servlet-class>Controller.user.aaaaaaaaaa</servlet-class>
+    <display-name>upgradeSelectorController</display-name>
+    <servlet-name>upgradeSelectorController</servlet-name>
+    <servlet-class>Controller.user.upgradeSelectorController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>aaaaaaaaaa</servlet-name>
-    <url-pattern>/aaaaaaaaaa</url-pattern>
+    <servlet-name>upgradeSelectorController</servlet-name>
+    <url-pattern>/upgradeSelectorController</url-pattern>
   </servlet-mapping>
 </web-app>

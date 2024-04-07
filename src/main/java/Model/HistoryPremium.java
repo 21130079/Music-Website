@@ -2,12 +2,12 @@ package Model;
 
 import java.sql.Date;
 
-public class HistoryPrenium {
+public class HistoryPremium {
 	private Account account;
 	private String typePrenium;
 	private Date startedDate;
 	private Date finishedDate;
-	public HistoryPrenium(Account account, int typePrenium, Date startedDate, Date finishedDate) {
+	public HistoryPremium(Account account, int typePrenium, Date startedDate, Date finishedDate) {
 		super();
 		this.account = account;
 		switch (typePrenium) {
@@ -28,6 +28,28 @@ public class HistoryPrenium {
 		this.startedDate = startedDate;
 		this.finishedDate = finishedDate;
 	}
+	
+	public double getPriceMini_1day() {
+		return 2.000;
+	}
+	public double getPriceMini_1week() {
+		return 8.000;
+	}
+	
+	public double getPriceInvi_2month() {
+		return 50.000;
+	}
+	public double getPriceInvi_6month() {
+		return 265.000;
+	}
+	
+	public double getPriceStu_2month() {
+		return 40.000;
+	}
+	public double getPriceStu_6month() {
+		return 225.000;
+	}
+	
 	public Account getAccount() {
 		return account;
 	}
