@@ -1,5 +1,13 @@
 --create table
 use MusicWeb;
+create table history_premium_accounts(
+	id int PRIMARY KEY IDENTITY,
+	username varchar(255) foreign key references  accounts(username),
+	type_premium int ,
+	started_date date,
+	finish_date date,
+);
+
 create table singers(
 	id_singer varchar(20) primary key,
 	name_singer nvarchar(255) not null,
@@ -246,6 +254,57 @@ BEGIN
     END
 
 END;
+-- trigger premium
+CREATE TRIGGER update_start_and_finish_date_on_insert
+ON history_premium_accounts
+INSTEAD OF INSERT
+AS
+BEGIN
+    DECLARE @Username varchar(255);
+    DECLARE @TypePremium int;
+    DECLARE @StartedDate date;
+    DECLARE @FinishDate date;
+
+    SELECT @Username = i.username,
+           @TypePremium = i.type_premium,
+           @StartedDate = i.started_date,
+           @FinishDate = i.finish_date
+    FROM inserted i;
+
+    IF EXISTS (
+        SELECT 1
+        FROM history_premium_accounts h
+        WHERE h.username = @Username
+          AND @StartedDate <= h.finish_date
+          AND @FinishDate >= h.started_date
+    )
+    BEGIN
+        DECLARE @LastFinishDate date;
+
+        SELECT TOP 1 @LastFinishDate = finish_date
+        FROM history_premium_accounts
+        WHERE username = @Username
+        ORDER BY finish_date DESC;
+
+        INSERT INTO history_premium_accounts (username, type_premium, started_date, finish_date)
+        VALUES (@Username, @TypePremium, @LastFinishDate, DATEADD(DAY, 1, @LastFinishDate));
+    END
+    ELSE
+    BEGIN
+        IF @TypePremium = 1
+            SET @FinishDate = DATEADD(DAY, 1, @StartedDate);
+        ELSE IF @TypePremium = 2
+            SET @FinishDate = DATEADD(WEEK, 1, @StartedDate);
+        ELSE IF @TypePremium IN (3, 5)
+            SET @FinishDate = DATEADD(MONTH, 2, @StartedDate);
+        ELSE IF @TypePremium IN (4, 6)
+            SET @FinishDate = DATEADD(MONTH, 6, @StartedDate);
+
+        INSERT INTO history_premium_accounts (username, type_premium, started_date, finish_date)
+        VALUES (@Username, @TypePremium, @StartedDate, @FinishDate);
+    END
+END;
+
 drop  trigger insertAcc_Trigger
 	Insert into accounts(username,password_account,email)
 	VALUES ('user1','user1','user1@gmail.com');
