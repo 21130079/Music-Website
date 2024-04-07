@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -50,16 +51,19 @@ public class DAOLog extends AbsDao<Log>{
 				String addressPerforming = rs.getString("address_performing");
 				String preValue = rs.getString("pre_value");
 				String currentValue = rs.getString("current_value");
-				Timestamp updatedDate = rs.getTimestamp("updatedDate");
+				Timestamp updatedDate = rs.getTimestamp("updated_date");
 				String status = rs.getString("exec_status");
 				
 				boolean isSuccessed = false;
 				if(status.equals("successed")) {
 					isSuccessed = true;
 				}
-				Log account = new Log(idlog, nationality, ELevel.getLevelLog(levelLog), addressPerforming, preValue,
+				if(preValue == null) {
+					preValue +="";
+				}
+				Log log = new Log(idlog, nationality, ELevel.getLevelLog(levelLog), addressPerforming, preValue,
 						currentValue, updatedDate,isSuccessed);
-				result.add(account);
+				result.add(log);
 			}
 			stmt.close();
 		} catch (Exception e) {
@@ -104,8 +108,60 @@ public class DAOLog extends AbsDao<Log>{
 		}
 		return 0;
 	}
+<<<<<<< HEAD
 	public static void main(String[] args) {
 		System.out.println();;
 	}
+=======
+	public int deleteById(String idLog) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from logs where id_log=? ");
+			stmt.setString(1,idLog);
+			stmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return 0;
+	}
+	public void deleteListLogByID(String[] idsToDelete) {
+	    PreparedStatement stmt = null;
+	    try {
+	        if (idsToDelete != null && idsToDelete.length > 0) {
+	            // Prepare SQL statement
+	            String sql = "DELETE FROM logs WHERE id_log IN (";
+	            for (int i = 0; i < idsToDelete.length; i++) {
+	                if (i > 0) {
+	                    sql += ",";
+	                }
+	                sql += "?";
+	            }
+	            sql += ")";
+
+	            stmt = connection.prepareStatement(sql);
+
+	            // Set values for placeholders
+	            for (int i = 0; i < idsToDelete.length; i++) {
+	                stmt.setString(i + 1, idsToDelete[i]);
+	            }
+
+	            // Execute the DELETE statement
+	            stmt.executeUpdate();
+	        }
+
+
+	    } catch (Exception e) {
+	        System.out.println("Error: " + e.getMessage());
+	    } finally {
+	        // Close resources
+	        try {
+	            if (stmt != null) stmt.close();
+	        } catch (SQLException e) {
+	            System.out.println("Error closing database connection: " + e.getMessage());
+	        }
+	    }
+	}
+	
+>>>>>>> main
 
 }

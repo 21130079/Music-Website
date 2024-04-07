@@ -12,7 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon" href="./assets/img/Other/logoPage.png">
+<link rel="icon" type="image/x-icon"
+	href="./assets/img/Other/logoPage.png">
 <title>Admin</title>
 
 <link rel="stylesheet"
@@ -74,9 +75,16 @@ body {
 	<div class="container">
 		<div class="background-music" id="trending">
 			<br>
-			<h1 class="topic-music topic-trending">
-				<b>Admin</b>
-			</h1>
+			<div class="title" style="display: flex;">
+				<h1 class="topic-music topic-trending">
+					<b>Admin</b>
+				</h1>
+				<h2>
+					<a
+						style="color: black; border: 1px solid black; background-color: white; margin-left: 100px; padding: 3px 60px 3px 60px; border-radius: 20px 20px 20px 20px;"
+						href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+				</h2>
+			</div>
 			<div class="table-allMusic">
 				<div class="trendingTable">
 					<div class="add-music">
@@ -94,20 +102,22 @@ body {
 						<div class="item trending-box">
 							<div class="card background-music">
 								<div class="img-form">
-									<img src="/MusicWebsite/${song.url_Img}" class="card-img-top" alt="...">
-									
+									<img src="/MusicWebsite/${song.url_Img}" class="card-img-top"
+										alt="...">
+
 								</div>
 								<div>
 									<form action="">
 										<h5 class="title-trending ${song.id_Song }">
 											<b>${song.name_Song}</b>
 										</h5>
-										<a class="edit-button" type="button" style="padding-right: 10px;margin-left: 12px;"
-											href="/MusicWebsite/EditSongController?idSong=${song.id_Song}"> <i
-											class="bi bi-pencil-square"></i></a> <a class="edit-button"
-											type="button"
-											href="/MusicWebsite/DeleteSongController?idSong=${song.id_Song }"> <i
-											class="bi bi-trash"></i>
+										<a class="edit-button" type="button"
+											style="padding-right: 10px; margin-left: 12px;"
+											href="/MusicWebsite/EditSongController?idSong=${song.id_Song}">
+											<i class="bi bi-pencil-square"></i>
+										</a> <a class="edit-button" type="button"
+											href="/MusicWebsite/DeleteSongController?idSong=${song.id_Song }">
+											<i class="bi bi-trash"></i>
 										</a>
 									</form>
 								</div>

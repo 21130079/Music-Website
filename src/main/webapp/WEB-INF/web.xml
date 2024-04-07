@@ -401,6 +401,7 @@
   <servlet-mapping>
     <servlet-name>LogAPI</servlet-name>
     <url-pattern>/LogAPI</url-pattern>
+<<<<<<< HEAD
   </servlet-mapping>
 <display-name>upgradeSelectorController</display-name>
     <servlet-name>upgradeSelectorController</servlet-name>
@@ -409,5 +410,7 @@
   <servlet-mapping>
     <servlet-name>upgradeSelectorController</servlet-name>
     <url-pattern>/upgradeSelectorController</url-pattern>
+=======
+>>>>>>> main
   </servlet-mapping>
 </web-app>
