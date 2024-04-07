@@ -103,6 +103,8 @@ p {
 }
 </style>
 <link rel="icon" type="image/x-icon" href="/MusicWebsite/assets/img/Other/logoPage.png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <title>List Song</title>
 </head>
 <body>
@@ -171,8 +173,7 @@ p {
 						style="font-size: 20px" for="">Duration</label>
 				</div>
 				<div style="height: 20px"></div>
-
-
+				
 				<c:forEach begin="0" end="${fn:length(listSong) - 1 }" var="i">
 					<c:set var="idSong" value="${listSong[i].id_Song }"></c:set>
 					<c:set var="idAuTag" value="au${listSong[i].id_Song }"></c:set>

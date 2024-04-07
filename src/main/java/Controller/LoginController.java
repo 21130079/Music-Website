@@ -39,8 +39,6 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
-		
 	}
 
 	/**
@@ -76,6 +74,7 @@ public class LoginController extends HttpServlet {
 				break;
 			}
 		}
+		
 		HttpSession session = request.getSession();
 		if(!checkFAccount) {
 			
@@ -85,8 +84,6 @@ public class LoginController extends HttpServlet {
 				rd.include(request, response);
 			
 		}else {
-			
-			
 			session.setAttribute("account", ac);
 			response.sendRedirect("index.jsp");
 		}

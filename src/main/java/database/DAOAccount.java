@@ -233,6 +233,4 @@ public class DAOAccount extends AbsDao<Account>  {
 	public Account rereshAccount(Account account) {	
 		return selectByUsername(account.getUsername());
 	}
-
-	
 }

@@ -436,12 +436,16 @@ button.album {
 }
 
 .wrapper.animate-signUp .form-wrapper.sign-in {
+	height: 120%;
+    top: -80px;
     transform: rotate(7deg);
     animation: animateRotate .7s ease-in-out forwards;
     animation-delay: .3s;
 }
 
 .wrapper.animate-signIn .form-wrapper.sign-in {
+	height: 120%;
+    top: -80px;
     animation: animateSignIn 1.0s ease-in-out forwards;
 }
 
@@ -460,10 +464,14 @@ button.album {
 }
 
 .wrapper .form-wrapper.sign-up {
+	height: 120%;
+    top: -80px;
     transform: rotate(7deg);
 }
 
 .wrapper.animate-signIn .form-wrapper.sign-up {
+	height: 120%;
+    top: -80px;
     animation: animateRotate .7s ease-in-out forwards;
     animation-delay: .3s;
 }
@@ -725,5 +733,22 @@ p {
 a{
 	text-decoration: none;
 }
+.gg-icon {
+	height: 50px;
+    width: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    border: none;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+	transition: 0.2s;
+}
 
-
+.gg-icon:hover {
+	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+}
