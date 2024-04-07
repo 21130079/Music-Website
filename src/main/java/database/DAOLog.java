@@ -108,11 +108,7 @@ public class DAOLog extends AbsDao<Log>{
 		}
 		return 0;
 	}
-<<<<<<< HEAD
-	public static void main(String[] args) {
-		System.out.println();;
-	}
-=======
+
 	public int deleteById(String idLog) {
 		try {
 			PreparedStatement stmt = connection.prepareStatement("delete from logs where id_log=? ");
@@ -162,6 +158,6 @@ public class DAOLog extends AbsDao<Log>{
 	    }
 	}
 	
->>>>>>> main
+
 
 }
