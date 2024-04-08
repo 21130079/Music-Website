@@ -2,6 +2,8 @@ package Model;
 
 import java.util.ArrayList;
 
+import database.DAOAccount;
+
 public class Account {
 	private String username;
 	private String password;
@@ -81,12 +83,18 @@ public class Account {
 	}
 
 	
-
+	private String getSecurePassword() {
+		String result ="";
+		for (int i = 0; i < password.length(); i++) {
+			result+="*";
+		}
+		return result;
+	}
 	
 
 	@Override
 	public String toString() {
-		return "Account [username=" + username + ", email=" + email + ", roles=" + roles + "]";
+		return "Account [username=" + username +", password="+getSecurePassword()+", email=" + email + ", roles=" + roles + "]";
 	}
 
 	public Playlist getPlaylist(String idplaylist) {
@@ -97,5 +105,6 @@ public class Account {
 		}
 		return null;
 	}
+	
 
 }

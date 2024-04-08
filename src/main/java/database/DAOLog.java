@@ -41,7 +41,7 @@ public class DAOLog extends AbsDao<Log>{
 		// TODO Auto-generated method stub
 		ArrayList<Log> result = new ArrayList<Log>();
 		try {
-			PreparedStatement stmt = connection.prepareStatement("select * from logs ");
+			PreparedStatement stmt = connection.prepareStatement("select * from logs order by updated_date desc  ");
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 
@@ -54,15 +54,12 @@ public class DAOLog extends AbsDao<Log>{
 				Timestamp updatedDate = rs.getTimestamp("updated_date");
 				String status = rs.getString("exec_status");
 				
-				boolean isSuccessed = false;
-				if(status.equals("successed")) {
-					isSuccessed = true;
-				}
+				
 				if(preValue == null) {
 					preValue +="";
 				}
 				Log log = new Log(idlog, nationality, ELevel.getLevelLog(levelLog), addressPerforming, preValue,
-						currentValue, updatedDate,isSuccessed);
+						currentValue, updatedDate,status);
 				result.add(log);
 			}
 			stmt.close();
@@ -158,6 +155,6 @@ public class DAOLog extends AbsDao<Log>{
 	    }
 	}
 	
-
+	
 
 }

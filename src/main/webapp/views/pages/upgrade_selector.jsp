@@ -100,7 +100,7 @@
                     <div class="payment_option">
                         <div class="script_payment">
                            <div>
-                            <h2>${optionTex1}</h2>
+                            <h2>${optionText1}</h2>
                             <p>${optionPrice1}₫</p>
                            </div>
                            <div>
@@ -108,7 +108,7 @@
                            </div>
                         </div>
                         <button class="payment_box"  id="pay_1">
-                            <p>Thanh toán bằng momo</p>
+                            <p>Thanh toán bằng VNPay</p>
                             <i></i>
                         </button>
                     </div>
@@ -116,7 +116,7 @@
                     <div class="payment_option">
                         <div class="script_payment">
                            <div>
-                            <h2>${optionTex2}</h2>
+                            <h2>${optionText2}</h2>
                             <p>${optionPrice2}₫</p>
                            </div>
                            <div>
@@ -124,7 +124,7 @@
                            </div>
                         </div>
                         <button class="payment_box" id="pay_2">
-                            <p>Thanh toán bằng momo</p>
+                            <p>Thanh toán bằng VNPay</p>
                             <i></i>
                         </button>
                     </div>
