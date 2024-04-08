@@ -39,14 +39,14 @@ public class DAOSong extends AbsDao<Song>{
 			stmt.execute();
 			//LOG
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", null,
-					song.toString(), null, true);
+					song.toString(), null, "successed");
 			new DAOLog().insert(log);
 			
 			return 1;
 			
 		} catch (Exception e) {
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", null,
-					song.toString(), null, false);
+					song.toString(), null, "failed");
 			daolog.insert(log);
 		}
 		return 0;
@@ -107,12 +107,12 @@ public class DAOSong extends AbsDao<Song>{
 			stmt.executeUpdate();
 			
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Songs", oldSong.toString(),
-					song.toString(), null, true);
+					song.toString(), null, "successed");
 			new DAOLog().insert(log);
 			return 1;
 		} catch (Exception e) {
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", song.toString(),
-					null, null, false);
+					null, null, "failed");
 			new DAOLog().insert(log);
 			e.getStackTrace();
 		}
@@ -188,7 +188,7 @@ public class DAOSong extends AbsDao<Song>{
 			stmt.setString(1, t.getId_Song());
 			stmt.execute();
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.DANGER, "Songs", t.toString(),null, null,
-					true);
+					"successed");
 			daolog.insert(log);
 			
 			return 1;

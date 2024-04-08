@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+
 import Model.*;
 import Model.ELevel.Level;
 
@@ -25,13 +26,13 @@ public class DAOAccount extends AbsDao<Account>  {
 			stmt.setString(3, t.getEmail());
 			stmt.execute();
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
-					t.toString(), null, true);
+					t.toString(), null, "successed");
 			daoLog.insert(log);
 			return 1;
 			
 		} catch (Exception e) {
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
-					t.toString(), null, false);
+					t.toString(), null, "failed");
 			daoLog.insert(log);
 		}
 		return 0;
@@ -92,15 +93,28 @@ public class DAOAccount extends AbsDao<Account>  {
 		try {
 			PreparedStatement stmt = connection.prepareStatement("select * from accounts where email=?");
 			stmt.setString(1, email);
+			Account account =null;
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String username = rs.getString("username");
 				String password = rs.getString("password_account");
 				
-				Account account = new Account(username, password, email, null, null, null);
-				return account;
+				 account = new Account(username, password, email, null, null, null);
+				
 			}
-			stmt.close();
+			ArrayList<String> roles = new ArrayList<String>();
+			stmt = connection.prepareStatement("select * from roles_accounts where username = ?");
+			stmt.setString(1, account.getUsername());
+			
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				String roleUser = rs.getString("roleUser");
+				roles.add(roleUser);
+				
+			}
+			account.setRoles(roles);
+			return account;
+			
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
@@ -168,10 +182,10 @@ public class DAOAccount extends AbsDao<Account>  {
 			}
 			account = new Account(username, password, email, roles, favorite, playlists);
 			stmt.close();
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + account,null,true);
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + account,null,"successed");
 			daoLog.insert(log); 
 		} catch (Exception e) {
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + username,null,false);
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + username,null,"failed");
 			daoLog.insert(log);
 		}
 		return account;
@@ -201,12 +215,12 @@ public class DAOAccount extends AbsDao<Account>  {
 			stmt.setString(2, email);
 			stmt.executeUpdate();
 			Account newacc = selectByEmail(email);
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Accounts", acc.toString(), newacc.toString(),null,true);
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Accounts", acc.toString(), newacc.toString(),null,"successed");
 			daoLog.insert(log);
 			return 1;
 		} catch (Exception e) {
 			// TODO: handle exception
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", acc.toString(), null,null,false);
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", acc.toString(), null,null,"failed");
 			daoLog.insert(log);
 		}
 		return 0;
@@ -233,4 +247,8 @@ public class DAOAccount extends AbsDao<Account>  {
 	public Account rereshAccount(Account account) {	
 		return selectByUsername(account.getUsername());
 	}
+	public static void main(String[] args) {
+		System.out.println(new DAOAccount().selectByEmail("user1@gmail.com"));
+	}
+	
 }

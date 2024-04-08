@@ -752,3 +752,27 @@ a{
 	-webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
 }
+
+.bi-person-circle {
+	font-size: 30px;
+	vertical-align: -3px;
+}
+
+.bi-key-fill {
+	font-size: 30px;
+	vertical-align: -3px;
+	padding-right: 15px;
+}
+
+.img-logo {
+	width: auto;
+	height: 193px;
+	font-size: 78px;
+	position: absolute;
+	margin-top: -51px;
+	margin-left: 20px;
+}
+
+.logo {
+	position: relative;
+}

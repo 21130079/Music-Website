@@ -17,7 +17,7 @@ public class Log {
 	private Timestamp updatedDate;
 	private String status;
 	public Log(String idLog, String nationality, Level levelLog, String addressPerforming, String preValue,
-			String currentValue, Timestamp updatedDate,boolean isSuccessed) {
+			String currentValue, Timestamp updatedDate, String status) {
 		
 		this.idLog = idLog;
 		this.nationality = nationality;
@@ -26,11 +26,7 @@ public class Log {
 		this.preValue = preValue;
 		this.currentValue = currentValue;
 		this.updatedDate = updatedDate;
-		if(isSuccessed) {
-			this.status="successed";
-		}else {
-			this.status ="failed";
-		}
+		this.status = status;
 	}
 	public String getIdLog() {
 		return idLog;
