@@ -254,6 +254,7 @@ BEGIN
     END
 
 END;
+drop trigger update_start_and_finish_date_on_insert
 -- trigger premium
 CREATE TRIGGER update_start_and_finish_date_on_insert
 ON history_premium_accounts
@@ -275,8 +276,8 @@ BEGIN
         SELECT 1
         FROM history_premium_accounts h
         WHERE h.username = @Username
-          AND @StartedDate <= h.finish_date
-          AND @FinishDate >= h.started_date
+          AND @StartedDate between h.started_date and h.finish_date
+          
     )
     BEGIN
         DECLARE @LastFinishDate date;
@@ -286,8 +287,17 @@ BEGIN
         WHERE username = @Username
         ORDER BY finish_date DESC;
 
+		  IF @TypePremium = 1
+            SET @FinishDate = DATEADD(DAY, 1, @LastFinishDate);
+        ELSE IF @TypePremium = 2
+            SET @FinishDate = DATEADD(WEEK, 1, @LastFinishDate);
+        ELSE IF @TypePremium IN (3, 5)
+            SET @FinishDate = DATEADD(MONTH, 2, @LastFinishDate);
+        ELSE IF @TypePremium IN (4, 6)
+            SET @FinishDate = DATEADD(MONTH, 6, @LastFinishDate);
+
         INSERT INTO history_premium_accounts (username, type_premium, started_date, finish_date)
-        VALUES (@Username, @TypePremium, @LastFinishDate, DATEADD(DAY, 1, @LastFinishDate));
+        VALUES (@Username, @TypePremium, @LastFinishDate, @FinishDate);
     END
     ELSE
     BEGIN
@@ -319,6 +329,8 @@ drop  trigger insertAcc_Trigger
 	select * from accounts
 	update accounts set password_account = 'aaa' where username = 'aaa'
 
-	select * from logs
+	select * from history_premium_accounts
+	INSERT INTO history_premium_accounts (username, type_premium, started_date)
+	values ('user1',3,GETDATE())
 
 

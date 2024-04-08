@@ -4,14 +4,11 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import org.apache.tomcat.jakartaee.commons.io.FileUtils;
 
 import Model.Account;
 import Model.HistoryPremium;
-import Model.Song;
 
 public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 	Connection connection = fileUtils.connectDb();
