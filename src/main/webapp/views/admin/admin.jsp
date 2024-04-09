@@ -59,6 +59,28 @@ body {
 	padding-right: 100px;
 	font-size: 20px;
 }
+.log_admin {
+	color: white;
+	margin-left: 100px;
+}
+
+.log_admin:hover {
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+}
+.song_admin{
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+}
+
 </style>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
@@ -323,9 +345,10 @@ body {
 					<b>Admin</b>
 				</h1>
 				<h2>
-					<a
-						style="color: black; border: 1px solid black; background-color: white; margin-left: 100px; padding: 3px 60px 3px 60px; border-radius: 20px 20px 20px 20px;"
-						href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+					<a class="log_admin" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+				</h2>
+				<h2>
+					<a class="song_admin" href="/MusicWebsite/views/admin/admin.jsp">Song</a>
 				</h2>
 			</div>
 			<div class="table-allMusic">
@@ -373,5 +396,5 @@ body {
 	</div>
 </body>
 
-	<script src="/MusicWebsite/assets/js/login.js"></script>
+<script src="/MusicWebsite/assets/js/login.js"></script>
 </html>
