@@ -180,8 +180,6 @@ element {
 	background-color: transparent;
 	pointer-events: painted;
 	z-index: 2;
-	
-	
 }
 
 .input-search:focus {
@@ -358,10 +356,10 @@ span.psw {
 
 .close {
 	position: absolute;
-	right: -60px;
-	top: -30px;
+	right: -80px;
+	top: -100px;
 	color: #dadada;
-	font-size: 35px;
+	font-size: 40px;
 	font-weight: bold;
 }
 .trending-box {
@@ -507,7 +505,7 @@ button.album {
 }
 
 h2.log {
-    font-size: 30px;
+    font-size: 35px;
     color: #555;
     text-align: center;
 }
@@ -583,7 +581,7 @@ h2.log {
 .sign-link {
     font-size: 14px;
     text-align: center;
-    margin: 25px 0;
+    margin: 10px 0;
 }
 
 .sign-link p {

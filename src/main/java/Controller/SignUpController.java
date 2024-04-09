@@ -76,8 +76,8 @@ public class SignUpController extends HttpServlet {
 					break;
 				}
 
-				if (password.trim().length() <= 6) {
-					errorSignUp = "Password must be longer than 6 characters";
+				if (password.trim().length() <= 8) {
+					errorSignUp = "Password must be longer than 8 characters";
 					break;
 				}
 				ArrayList<String> roles = new ArrayList<String>();
