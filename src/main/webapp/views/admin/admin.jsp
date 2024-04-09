@@ -59,6 +59,28 @@ body {
 	padding-right: 100px;
 	font-size: 20px;
 }
+.log_admin {
+	color: white;
+	margin-left: 100px;
+}
+
+.log_admin:hover {
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+}
+.song_admin{
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+}
+
 </style>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
@@ -226,10 +248,11 @@ body {
 									<p>Log in via third-party apps:</p>
 								</div>
 								<div class="sign-link">
-									<a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/MusicWebsite/LoginGoogleController&response_type=code
-    										&client_id=635263821596-utj1bf1e28i9jcc36vsampol1hbj4gmv.apps.googleusercontent.com&approval_prompt=force" class=gg-icon>
-										<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-											width="30" height="30" viewBox="0 0 48 48">
+									<a
+										href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/MusicWebsite/LoginGoogleController&response_type=code
+    										&client_id=635263821596-utj1bf1e28i9jcc36vsampol1hbj4gmv.apps.googleusercontent.com&approval_prompt=force"
+										class=gg-icon> <svg xmlns="http://www.w3.org/2000/svg"
+											x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
 											<path fill="#FFC107"
 												d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
 											<path fill="#FF3D00"
@@ -275,10 +298,11 @@ body {
 									<p>Log in via third-party apps:</p>
 								</div>
 								<div class="sign-link">
-									<a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/MusicWebsite/LoginGoogleController&response_type=code
-    										&client_id=635263821596-utj1bf1e28i9jcc36vsampol1hbj4gmv.apps.googleusercontent.com&approval_prompt=force" class=gg-icon>
-										<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-											width="30" height="30" viewBox="0 0 48 48">
+									<a
+										href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/MusicWebsite/LoginGoogleController&response_type=code
+    										&client_id=635263821596-utj1bf1e28i9jcc36vsampol1hbj4gmv.apps.googleusercontent.com&approval_prompt=force"
+										class=gg-icon> <svg xmlns="http://www.w3.org/2000/svg"
+											x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
 											<path fill="#FFC107"
 												d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
 											<path fill="#FF3D00"
@@ -307,9 +331,10 @@ body {
 					<b>Admin</b>
 				</h1>
 				<h2>
-					<a
-						style="color: black; border: 1px solid black; background-color: white; margin-left: 100px; padding: 3px 60px 3px 60px; border-radius: 20px 20px 20px 20px;"
-						href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+					<a class="log_admin" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+				</h2>
+				<h2>
+					<a class="song_admin" href="/MusicWebsite/views/admin/admin.jsp">Song</a>
 				</h2>
 			</div>
 			<div class="table-allMusic">
@@ -357,5 +382,5 @@ body {
 	</div>
 </body>
 
-	<script src="/MusicWebsite/assets/js/login.js"></script>
+<script src="/MusicWebsite/assets/js/login.js"></script>
 </html>

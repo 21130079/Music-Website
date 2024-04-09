@@ -40,6 +40,31 @@
 	color: black;
 	background-color: white;
 }
+.log_admin {
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+	text-decoration: none;
+}
+.log_admin:hover{
+color: black;
+}
+
+.song_admin:hover {
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+}
+.song_admin{
+	color: white;
+	margin-left: 100px;
+}
 </style>
 </head>
 <body>
@@ -275,10 +300,11 @@
 				<b>Admin</b>
 			</h1>
 			<h2>
-				<a
-					style="text-decoration:none; color: black; border: 1px solid black; background-color: white; margin-left: 40px; padding: 3px 60px 3px 60px; border-radius: 20px 20px 20px 20px;"
-					href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
-			</h2>
+					<a class="log_admin" style="text-decoration: none;" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+				</h2>
+				<h2>
+					<a class="song_admin" style="text-decoration: none;" href="/MusicWebsite/views/admin/admin.jsp">Song</a>
+				</h2>
 		</div>
 
 		<button style="color: black; float: right;" onclick="getSelectedIds()">Delete
@@ -346,11 +372,7 @@
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				var students = data.data;
-				for (var i = 0; i < students.length; i++) {
-					var student = students[i];
-					console.log("ID: " + data.id_log);
-				}
+			
 				$("#data").dataTable({
 					data : data.data,
 
