@@ -96,10 +96,11 @@ body {
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-								<td style="padding-left: 30px"><b><a
-										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
-
+								<c:if test="${fn:contains(sessionScope.account.roles, 'admin')}">
+									<td style="padding-left: 30px"><b><a
+											class="nav-link ${param.activeRanking}"
+											href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+								</c:if>
 								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
 								<td style="padding-left: 30px"><b><a class="nav-link"

@@ -97,6 +97,23 @@ public class Song {
 		this.url_Audio = url_Audio;
 	}
 
+	public String getSongViewUpdate() {
+		String result="";
+		long view1 = 0;
+		if(songView < 1000) {
+			result+=songView+" lượt nghe";
+		}else if (songView>=1000&& songView <=999999) {
+			 view1 =songView/1000;
+			result += view1 +"k lượt nghe";
+		}else if(songView >= 1000000 && songView <= 999999999) {
+			view1 = songView/1000000;
+			result+=view1 +"tr lượt nghe";
+		}else {
+			view1 = songView/ 1000000000;
+			result+=view1+"T lượt nghe";
+		}
+		return result;
+	}
 	@Override
 	public String toString() {
 		return "Song [id_Song=" + id_Song + ", name_Song=" + name_Song + ", genre=" + genre + ", duration=" + duration

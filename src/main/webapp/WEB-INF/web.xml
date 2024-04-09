@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
   <display-name>MusicWebsite</display-name>
   <welcome-file-list>
@@ -403,13 +403,23 @@
     <url-pattern>/LogAPI</url-pattern>
   </servlet-mapping>
   <servlet>
-<display-name>upgradeSelectorController</display-name>
+    <display-name>upgradeSelectorController</display-name>
     <servlet-name>upgradeSelectorController</servlet-name>
     <servlet-class>Controller.user.upgradeSelectorController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>upgradeSelectorController</servlet-name>
     <url-pattern>/upgradeSelectorController</url-pattern>
-
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewServlet</display-name>
+    <servlet-name>ViewServlet</servlet-name>
+    <servlet-class>Controller.ViewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewServlet</servlet-name>
+    <url-pattern>/ViewServlet</url-pattern>
+  </servlet-mapping>
+
 </web-app>
