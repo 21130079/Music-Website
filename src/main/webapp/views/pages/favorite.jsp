@@ -11,7 +11,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/x-icon" href="/MusicWebsite/assets/img/Other/logoPage.png">
+<link rel="icon" type="image/x-icon"
+	href="/MusicWebsite/assets/img/Other/logoPage.png">
 <title>Favorite</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -28,7 +29,7 @@
 </head>
 <body>
 
-<header id="header">
+	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
 				src="/MusicWebsite/assets/img/Other/logo.png" alt=""
@@ -66,7 +67,7 @@
 		<div class="search-box">
 			<form action="/MusicWebsite/SearchController" method="get"
 				style="margin-left: -169px;">
-				<button type="submit" class="btn-search">
+				<button type="submit" class="btn-search" disabled="disabled">
 					<i class="bi bi-search" style="font-size: 22px"></i>
 				</button>
 				<input type="text" class="input-search" oninput="searchByName(this)"
@@ -121,6 +122,7 @@
 											for="">New password</label>
 									</div>
 									<div style="color: red; margin-top: ${formatPass};">${messageNewPass}</div>
+									<div id="captcha" style="color: red;"></div>
 									<button type="submit" class="btn-log">Confirm</button>
 								</form>
 							</div>
@@ -170,7 +172,15 @@
 										for="">Password</label>
 								</div>
 								<div style="color: red">${message}</div>
-								<button type="submit" class="btn-log">Sign Up</button>
+
+								<div class="g-recaptcha"
+									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+								<br>
+
+								<div style="color: red" class="signup-recaptcha-mess"></div>
+
+								<button type="submit" class="btn-log" id="sign-up">Sign
+									Up</button>
 								<div class="sign-link">
 									<p>
 										Already have an account? <a href="#" class="signIn-link">Sign
@@ -181,10 +191,11 @@
 									<p>Log in via third-party apps:</p>
 								</div>
 								<div class="sign-link">
-									<a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/MusicWebsite/LoginGoogleController&response_type=code
-    										&client_id=635263821596-utj1bf1e28i9jcc36vsampol1hbj4gmv.apps.googleusercontent.com&approval_prompt=force" class=gg-icon>
-										<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-											width="30" height="30" viewBox="0 0 48 48">
+									<a
+										href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/MusicWebsite/LoginGoogleController&response_type=code
+    										&client_id=635263821596-utj1bf1e28i9jcc36vsampol1hbj4gmv.apps.googleusercontent.com&approval_prompt=force"
+										class=gg-icon> <svg xmlns="http://www.w3.org/2000/svg"
+											x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
 											<path fill="#FFC107"
 												d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
 											<path fill="#FF3D00"
@@ -195,7 +206,6 @@
 												d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
 										</svg>
 									</a>
-									</p>
 								</div>
 							</form>
 						</div>
@@ -219,7 +229,15 @@
 										Password?</a>
 								</div>
 								<div style="color: red">${errorAccount}</div>
-								<button type="submit" class="btn-log">Login</button>
+
+								<div class="g-recaptcha"
+									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+								<br>
+
+								<div style="color: red" class="login-recaptcha-mess"></div>
+
+								<button type="submit" class="btn-log" id="login">Login</button>
+
 								<div class="sign-link">
 									<p>
 										Don't have an account? <a href="#" class="signUp-link">Sign
@@ -230,10 +248,11 @@
 									<p>Log in via third-party apps:</p>
 								</div>
 								<div class="sign-link">
-									<a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/MusicWebsite/LoginGoogleController&response_type=code
-    										&client_id=635263821596-utj1bf1e28i9jcc36vsampol1hbj4gmv.apps.googleusercontent.com&approval_prompt=force" class=gg-icon>
-										<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-											width="30" height="30" viewBox="0 0 48 48">
+									<a
+										href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/MusicWebsite/LoginGoogleController&response_type=code
+    										&client_id=635263821596-utj1bf1e28i9jcc36vsampol1hbj4gmv.apps.googleusercontent.com&approval_prompt=force"
+										class=gg-icon> <svg xmlns="http://www.w3.org/2000/svg"
+											x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
 											<path fill="#FFC107"
 												d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
 											<path fill="#FF3D00"
@@ -244,7 +263,6 @@
 												d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
 										</svg>
 									</a>
-									</p>
 								</div>
 							</form>
 						</div>
@@ -276,7 +294,8 @@
 			</div>
 		</div>
 		<div class="addSongdiv">
-			<form action="/MusicWebsite/SendToAddSongController" class="addSongCover">
+			<form action="/MusicWebsite/SendToAddSongController"
+				class="addSongCover">
 				<button class="addSongbtn" onclick="reload()">
 					<i style="font-size: 30px" class="bi bi-plus"></i> Add Song
 				</button>
@@ -293,11 +312,13 @@
 						style="font-size: 30px; display: flex; padding: 29px 0px; overflow: hidden;"
 						class="bi bi-music-note-beamed"></i>
 					<div style="position: relative;">
-						<img class="img${song.id_Song} img-song" src="/MusicWebsite/${song.url_Img}"
+						<img class="img${song.id_Song} img-song"
+							src="/MusicWebsite/${song.url_Img}"
 							style="width: 66px; padding: 15px 0px;" alt="" />
 						<button type="button" class="btn btn-music" id="${song.id_Song}"
 							onclick="playMusic(this.id, '${song.name_Song}', '${song.singer.name_Singer}', '${song.url_Img}')">
-							<audio src="/MusicWebsite/${song.url_Audio}" class="au${song.id_Song}"></audio>
+							<audio src="/MusicWebsite/${song.url_Audio}"
+								class="au${song.id_Song}"></audio>
 							<i class="bi${song.id_Song} bi-play-circle"></i>
 						</button>
 					</div>
@@ -319,7 +340,8 @@
 						<button type="button" onclick="reload()">
 							Delete <i class="bi bi-x-square-fill"></i>
 						</button>
-					</a> <a href="/MusicWebsite/${song.url_Audio}" download="${song.name_Song}.mp3">
+					</a> <a href="/MusicWebsite/${song.url_Audio}"
+						download="${song.name_Song}.mp3">
 						<button type="button">
 							Download <i class="bi bi-box-arrow-down"></i>
 						</button>
@@ -336,7 +358,8 @@
 			window.location.reload();
 		}
 	</script>
-	<script src="/MusicWebsite/assets/js/navPlaylist.js" type="text/javascript"></script>
+	<script src="/MusicWebsite/assets/js/navPlaylist.js"
+		type="text/javascript"></script>
 	<script src="/MusicWebsite/assets/js/login.js"></script>
 </body>
 </html>
