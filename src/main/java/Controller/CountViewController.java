@@ -6,7 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import Model.Song;
 import database.DAOSong;
 
 /**
@@ -31,6 +33,13 @@ public class CountViewController extends HttpServlet {
 		String idSong = request.getParameter("idSong");
 		DAOSong daoSong = new DAOSong();
 		daoSong.updateViewSongByID(idSong);
+		Song song = daoSong.selectById(idSong);
+		
+		String viewString = song.getSongViewUpdate();
+
+	        // Ghi nội dung của view vào PrintWriter
+	        PrintWriter out = response.getWriter();
+	        out.print(viewString);
 	}
 
 	/**
