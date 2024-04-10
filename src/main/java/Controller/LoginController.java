@@ -34,11 +34,13 @@ public class LoginController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
@@ -49,41 +51,36 @@ public class LoginController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		boolean checkFAccount =false;
+		boolean checkFAccount = false;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		DAOAccount daoAccount = new DAOAccount();
 		// ip address
-		 String ipAddress = request.getRemoteAddr();
-		 if(ipAddress.equals("0:0:0:0:0:0:0:1")) {
-			 ipAddress = IPAddress.getIPPublic();
-		 }
-		 daoAccount.setIpAddress(ipAddress);
-		
-		
-		  
-		String errorAccount="";
+		String ipAddress = request.getRemoteAddr();
+		if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
+			ipAddress = IPAddress.getIPPublic();
+		}
+		daoAccount.setIpAddress(ipAddress);
+
+		String errorAccount = "";
 		Account ac = null;
-		
-		
+
 		for (Account account : daoAccount.selectAll()) {
-			if(username.equals(account.getUsername())&&password.equals(account.getPassword())) {
+			if (username.equals(account.getUsername()) && password.equals(account.getPassword())) {
 				checkFAccount = true;
-				
+
 				ac = daoAccount.selectByUsername(username);
 				break;
 			}
 		}
-		
+
 		HttpSession session = request.getSession();
-		if(!checkFAccount) {
-			
+		if (!checkFAccount) {
 			errorAccount = "Username or password is wrong";
-			 request.setAttribute("errorAccount", errorAccount);
-			 RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-				rd.include(request, response);
-			
-		}else {
+			request.setAttribute("errorAccount", errorAccount);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.include(request, response);
+		} else {
 			session.setAttribute("account", ac);
 			response.sendRedirect("index.jsp");
 		}

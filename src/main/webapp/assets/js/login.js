@@ -6,21 +6,11 @@ const formSignUp = document.querySelectorAll('form')[1];
 const formLogin = document.querySelectorAll('form')[2];
 
 formLogin.addEventListener('submit', (e) => {
-	
 	const captchaResponse = grecaptcha.getResponse();
+	console.log(captchaResponse)
 	
 	if (!captchaResponse.length > 0) {
 		document.querySelector('.login-recaptcha-mess').innerHTML = "Please verify that you are not a robot.";
-		e.preventDefault();
-	}
-});
-
-formSignUp.addEventListener('submit', (e) => {
-	
-	const captchaResponse = grecaptcha.getResponse();
-	
-	if (!captchaResponse.length > 0) {
-		document.querySelector('.signup-recaptcha-mess').innerHTML = "Please verify that you are not a robot.";
 		e.preventDefault();
 	}
 });
