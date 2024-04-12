@@ -63,6 +63,7 @@ public class UserAuthenFilter extends HttpFilter {
 			res.sendRedirect("/MusicWebsite/views/errors/403-error.jsp");
 			return;
 		}
+		
 		if (! new DAOHistoryPremium().checkPremium(account)) {
 			res.sendRedirect("/MusicWebsite/views/pages/upgradePre.jsp");
 			return;

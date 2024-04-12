@@ -74,25 +74,26 @@ body {
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
 
 								<c:choose>
-								<c:when test="${fn:contains(sessionScope.account.roles, 'admin')}">
-									<td style="padding-left: 30px"><b><a
-											class="nav-link ${param.activeRanking}"
-											href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
-								</c:when>
-									<c:otherwise>
-									<td style="padding-left: 30px"><b><a
-										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
-									</c:otherwise>
+									<c:when
+										test="${fn:contains(sessionScope.account.roles, 'admin')}">
+										<td style="padding-left: 10px"><b><a
+												class="nav-link ${param.activeRanking}"
+												href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+									</c:when>
 								</c:choose>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
 								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
 								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
-								<td style="padding-left: 10px"><b><a class="nav-link"
-										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
+								<c:choose>
+									<c:when
+										test="${fn:contains(sessionScope.account.roles, 'user')}">
+										<td style="padding-left: 10px"><b><a class="nav-link"
+												href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
+									</c:when>
+								</c:choose>
 							</tr>
 						</table>
 					</div>
@@ -265,15 +266,10 @@ body {
 								<div class="g-recaptcha"
 									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
-<<<<<<< HEAD
-								
-							<div style="color: red" class="login-recaptcha-mess"></div>
-								
-=======
 
 								<div style="color: red" class="login-recaptcha-mess"></div>
 
->>>>>>> main
+								<div style="color: red" class="login-recaptcha-mess"></div>
 								<button type="submit" class="btn-log" id="login">Login</button>
 
 								<div class="sign-link">
@@ -320,8 +316,8 @@ body {
 						onclick="document.getElementById('login').style.display='flex'">Start
 						Free Now</button>
 				</c:if>
-				<img src="/MusicWebsite/assets/img/Other/bg-landscape.png" class="d-block w-100"
-					alt="...">
+				<img src="/MusicWebsite/assets/img/Other/bg-landscape.png"
+					class="d-block w-100" alt="...">
 			</div>
 		</div>
 		<!--CardMusic-->
@@ -518,17 +514,6 @@ body {
 	<script src="/MusicWebsite/assets/js/login.js"></script>
 	<script src="/MusicWebsite/assets/js/main.js"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
-<!-- 	<script type="text/javascript"> -->
-// 		formLogin.addEventListener('submit', (e) => {
-// 			captchaResponse = grecaptcha.getResponse();
-// 			console.log(captchaResponse)
-			
-// 			if (!captchaResponse.length > 0) {
-// 				document.querySelector('.login-recaptcha-mess').innerHTML = "Please verify that you are not a robot.";
-// 				e.preventDefault();
-// 			}
-// 		});
-<!-- 	</script> -->
 </body>
 
 

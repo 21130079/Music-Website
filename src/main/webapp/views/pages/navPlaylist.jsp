@@ -45,16 +45,28 @@
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-								<td style="padding-left: 30px"><b><a
-										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
 
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<c:choose>
+									<c:when
+										test="${fn:contains(sessionScope.account.roles, 'admin')}">
+										<td style="padding-left: 10px"><b><a
+												class="nav-link ${param.activeRanking}"
+												href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+									</c:when>
+								</c:choose>
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
+								<c:choose>
+									<c:when
+										test="${fn:contains(sessionScope.account.roles, 'user')}">
+										<td style="padding-left: 10px"><b><a class="nav-link"
+												href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
+									</c:when>
+								</c:choose>
 							</tr>
 						</table>
 					</div>
@@ -170,14 +182,11 @@
 										for="">Password</label>
 								</div>
 								<div style="color: red">${message}</div>
-								
-								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
-								<br>
-								
+
 								<div style="color: red" class="signup-recaptcha-mess"></div>
-								
-								<button type="submit" class="btn-log" id="sign-up">Sign Up</button>
+
+								<button type="submit" class="btn-log" id="sign-up">Sign
+									Up</button>
 								<div class="sign-link">
 									<p>
 										Already have an account? <a href="#" class="signIn-link">Sign
@@ -228,13 +237,14 @@
 								<div style="color: red">${errorAccount}</div>
 
 								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
-								
+
 								<div style="color: red" class="login-recaptcha-mess"></div>
-								
+
+								<div style="color: red" class="login-recaptcha-mess"></div>
 								<button type="submit" class="btn-log" id="login">Login</button>
-								
+
 								<div class="sign-link">
 									<p>
 										Don't have an account? <a href="#" class="signUp-link">Sign
@@ -363,5 +373,6 @@
 	</script>
 	<script src="/MusicWebsite/assets/js/navPlaylist.js" type="text/javascript"></script>
 	<script src="/MusicWebsite/assets/js/login.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 </html>
