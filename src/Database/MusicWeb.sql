@@ -254,7 +254,6 @@ BEGIN
     END
 
 END;
-drop trigger update_start_and_finish_date_on_insert
 -- trigger premium
 CREATE TRIGGER update_start_and_finish_date_on_insert
 ON history_premium_accounts
@@ -315,7 +314,6 @@ BEGIN
     END
 END;
 
-drop  trigger insertAcc_Trigger
 	Insert into accounts(username,password_account,email)
 	VALUES ('user1','user1','user1@gmail.com');
 

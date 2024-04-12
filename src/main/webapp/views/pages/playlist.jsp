@@ -96,11 +96,18 @@ body {
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-								<c:if test="${fn:contains(sessionScope.account.roles, 'admin')}">
+							<c:choose>
+								<c:when test="${fn:contains(sessionScope.account.roles, 'admin')}">
 									<td style="padding-left: 30px"><b><a
 											class="nav-link ${param.activeRanking}"
 											href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
-								</c:if>
+								</c:when>
+									<c:otherwise>
+									<td style="padding-left: 30px"><b><a
+										class="nav-link ${param.activeRanking}"
+										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
+									</c:otherwise>
+								</c:choose>
 								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
 								<td style="padding-left: 30px"><b><a class="nav-link"
@@ -348,7 +355,7 @@ body {
 										value="${playlist.id_Playlist}">
 									<button class="img-form" type="submit"
 										style="width: 260px; height: 260px; background-color: #171717; border: none;">
-										<img src="/MusicWebsite/${playlist.url_Img}" class="card-img-top" alt="...">
+										<img src="${playlist.url_Img}" class="card-img-top" alt="...">
 										<c:if test="${fn:length(playlist.listSong)!=0}">
 											<div class="icon-in-img">
 												<i style="font-size: 50px" class="bi-play-circle"></i>

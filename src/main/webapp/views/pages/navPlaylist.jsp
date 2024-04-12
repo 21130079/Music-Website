@@ -45,11 +45,9 @@
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-								<c:if test="${fn:contains(sessionScope.account.roles, 'admin')}">
-									<td style="padding-left: 30px"><b><a
-											class="nav-link ${param.activeRanking}"
-											href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
-								</c:if>
+								<td style="padding-left: 30px"><b><a
+										class="nav-link ${param.activeRanking}"
+										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
 
 								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
@@ -320,7 +318,7 @@
 						style="font-size: 30px; display: flex; padding: 29px 0px; overflow: hidden;"
 						class="bi bi-music-note-beamed"></i>
 					<div style="position: relative;">
-						<img class="img${song.id_Song }" src="/MusicWebsite/${song.url_Img}"
+						<img class="img${song.id_Song }" src="${song.url_Img}"
 							style="width: 66px; padding: 15px 0px;" alt="" />
 						<button type="button" class="btn btn-music" id="${song.id_Song}"
 							onclick="playMusic(this.id, '${song.name_Song}', '${song.singer.name_Singer}', '${song.url_Img}')">

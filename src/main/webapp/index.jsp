@@ -73,12 +73,18 @@ body {
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-
-								<c:if test="${fn:contains(sessionScope.account.roles, 'admin')}">
+								<c:choose>
+								<c:when test="${fn:contains(sessionScope.account.roles, 'admin')}">
 									<td style="padding-left: 30px"><b><a
 											class="nav-link ${param.activeRanking}"
 											href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
-								</c:if>
+								</c:when>
+									<c:otherwise>
+									<td style="padding-left: 30px"><b><a
+										class="nav-link ${param.activeRanking}"
+										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
+									</c:otherwise>
+								</c:choose>
 								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
 								<td style="padding-left: 30px"><b><a class="nav-link"
@@ -261,7 +267,7 @@ body {
 									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
 								<br>
 								
-								<div style="color: red" class="login-recaptcha-mess"></div>
+							<div style="color: red" class="login-recaptcha-mess"></div>
 								
 								<button type="submit" class="btn-log" id="login">Login</button>
 								
@@ -309,7 +315,7 @@ body {
 						onclick="document.getElementById('login').style.display='flex'">Start
 						Free Now</button>
 				</c:if>
-				<img src="assets/img/Other/bg-landscape.png" class="d-block w-100"
+				<img src="/MusicWebsite/assets/img/Other/bg-landscape.png" class="d-block w-100"
 					alt="...">
 			</div>
 		</div>

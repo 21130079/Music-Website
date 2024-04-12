@@ -149,7 +149,7 @@ ul {
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
 								<td style="padding-left: 30px"><b><a
 										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
 
 								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>

@@ -43,7 +43,7 @@ td input {
 	padding-right: 40px;
 }
 
-table {
+.confirm-table {
 	width: 100%;
 	border-collapse: separate;
 	border-spacing: 30px;
@@ -334,7 +334,7 @@ table {
 					<h3 style="color: white;">File Image</h3>
 					<div>
 						<div class="mb-4 d-flex justify-content-center">
-							<img id="selectedImage" src="/MusicWebsite/${song.url_Img}"
+							<img id="selectedImage" src="${song.url_Img}"
 								alt="example placeholder" style="width: 300px;" />
 						</div>
 						<div class="d-flex justify-content-center">
