@@ -73,10 +73,12 @@ body {
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-								<td style="padding-left: 30px"><b><a
-										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
 
+								<c:if test="${fn:contains(sessionScope.account.roles, 'admin')}">
+									<td style="padding-left: 30px"><b><a
+											class="nav-link ${param.activeRanking}"
+											href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+								</c:if>
 								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
 								<td style="padding-left: 30px"><b><a class="nav-link"
@@ -93,7 +95,7 @@ body {
 		<div class="search-box">
 			<form action="/MusicWebsite/SearchController" method="get"
 				style="margin-left: -169px;">
-				<button type="submit" class="btn-search">
+				<button type="submit" class="btn-search" disabled="disabled">
 					<i class="bi bi-search" style="font-size: 22px"></i>
 				</button>
 				<input type="text" class="input-search" oninput="searchByName(this)"
@@ -148,6 +150,7 @@ body {
 											for="">New password</label>
 									</div>
 									<div style="color: red; margin-top: ${formatPass};">${messageNewPass}</div>
+									<div id="captcha" style="color: red;"></div>
 									<button type="submit" class="btn-log">Confirm</button>
 								</form>
 							</div>
@@ -197,7 +200,14 @@ body {
 										for="">Password</label>
 								</div>
 								<div style="color: red">${message}</div>
-								<button type="submit" class="btn-log">Sign Up</button>
+								
+								<div class="g-recaptcha"
+									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+								<br>
+								
+								<div style="color: red" class="signup-recaptcha-mess"></div>
+								
+								<button type="submit" class="btn-log" id="sign-up">Sign Up</button>
 								<div class="sign-link">
 									<p>
 										Already have an account? <a href="#" class="signIn-link">Sign
@@ -223,7 +233,6 @@ body {
 												d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
 										</svg>
 									</a>
-									</p>
 								</div>
 							</form>
 						</div>
@@ -247,7 +256,15 @@ body {
 										Password?</a>
 								</div>
 								<div style="color: red">${errorAccount}</div>
-								<button type="submit" class="btn-log">Login</button>
+
+								<div class="g-recaptcha"
+									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+								<br>
+								
+								<div style="color: red" class="login-recaptcha-mess"></div>
+								
+								<button type="submit" class="btn-log" id="login">Login</button>
+								
 								<div class="sign-link">
 									<p>
 										Don't have an account? <a href="#" class="signUp-link">Sign
@@ -273,7 +290,6 @@ body {
 												d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
 										</svg>
 									</a>
-									</p>
 								</div>
 							</form>
 						</div>
@@ -317,7 +333,7 @@ body {
 						<c:set var="idAuTag" value="au${listItems[i].getId_Song() }"></c:set>
 						<c:set var="idITag" value="bi${listItems[i].getId_Song() }"></c:set>
 						<c:set var="nameSong" value="${listItems[i].name_Song }"></c:set>
-
+						<c:set var="viewSong" value="${listItems[i].getSongViewUpdate()}"></c:set>
 						<c:set var="nameSinger"
 							value="${listItems[i].singer.name_Singer }"></c:set>
 						<c:choose>
@@ -335,8 +351,10 @@ body {
 										</div>
 										<div class="song-singer inner-td">
 											<b>${nameSong}</b> <br> <a href="" class="singer">${nameSinger}
-											</a>
+											</a> <br><div  id="V${idSong}">${viewSong}</div>
+
 										</div>
+
 										<div class="inner-td">
 											<button class="btn btn-inner-td">
 												<i class="bi bi-share" style="color: white; font-size: 13px"></i>
@@ -364,7 +382,10 @@ body {
 										</div>
 										<div class="song-singer inner-td">
 											<b>${nameSong} </b> <br> <a href="" class="singer">${nameSinger}
-											</a>
+											</a> <br>
+											<div  id="V${idSong}">${viewSong}</div>
+
+
 										</div>
 										<div class="inner-td">
 											<button class="btn btn-inner-td">
@@ -434,6 +455,7 @@ body {
 											<h6 class="title-trending">
 												<b>${trending.singer.name_Singer}</b>
 											</h6>
+											<h6 class="title-trending"><div id="V${idSong}">${trending.getSongViewUpdate()}</div></h6>
 										</div>
 									</div>
 
@@ -473,7 +495,10 @@ body {
 									</h5>
 									<h6 class="title-trending">
 										<b>${listRank[i].singer.name_Singer}</b>
+										
+										
 									</h6>
+									<h6 class="title-trending"><div id="V${idSong}">${listRank[i].getSongViewUpdate()}</div></h6>
 								</div>
 							</div>
 
@@ -483,10 +508,13 @@ body {
 			</div>
 		</div>
 	</div>
+	  
 	<!--Fix Footer-->
 	<jsp:include page="/views/components/footer.jsp"></jsp:include>
 	<script src="/MusicWebsite/assets/js/login.js"></script>
 	<script src="/MusicWebsite/assets/js/main.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
+
 
 </html>

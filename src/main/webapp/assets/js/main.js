@@ -28,7 +28,7 @@ window.onscroll = () => {
 }
 
 function playMusic(id, nameSong, nameSinger, srcImg) {
-
+console.log("hi4");
 	var btn = document.getElementById(id);
 	var footer = document.getElementById("footer");
 	var iTag = btn.querySelector('.bi' + id);
@@ -54,6 +54,7 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 	}
 
 	if (id == null || !isPlaying) {
+		console.log("Hi3");
 		iTag.classList.remove('bi-play-circle');
 		iTag.classList.add('bi-pause-circle');
 		iTagPauseFooter.classList.remove('bi-play-circle');
@@ -68,7 +69,7 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 		isPlaying = true;
 		idPlaying = id;
 
-		if (playedArrayTest.indexOf(id) === -1) {
+		if (playedArrayTest.indexOf(id) == -1) {
 			playedArrayTest.push(id);
 			$.ajax({
 				url: "/MusicWebsite/CountViewController",
@@ -78,19 +79,16 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 				},
 				success: function(reponse) {
 					console.log("Lượt view đã được cập nhật");
+					console.log(id);
+					$('#V'+id).html(reponse);
 				},
 				error: function(xhr, status, error) {
 					// Xử lý lỗi (nếu có)
-					
+
 				}
 			});
-			if (playedArrayTest.length > 1) {
-				playedArrayTest.splice(playedArrayTest.length - 2, 1);
-			}
-		} else {
-			return;
-		}
-
+			
+		} 
 
 	} else {
 		if (idPlaying == id) {
@@ -105,9 +103,9 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 			btnPauseFooter.value = srcImg;
 			auTag.pause();
 			isPlaying = false;
-
+		console.log("Hi");
 		} else {
-
+			console.log("hi2");
 			var btnPlaying = document.getElementById(idPlaying);
 			var auTagPlaying = btnPlaying.querySelector('.au' + idPlaying);
 			var iTagPlaying = btnPlaying.querySelector('.bi' + idPlaying);
@@ -138,6 +136,9 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 				},
 				success: function(reponse) {
 					console.log("Lượt view đã được cập nhật");
+					$('#V'+id).html(reponse);
+					console.log(id);
+
 				},
 				error: function(xhr, status, error) {
 					// Xử lý lỗi (nếu có)

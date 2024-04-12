@@ -198,6 +198,23 @@ public class DAOSong extends AbsDao<Song>{
 		return 0;
 	}
 
+	public long getViewSongByID(String idSong) {
+		long viewSong = 0;
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select songview from songs where id_song=?");
+			stmt.setString(1, idSong);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				int songview = rs.getInt("songview");
+				viewSong = songview;
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return viewSong;
+		
+	}
 	public ArrayList<Song> getRanking() {
 		ArrayList<Song> result = new ArrayList<Song>();
 		try {

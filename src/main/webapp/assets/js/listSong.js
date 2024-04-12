@@ -69,7 +69,7 @@ function playMusic(id) {
 					}
 				});
 				if (playedArrayTest2.length > 1) {
-					playedArrayTest2.splice(playedArrayTest.length - 2, 1);
+					playedArrayTest2.splice(playedArrayTest2.length - 2, 1);
 				}
 			} else {
 				return;

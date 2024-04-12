@@ -40,6 +40,31 @@
 	color: black;
 	background-color: white;
 }
+.log_admin {
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+	text-decoration: none;
+}
+.log_admin:hover{
+color: black;
+}
+
+.song_admin:hover {
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+}
+.song_admin{
+	color: white;
+	margin-left: 100px;
+}
 </style>
 </head>
 <body>
@@ -79,7 +104,7 @@
 		<div class="search-box">
 			<form action="/MusicWebsite/SearchController" method="get"
 				style="margin-left: -169px;">
-				<button type="submit" class="btn-search">
+				<button type="submit" class="btn-search" disabled="disabled">
 					<i class="bi bi-search" style="font-size: 22px"></i>
 				</button>
 				<input type="text" class="input-search" oninput="searchByName(this)"
@@ -134,6 +159,7 @@
 											for="">New password</label>
 									</div>
 									<div style="color: red; margin-top: ${formatPass};">${messageNewPass}</div>
+									<div id="captcha" style="color: red;"></div>
 									<button type="submit" class="btn-log">Confirm</button>
 								</form>
 							</div>
@@ -183,7 +209,14 @@
 										for="">Password</label>
 								</div>
 								<div style="color: red">${message}</div>
-								<button type="submit" class="btn-log">Sign Up</button>
+								
+								<div class="g-recaptcha"
+									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+								<br>
+								
+								<div style="color: red" class="signup-recaptcha-mess"></div>
+								
+								<button type="submit" class="btn-log" id="sign-up">Sign Up</button>
 								<div class="sign-link">
 									<p>
 										Already have an account? <a href="#" class="signIn-link">Sign
@@ -209,7 +242,6 @@
 												d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
 										</svg>
 									</a>
-									</p>
 								</div>
 							</form>
 						</div>
@@ -233,7 +265,15 @@
 										Password?</a>
 								</div>
 								<div style="color: red">${errorAccount}</div>
-								<button type="submit" class="btn-log">Login</button>
+
+								<div class="g-recaptcha"
+									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+								<br>
+								
+								<div style="color: red" class="login-recaptcha-mess"></div>
+								
+								<button type="submit" class="btn-log" id="login">Login</button>
+								
 								<div class="sign-link">
 									<p>
 										Don't have an account? <a href="#" class="signUp-link">Sign
@@ -259,7 +299,6 @@
 												d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
 										</svg>
 									</a>
-									</p>
 								</div>
 							</form>
 						</div>
@@ -275,10 +314,11 @@
 				<b>Admin</b>
 			</h1>
 			<h2>
-				<a
-					style="text-decoration:none; color: black; border: 1px solid black; background-color: white; margin-left: 40px; padding: 3px 60px 3px 60px; border-radius: 20px 20px 20px 20px;"
-					href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
-			</h2>
+					<a class="log_admin" style="text-decoration: none;" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+				</h2>
+				<h2>
+					<a class="song_admin" style="text-decoration: none;" href="/MusicWebsite/views/admin/admin.jsp">Song</a>
+				</h2>
 		</div>
 
 		<button style="color: black; float: right;" onclick="getSelectedIds()">Delete
@@ -346,11 +386,7 @@
 			type : "get",
 			dataType : "json",
 			success : function(data) {
-				var students = data.data;
-				for (var i = 0; i < students.length; i++) {
-					var student = students[i];
-					console.log("ID: " + data.id_log);
-				}
+			
 				$("#data").dataTable({
 					data : data.data,
 

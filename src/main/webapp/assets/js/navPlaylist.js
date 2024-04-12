@@ -16,6 +16,7 @@ var isShuffle = false;
 var auTagPlaying = null;
 var idPlaying = null;
 var played = [];
+var playedArrayTest = [];
 
 if (played.length <= 1) {
 	btnSkipBefore.disabled = true;
@@ -38,6 +39,7 @@ window.onscroll = () => {
 }
 
 function playMusic(id, nameSong, nameSinger, srcImg) {
+	console.log(id);
 	var btn = document.getElementById(id);
 	var footer = document.getElementById("footer");
 	var iTag = btn.querySelector('.bi' + id);
@@ -83,6 +85,26 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 		this.auTagPlaying.volume = currentValue / 100;
 		isPlaying = true;
 		idPlaying = id;
+		if (playedArrayTest.indexOf(id) === -1) {
+			playedArrayTest.push(id);
+			$.ajax({
+				url: "/MusicWebsite/CountViewController",
+				type: "get",
+				data: {
+					idSong: id
+				},
+				success: function(reponse) {
+					console.log("Lượt view đã được cập nhật");
+					console.log(id);
+					$('#V'+id).html(reponse);
+				},
+				error: function(xhr, status, error) {
+					// Xử lý lỗi (nếu có)
+
+				}
+			});
+			
+		} 
 	} else {
 		if (idPlaying == id) {
 			iTag.classList.remove('bi-pause-circle');
@@ -118,6 +140,23 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 			isPlaying = true;
 			idPlaying = id;
 			auTag.currentTime = 0;
+			$.ajax({
+				url: "/MusicWebsite/CountViewController",
+				type: "get",
+				data: {
+					idSong: id
+				},
+				success: function(reponse) {
+					console.log("Lượt view đã được cập nhật");
+					$('#V'+id).html(reponse);
+					console.log(id);
+
+				},
+				error: function(xhr, status, error) {
+					// Xử lý lỗi (nếu có)
+					console.error("Lỗi: " + error);
+				}
+			});
 		}
 	}
 	
