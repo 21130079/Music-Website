@@ -354,7 +354,7 @@ td input {
 					<div>
 
 						<audio id="selectedAudio" controls>
-							<source src="/MusicWebsite/${song.url_Audio}" type="audio/ogg">
+							<source src="${song.url_Audio}" type="audio/ogg">
 						</audio>
 						
 

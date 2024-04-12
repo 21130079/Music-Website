@@ -1,5 +1,4 @@
-
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="database.*"%>
 <%@ page import="Model.*"%>
@@ -14,8 +13,19 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/x-icon"
 	href="/MusicWebsite/assets/img/Other/logoPage.png">
+<title>KD Music</title>
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/MusicWebsite/assets/css/style.css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -51,6 +61,16 @@
 	width: 35px;
 	height: 35px;
 	margin: 30px;
+}
+
+.nav-link {
+	margin: 5px 5px;
+	font-size: 18px;
+	color: rgb(180, 180, 180);
+}
+
+.nav-link:hover {
+	color: rgb(140, 140, 140);
 }
 </style>
 </head>

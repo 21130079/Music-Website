@@ -1,4 +1,3 @@
-
 <%@page import="java.util.ArrayList"%>
 <%@ page import="database.*"%>
 <%@ page import="Model.*"%>
@@ -14,14 +13,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/x-icon"
-	href="./assets/img/Other/logoPage.png">
+	href="/MusicWebsite/assets/img/Other/logoPage.png">
 <title>KD Music</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="./assets/css/style.css" />
+<link rel="stylesheet" href="/MusicWebsite/assets/css/style.css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -73,6 +72,7 @@ body {
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
+
 								<c:choose>
 								<c:when test="${fn:contains(sessionScope.account.roles, 'admin')}">
 									<td style="padding-left: 30px"><b><a
@@ -87,10 +87,12 @@ body {
 								</c:choose>
 								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
+								<td style="padding-left: 10px"><b><a class="nav-link"
+										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
 							</tr>
 						</table>
 					</div>
@@ -206,14 +208,11 @@ body {
 										for="">Password</label>
 								</div>
 								<div style="color: red">${message}</div>
-								
-								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
-								<br>
-								
+
 								<div style="color: red" class="signup-recaptcha-mess"></div>
-								
-								<button type="submit" class="btn-log" id="sign-up">Sign Up</button>
+
+								<button type="submit" class="btn-log" id="sign-up">Sign
+									Up</button>
 								<div class="sign-link">
 									<p>
 										Already have an account? <a href="#" class="signIn-link">Sign
@@ -264,13 +263,19 @@ body {
 								<div style="color: red">${errorAccount}</div>
 
 								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
+<<<<<<< HEAD
 								
 							<div style="color: red" class="login-recaptcha-mess"></div>
 								
+=======
+
+								<div style="color: red" class="login-recaptcha-mess"></div>
+
+>>>>>>> main
 								<button type="submit" class="btn-log" id="login">Login</button>
-								
+
 								<div class="sign-link">
 									<p>
 										Don't have an account? <a href="#" class="signUp-link">Sign
@@ -357,7 +362,8 @@ body {
 										</div>
 										<div class="song-singer inner-td">
 											<b>${nameSong}</b> <br> <a href="" class="singer">${nameSinger}
-											</a> <br><div  id="V${idSong}">${viewSong}</div>
+											</a> <br>
+											<div id="V${idSong}">${viewSong}</div>
 
 										</div>
 
@@ -389,7 +395,7 @@ body {
 										<div class="song-singer inner-td">
 											<b>${nameSong} </b> <br> <a href="" class="singer">${nameSinger}
 											</a> <br>
-											<div  id="V${idSong}">${viewSong}</div>
+											<div id="V${idSong}">${viewSong}</div>
 
 
 										</div>
@@ -437,21 +443,9 @@ body {
 											<img src="${trending.url_Img}" class="card-img-top"
 												alt="${trending.name_Song}">
 											<div class="icon-in-img">
-
-												<!-- 		<button style="background-color: transparent; border: none;" >
-											<i style="font-size: 25px; position: absolute; left: -55%;"
-												class="bi bi-heart"></i>
-										</button> -->
 												<a class="inner-icon-in-img"
 													href="ListSongController?typelist=Ranking&id=${trending.id_Song}"><i
 													style="font-size: 50px" class="bi-play-circle"></i></a>
-
-												<!-- <button style="background-color: transparent; border: none;">
-											<i style="font-size: 27px; position: absolute; left: 87px;"
-												class="bi bi-link-45deg"></i>
-										</button> -->
-
-
 											</div>
 										</div>
 										<div>
@@ -461,7 +455,9 @@ body {
 											<h6 class="title-trending">
 												<b>${trending.singer.name_Singer}</b>
 											</h6>
-											<h6 class="title-trending"><div id="V${idSong}">${trending.getSongViewUpdate()}</div></h6>
+											<h6 class="title-trending">
+												<div id="V${idSong}">${trending.getSongViewUpdate()}</div>
+											</h6>
 										</div>
 									</div>
 
@@ -501,10 +497,12 @@ body {
 									</h5>
 									<h6 class="title-trending">
 										<b>${listRank[i].singer.name_Singer}</b>
-										
-										
+
+
 									</h6>
-									<h6 class="title-trending"><div id="V${idSong}">${listRank[i].getSongViewUpdate()}</div></h6>
+									<h6 class="title-trending">
+										<div id="V${idSong}">${listRank[i].getSongViewUpdate()}</div>
+									</h6>
 								</div>
 							</div>
 
@@ -514,12 +512,23 @@ body {
 			</div>
 		</div>
 	</div>
-	  
+
 	<!--Fix Footer-->
 	<jsp:include page="/views/components/footer.jsp"></jsp:include>
 	<script src="/MusicWebsite/assets/js/login.js"></script>
 	<script src="/MusicWebsite/assets/js/main.js"></script>
-	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+<!-- 	<script type="text/javascript"> -->
+// 		formLogin.addEventListener('submit', (e) => {
+// 			captchaResponse = grecaptcha.getResponse();
+// 			console.log(captchaResponse)
+			
+// 			if (!captchaResponse.length > 0) {
+// 				document.querySelector('.login-recaptcha-mess').innerHTML = "Please verify that you are not a robot.";
+// 				e.preventDefault();
+// 			}
+// 		});
+<!-- 	</script> -->
 </body>
 
 

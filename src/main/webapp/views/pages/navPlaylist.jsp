@@ -322,7 +322,7 @@
 							style="width: 66px; padding: 15px 0px;" alt="" />
 						<button type="button" class="btn btn-music" id="${song.id_Song}"
 							onclick="playMusic(this.id, '${song.name_Song}', '${song.singer.name_Singer}', '${song.url_Img}')">
-							<audio src="/MusicWebsite/${song.url_Audio}" class="au${song.id_Song}"></audio>
+							<audio src="${song.url_Audio}" class="au${song.id_Song}"></audio>
 							<i class="bi${song.id_Song} bi-play-circle"></i>
 						</button>
 					</div>
@@ -344,7 +344,7 @@
 						<button type="button" onclick="reload()">
 							Delete <i class="bi bi-x-square-fill"></i>
 						</button>
-					</a> <a href="/MusicWebsite/${song.url_Audio}" download="${song.name_Song}.mp3">
+					</a> <a href="${song.url_Audio}" download="${song.name_Song}.mp3">
 						<button type="button">
 							Download <i class="bi bi-box-arrow-down"></i>
 						</button>

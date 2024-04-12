@@ -12,13 +12,13 @@ import java.io.IOException;
 /**
  * Servlet implementation class upgradeSelectorController
  */
-public class upgradeSelectorController extends HttpServlet {
+public class UpgradeSelectorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public upgradeSelectorController() {
+	public UpgradeSelectorController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,15 +35,15 @@ public class upgradeSelectorController extends HttpServlet {
 		if (type.equals("mini")) {
 			request.setAttribute("title", "Mini");
 			request.setAttribute("color", "#CFF56A");
-			request.setAttribute("optionText1", "1 day");
-			request.setAttribute("optionText2", "1 Week");
+			request.setAttribute("optionText1", "1 Week");
+			request.setAttribute("optionText2", "1 Month");
 
-			request.setAttribute("optionPrice1", "2000");
-			request.setAttribute("optionPrice2", "8000");
+			request.setAttribute("optionPrice1", "20000");
+			request.setAttribute("optionPrice2", "70000");
 		} else if (type.equals("individual")) {
 			request.setAttribute("color", "#FFD2D7");
 			request.setAttribute("title", "Individual");
-			request.setAttribute("optionText1", "2 months");
+			request.setAttribute("optionText1", "1 months");
 			request.setAttribute("optionText2", "6 months");
 
 			request.setAttribute("optionPrice1", "55000");
@@ -51,7 +51,7 @@ public class upgradeSelectorController extends HttpServlet {
 		} else if (type.equals("student")) {
 			request.setAttribute("color", "#C4B1D4");
 			request.setAttribute("title", "Student");
-			request.setAttribute("optionText1", "2 months");
+			request.setAttribute("optionText1", "1 months");
 			request.setAttribute("optionText2", "6 months");
 
 			request.setAttribute("optionPrice1", "45000");

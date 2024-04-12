@@ -54,8 +54,8 @@ public class AdminAuthenFilter extends HttpFilter implements Filter {
 			 req.getServletContext().getRequestDispatcher("/index.jsp").forward(req, res);
 				return;
 			
-		} else
 
+		} else
 		if (!account.hasRole("admin")) {
 			res.sendRedirect("/MusicWebsite/views/errors/403-error.jsp");
 			return;

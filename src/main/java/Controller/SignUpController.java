@@ -52,6 +52,9 @@ public class SignUpController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
+		username = username.trim();
+		password = password.trim();
+		email = email.trim();
 		String errorSignUp = "";
 		Account account = null;
 		DAOAccount daoAccount = new DAOAccount();
@@ -88,15 +91,13 @@ public class SignUpController extends HttpServlet {
 		}
 
 		if (account == null) {
-
-		
 			request.setAttribute("message", errorSignUp);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		} else {
-			
+			String errorAccount = "Registration successful, please log in !";
 			HttpSession session = request.getSession();
-			session.setAttribute("account", account);
+			session.setAttribute("errorAccount", errorAccount);
 			response.sendRedirect("index.jsp");
 		}
 	}

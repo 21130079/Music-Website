@@ -123,7 +123,7 @@ public class DAOSong extends AbsDao<Song>{
 		ArrayList<Song> result = new ArrayList<Song>();
 		try {
 			PreparedStatement stmt = connection
-					.prepareStatement("select * from songs " + "where songs.name_song like ?");
+					.prepareStatement("select * from songs " + "where songs.name_song COLLATE SQL_Latin1_General_CP1253_CI_AI like ?");
 
 			stmt.setString(1, "%" + t + "%");
 
