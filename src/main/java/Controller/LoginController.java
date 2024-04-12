@@ -54,6 +54,8 @@ public class LoginController extends HttpServlet {
 		boolean checkFAccount = false;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		username = username.trim();
+		password = password.trim();
 		DAOAccount daoAccount = new DAOAccount();
 		// ip address
 		String ipAddress = request.getRemoteAddr();

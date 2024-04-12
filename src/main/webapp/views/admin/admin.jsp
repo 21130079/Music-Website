@@ -59,6 +59,7 @@ body {
 	padding-right: 100px;
 	font-size: 20px;
 }
+
 .log_admin {
 	color: white;
 	margin-left: 100px;
@@ -72,7 +73,8 @@ body {
 	padding: 3px 60px 3px 60px;
 	border-radius: 20px 20px 20px 20px;
 }
-.song_admin{
+
+.song_admin {
 	color: black;
 	border: 1px solid black;
 	background-color: white;
@@ -80,7 +82,6 @@ body {
 	padding: 3px 60px 3px 60px;
 	border-radius: 20px 20px 20px 20px;
 }
-
 </style>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
@@ -238,14 +239,15 @@ body {
 										for="">Password</label>
 								</div>
 								<div style="color: red">${message}</div>
-								
+
 								<div class="g-recaptcha"
 									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
 								<br>
-								
+
 								<div style="color: red" class="signup-recaptcha-mess"></div>
-								
-								<button type="submit" class="btn-log" id="sign-up">Sign Up</button>
+
+								<button type="submit" class="btn-log" id="sign-up">Sign
+									Up</button>
 								<div class="sign-link">
 									<p>
 										Already have an account? <a href="#" class="signIn-link">Sign
@@ -298,11 +300,11 @@ body {
 								<div class="g-recaptcha"
 									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
 								<br>
-								
+
 								<div style="color: red" class="login-recaptcha-mess"></div>
-								
+
 								<button type="submit" class="btn-log" id="login">Login</button>
-								
+
 								<div class="sign-link">
 									<p>
 										Don't have an account? <a href="#" class="signUp-link">Sign
@@ -368,8 +370,7 @@ body {
 						<div class="item trending-box">
 							<div class="card background-music">
 								<div class="img-form">
-									<img src="/MusicWebsite/${song.url_Img}" class="card-img-top"
-										alt="...">
+									<img src="${song.url_Img}" class="card-img-top" alt="...">
 
 								</div>
 								<div>

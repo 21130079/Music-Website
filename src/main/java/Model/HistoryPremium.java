@@ -4,27 +4,14 @@ import java.sql.Date;
 
 public class HistoryPremium {
 	private Account account;
-	private String typePrenium;
+	private int typePrenium;
 	private Date startedDate;
 	private Date finishedDate;
 	public HistoryPremium(Account account, int typePrenium, Date startedDate, Date finishedDate) {
 		super();
 		this.account = account;
-		switch (typePrenium) {
-		case 1: {
-			this.typePrenium ="Mini";
-			break;
-		}
-		case 2:{
-			this.typePrenium ="Individual";
-			break;
-		}case 3:{
-			this.typePrenium ="Student";
-			break;
-		}
-		default:
-			this.typePrenium = null;
-		}
+		this.typePrenium =typePrenium;
+	
 		this.startedDate = startedDate;
 		this.finishedDate = finishedDate;
 	}
@@ -56,10 +43,10 @@ public class HistoryPremium {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
-	public String getTypePrenium() {
+	public int getTypePrenium() {
 		return typePrenium;
 	}
-	public void setTypePrenium(String typePrenium) {
+	public void setTypePrenium(int typePrenium) {
 		this.typePrenium = typePrenium;
 	}
 	public Date getStartedDate() {

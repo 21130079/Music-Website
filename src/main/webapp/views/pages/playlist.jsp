@@ -348,7 +348,7 @@ body {
 										value="${playlist.id_Playlist}">
 									<button class="img-form" type="submit"
 										style="width: 260px; height: 260px; background-color: #171717; border: none;">
-										<img src="/MusicWebsite/${playlist.url_Img}" class="card-img-top" alt="...">
+										<img src="${playlist.url_Img}" class="card-img-top" alt="...">
 										<c:if test="${fn:length(playlist.listSong)!=0}">
 											<div class="icon-in-img">
 												<i style="font-size: 50px" class="bi-play-circle"></i>

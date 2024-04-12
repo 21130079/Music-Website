@@ -52,6 +52,9 @@ public class SignUpController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
+		username = username.trim();
+		password = password.trim();
+		email = email.trim();
 		String errorSignUp = "";
 		Account account = null;
 		DAOAccount daoAccount = new DAOAccount();

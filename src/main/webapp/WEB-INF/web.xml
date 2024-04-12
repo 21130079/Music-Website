@@ -227,6 +227,10 @@
     <filter-name>UserAuthenFilter</filter-name>
     <url-pattern>/AddPlaylistController</url-pattern>
   </filter-mapping>
+  <filter-mapping>
+    <filter-name>UserAuthenFilter</filter-name>
+    <url-pattern>/views/pages/upgradePre.jsp</url-pattern>
+  </filter-mapping>
   <error-page>
     <error-code>404</error-code>
     <location>/views/errors/404-error.jsp</location>
@@ -403,13 +407,13 @@
     <url-pattern>/LogAPI</url-pattern>
   </servlet-mapping>
   <servlet>
-    <display-name>upgradeSelectorController</display-name>
-    <servlet-name>upgradeSelectorController</servlet-name>
-    <servlet-class>Controller.user.upgradeSelectorController</servlet-class>
+    <display-name>UpgradeSelectorController</display-name>
+    <servlet-name>UpgradeSelectorController</servlet-name>
+    <servlet-class>Controller.user.UpgradeSelectorController</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>upgradeSelectorController</servlet-name>
-    <url-pattern>/upgradeSelectorController</url-pattern>
+    <servlet-name>UpgradeSelectorController</servlet-name>
+    <url-pattern>/UpgradeSelectorController</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

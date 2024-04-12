@@ -1,3 +1,8 @@
+<%@page import="Model.HistoryPremium"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.Date"%>
+<%@page import="Model.Account"%>
+<%@page import="database.DAOHistoryPremium"%>
 <%@page import="Controller.vnpay.Config"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.nio.charset.StandardCharsets"%>
@@ -116,6 +121,39 @@ a:hover {
  if (signValue.equals(vnp_SecureHash)) {
  	if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
  		out.print("Thành công");
+ 		Account acc = (Account) session.getAttribute("account");
+ 		
+ 		int typePre = 0;
+ 		
+ 		switch ((String) request.getParameter("vnp_Amount").substring(0, 3)) {
+ 			case "200": {
+ 				typePre = 1;
+ 				break;
+ 			}
+ 			case "700": {
+ 				typePre = 2;
+ 				break;
+ 			}
+ 			case "550": {
+ 				typePre = 3;
+ 				break;
+ 			}
+ 			case "255": {
+ 				typePre = 4;
+ 				break;
+ 			}
+ 			case "450": {
+ 				typePre = 5;
+ 				break;
+ 			}
+ 			case "225": {
+ 				typePre = 6;
+ 				break;
+ 			}
+ 		}
+ 		
+ 		HistoryPremium hist = new HistoryPremium(acc, typePre, null, null);
+ 		new DAOHistoryPremium().insert(hist);
  	} else {
  		out.print("Không thành công");
  	}

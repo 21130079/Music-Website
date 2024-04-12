@@ -1,4 +1,3 @@
-
 <%@page import="java.util.ArrayList"%>
 <%@ page import="database.*"%>
 <%@ page import="Model.*"%>
@@ -14,14 +13,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/x-icon"
-	href="./assets/img/Other/logoPage.png">
+	href="/MusicWebsite/assets/img/Other/logoPage.png">
 <title>KD Music</title>
 
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" href="./assets/css/style.css" />
+<link rel="stylesheet" href="/MusicWebsite/assets/css/style.css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -308,7 +307,7 @@ body {
 						onclick="document.getElementById('login').style.display='flex'">Start
 						Free Now</button>
 				</c:if>
-				<img src="assets/img/Other/bg-landscape.png" class="d-block w-100"
+				<img src="/MusicWebsite/assets/img/Other/bg-landscape.png" class="d-block w-100"
 					alt="...">
 			</div>
 		</div>
