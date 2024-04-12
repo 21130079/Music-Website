@@ -20,7 +20,7 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 																+ "values(?,?,?)");
 			
 		stmt.setString(1, t.getAccount().getUsername());
-		stmt.setString(2, t.getTypePrenium());
+		stmt.setInt(2, t.getTypePrenium());
 		
 		java.util.Date utilDate = new java.util.Date();
 		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -29,10 +29,10 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 		return 1;
 		
 		}catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 		}
 	
-		
+		System.out.println(t.getAccount().getUsername());
 		return 0;
 	}
 
@@ -86,8 +86,4 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	public static void main(String[] args) {
-		System.out.println(new DAOHistoryPremium().checkPremium(new Account("user1", null, null, null, null, null)));
-	}
-	
 }

@@ -296,7 +296,7 @@ body{
 						<div class="item trending-box">
 							<div class="card background-music">
 								<div class="img-form">
-									<img src="/MusicWebsite/${song.url_Img}" class="card-img-top"
+									<img src="${song.url_Img}" class="card-img-top"
 										alt="...">
 									<div class="icon-in-img">
 

@@ -374,7 +374,7 @@ p {
 					class="bi volume bi-volume-up" onclick="muteVolume()"></i>
 
 				<div class="nav-Music-play">
-					<img src="/MusicWebsite/${song.url_Img}" class="img-play" alt="..."> <br>
+					<img src="${song.url_Img}" class="img-play" alt="..."> <br>
 					<br>
 					<h3 class="decrip-Music-play ">${song.name_Song}</h3>
 					<h5 class="decrip-Music-play">${song.singer.name_Singer}</h5>
@@ -445,7 +445,7 @@ p {
 								<button
 									style="margin-left: -50px; background-color: transparent; border: none"
 									onclick="playMusic('${idSong}')">
-									<audio src="/MusicWebsite/${listSong[i].url_Audio}" class="${idAuTag}"></audio>
+									<audio src="${listSong[i].url_Audio}" class="${idAuTag}"></audio>
 									<i class="${idITag} bi bi-play-circle"></i>
 								</button>
 							</div>

@@ -334,7 +334,7 @@ table {
 					<h3 style="color: white;">File Image</h3>
 					<div>
 						<div class="mb-4 d-flex justify-content-center">
-							<img id="selectedImage" src="/MusicWebsite/${song.url_Img}"
+							<img id="selectedImage" src="${song.url_Img}"
 								alt="example placeholder" style="width: 300px;" />
 						</div>
 						<div class="d-flex justify-content-center">
@@ -354,7 +354,7 @@ table {
 					<div>
 
 						<audio id="selectedAudio" controls>
-							<source src="/MusicWebsite/${song.url_Audio}" type="audio/ogg">
+							<source src="${song.url_Audio}" type="audio/ogg">
 						</audio>
 						
 

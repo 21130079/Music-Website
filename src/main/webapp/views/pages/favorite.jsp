@@ -313,11 +313,11 @@
 						class="bi bi-music-note-beamed"></i>
 					<div style="position: relative;">
 						<img class="img${song.id_Song} img-song"
-							src="/MusicWebsite/${song.url_Img}"
+							src="${song.url_Img}"
 							style="width: 66px; padding: 15px 0px;" alt="" />
 						<button type="button" class="btn btn-music" id="${song.id_Song}"
 							onclick="playMusic(this.id, '${song.name_Song}', '${song.singer.name_Singer}', '${song.url_Img}')">
-							<audio src="/MusicWebsite/${song.url_Audio}"
+							<audio src="${song.url_Audio}"
 								class="au${song.id_Song}"></audio>
 							<i class="bi${song.id_Song} bi-play-circle"></i>
 						</button>
@@ -340,7 +340,7 @@
 						<button type="button" onclick="reload()">
 							Delete <i class="bi bi-x-square-fill"></i>
 						</button>
-					</a> <a href="/MusicWebsite/${song.url_Audio}"
+					</a> <a href="${song.url_Audio}"
 						download="${song.name_Song}.mp3">
 						<button type="button">
 							Download <i class="bi bi-box-arrow-down"></i>

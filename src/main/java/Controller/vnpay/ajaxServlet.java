@@ -35,8 +35,13 @@ public class ajaxServlet extends HttpServlet {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-        long amount = Integer.parseInt(req.getParameter("amount"))*100;
-        String bankCode = req.getParameter("bankCode");
+        
+        String amountText = req.getParameter("amount");
+        amountText = amountText.substring(0, amountText.length() - 1);
+        
+        long amount = Integer.parseInt(amountText)*100;
+        
+        String bankCode = "";
         
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_IpAddr = Config.getIpAddress(req);
@@ -57,7 +62,7 @@ public class ajaxServlet extends HttpServlet {
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
         vnp_Params.put("vnp_OrderType", orderType);
 
-        String locate = req.getParameter("language");
+        String locate = "en";
         if (locate != null && !locate.isEmpty()) {
             vnp_Params.put("vnp_Locale", locate);
         } else {
@@ -109,5 +114,4 @@ public class ajaxServlet extends HttpServlet {
         Gson gson = new Gson();
         resp.getWriter().write(gson.toJson(job));
     }
-
 }
