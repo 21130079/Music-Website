@@ -374,7 +374,6 @@ ul {
 						</div>
 						<h2>Mini</h2>
 						<p>2.000₫ cho 1 ngày</p>
-						<br>
 						<hr>
 					</div>
 					<ul class="option_content">

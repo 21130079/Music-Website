@@ -49,8 +49,10 @@ public class AdminAuthenFilter extends HttpFilter implements Filter {
 		Account account = (Account) session.getAttribute("account");
 
 		if (account == null) {
-			res.sendRedirect("/MusicWebsite/views/errors/403-error.jsp");
-			return;
+			String errorAccount = "*Please log in to your account to continue";
+			req.setAttribute("errorAccount", errorAccount);
+			 req.getServletContext().getRequestDispatcher("/index.jsp").forward(req, res);
+				return;
 			
 		} else
 
