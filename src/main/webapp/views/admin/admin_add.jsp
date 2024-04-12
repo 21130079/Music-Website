@@ -1,6 +1,7 @@
 
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,14 +26,14 @@ h1 {
 	justify-content: center;
 }
 
-td[colspan="3"] input {
+.confirm-table td[colspan="3"] input {
 	width: 500px;
 	height: 50px;
 	font-size: 30px;
 	border-radius: 8px;
 }
 
-td[colspan="2"] input {
+.confirm-table td[colspan="2"] input {
 	width: 305px;
 	height: 50px;
 	font-size: 30px;
@@ -46,7 +47,7 @@ td[colspan="2"] input {
 	padding-right: 40px;
 }
 
-table {
+.confirm-table {
 	width: 100%;
 	border-collapse: separate;
 	border-spacing: 30px;
@@ -64,7 +65,6 @@ table {
 	border-radius: 50px;
 }
 </style>
-<body>
 	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
@@ -304,6 +304,7 @@ table {
 			</c:if>
 		</div>
 	</header>
+<body>
 <br>
 	
 	<h1 style="color: white;">Add New Song</h1>

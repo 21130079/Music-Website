@@ -73,12 +73,19 @@ body {
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
 
-								<c:if test="${fn:contains(sessionScope.account.roles, 'admin')}">
-									<td style="padding-left: 10px"><b><a
+								<c:choose>
+								<c:when test="${fn:contains(sessionScope.account.roles, 'admin')}">
+									<td style="padding-left: 30px"><b><a
 											class="nav-link ${param.activeRanking}"
 											href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
-								</c:if>
-								<td style="padding-left: 10px"><b><a class="nav-link"
+								</c:when>
+									<c:otherwise>
+									<td style="padding-left: 30px"><b><a
+										class="nav-link ${param.activeRanking}"
+										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
+									</c:otherwise>
+								</c:choose>
+								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
 								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
@@ -258,9 +265,15 @@ body {
 								<div class="g-recaptcha"
 									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
+<<<<<<< HEAD
+								
+							<div style="color: red" class="login-recaptcha-mess"></div>
+								
+=======
 
 								<div style="color: red" class="login-recaptcha-mess"></div>
 
+>>>>>>> main
 								<button type="submit" class="btn-log" id="login">Login</button>
 
 								<div class="sign-link">

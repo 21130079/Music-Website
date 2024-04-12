@@ -149,7 +149,7 @@ ul {
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
 								<td style="padding-left: 30px"><b><a
 										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
 
 								<td style="padding-left: 30px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
@@ -387,8 +387,12 @@ ul {
 							<i class="fa-solid fa-music"></i> Premium
 						</div>
 						<h2>Mini</h2>
+<<<<<<< HEAD
+						<p>2.000₫ cho 1 ngày</p>
+=======
 						<p>20.000₫ cho 1 tuần</p>
 						<br>
+>>>>>>> main
 						<hr>
 					</div>
 					<ul class="option_content">

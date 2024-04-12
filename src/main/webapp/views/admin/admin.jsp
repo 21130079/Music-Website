@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/x-icon"
-	href="./assets/img/Other/logoPage.png">
+	href="MusicWebsite/assets/img/Other/logoPage.png">
 <title>Admin</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -370,7 +370,12 @@ body {
 						<div class="item trending-box">
 							<div class="card background-music">
 								<div class="img-form">
+<<<<<<< HEAD
+									<img src="${song.url_Img}" class="card-img-top"
+										alt="...">
+=======
 									<img src="${song.url_Img}" class="card-img-top" alt="...">
+>>>>>>> main
 
 								</div>
 								<div>

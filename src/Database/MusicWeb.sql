@@ -256,7 +256,10 @@ BEGIN
     END
 
 END;
+<<<<<<< HEAD
+=======
 
+>>>>>>> main
 -- trigger premium
 CREATE TRIGGER update_start_and_finish_date_on_insert
 ON history_premium_accounts
