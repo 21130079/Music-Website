@@ -114,15 +114,20 @@ body {
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-								<td style="padding-left: 30px"><b><a
-										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
 
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<c:choose>
+									<c:when
+										test="${fn:contains(sessionScope.account.roles, 'admin')}">
+										<td style="padding-left: 10px"><b><a
+												class="nav-link ${param.activeRanking}"
+												href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+									</c:when>
+								</c:choose>
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
 							</tr>
 						</table>
@@ -240,10 +245,6 @@ body {
 								</div>
 								<div style="color: red">${message}</div>
 
-								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
-								<br>
-
 								<div style="color: red" class="signup-recaptcha-mess"></div>
 
 								<button type="submit" class="btn-log" id="sign-up">Sign
@@ -298,11 +299,12 @@ body {
 								<div style="color: red">${errorAccount}</div>
 
 								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
 
 								<div style="color: red" class="login-recaptcha-mess"></div>
 
+								<div style="color: red" class="login-recaptcha-mess"></div>
 								<button type="submit" class="btn-log" id="login">Login</button>
 
 								<div class="sign-link">
@@ -370,12 +372,7 @@ body {
 						<div class="item trending-box">
 							<div class="card background-music">
 								<div class="img-form">
-<<<<<<< HEAD
-									<img src="${song.url_Img}" class="card-img-top"
-										alt="...">
-=======
 									<img src="${song.url_Img}" class="card-img-top" alt="...">
->>>>>>> main
 
 								</div>
 								<div>
@@ -403,4 +400,5 @@ body {
 </body>
 
 <script src="/MusicWebsite/assets/js/login.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

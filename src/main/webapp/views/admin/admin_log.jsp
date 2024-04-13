@@ -40,6 +40,7 @@
 	color: black;
 	background-color: white;
 }
+
 .log_admin {
 	color: black;
 	border: 1px solid black;
@@ -49,8 +50,9 @@
 	border-radius: 20px 20px 20px 20px;
 	text-decoration: none;
 }
-.log_admin:hover{
-color: black;
+
+.log_admin:hover {
+	color: black;
 }
 
 .song_admin:hover {
@@ -61,7 +63,8 @@ color: black;
 	padding: 3px 60px 3px 60px;
 	border-radius: 20px 20px 20px 20px;
 }
-.song_admin{
+
+.song_admin {
 	color: white;
 	margin-left: 100px;
 }
@@ -84,15 +87,20 @@ color: black;
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-								<td style="padding-left: 30px"><b><a
-										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
 
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<c:choose>
+									<c:when
+										test="${fn:contains(sessionScope.account.roles, 'admin')}">
+										<td style="padding-left: 10px"><b><a
+												class="nav-link ${param.activeRanking}"
+												href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+									</c:when>
+								</c:choose>
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
 							</tr>
 						</table>
@@ -209,14 +217,11 @@ color: black;
 										for="">Password</label>
 								</div>
 								<div style="color: red">${message}</div>
-								
-								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
-								<br>
-								
+
 								<div style="color: red" class="signup-recaptcha-mess"></div>
-								
-								<button type="submit" class="btn-log" id="sign-up">Sign Up</button>
+
+								<button type="submit" class="btn-log" id="sign-up">Sign
+									Up</button>
 								<div class="sign-link">
 									<p>
 										Already have an account? <a href="#" class="signIn-link">Sign
@@ -267,13 +272,14 @@ color: black;
 								<div style="color: red">${errorAccount}</div>
 
 								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
-								
+
 								<div style="color: red" class="login-recaptcha-mess"></div>
-								
+
+								<div style="color: red" class="login-recaptcha-mess"></div>
 								<button type="submit" class="btn-log" id="login">Login</button>
-								
+
 								<div class="sign-link">
 									<p>
 										Don't have an account? <a href="#" class="signUp-link">Sign
@@ -314,16 +320,18 @@ color: black;
 				<b>Admin</b>
 			</h1>
 			<h2>
-					<a class="log_admin" style="text-decoration: none;" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
-				</h2>
-				<h2>
-					<a class="song_admin" style="text-decoration: none;" href="/MusicWebsite/views/admin/admin.jsp">Song</a>
-				</h2>
+				<a class="log_admin" style="text-decoration: none;"
+					href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+			</h2>
+			<h2>
+				<a class="song_admin" style="text-decoration: none;"
+					href="/MusicWebsite/views/admin/admin.jsp">Song</a>
+			</h2>
 		</div>
 
 		<button style="color: black; float: right;" onclick="getSelectedIds()">Delete
 			selected</button>
-			
+
 
 	</div>
 	<jsp:useBean id="daoLog" class="database.DAOLog"></jsp:useBean>
@@ -348,9 +356,8 @@ color: black;
 	</table>
 </body>
 
-	<script src="/MusicWebsite/assets/js/login.js"></script>
+<script src="/MusicWebsite/assets/js/login.js"></script>
 <script>
-	
 	function getSelectedIds() {
 		var selectedIds = [];
 		var checkboxes = document.querySelectorAll('.checkbox');
@@ -380,53 +387,78 @@ color: black;
 			alert("Không có phần tử nào được chọn.");
 		}
 	}
-	$(document).ready(function() {
-		$.ajax({
-			url : "/MusicWebsite/LogAPI",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
-			
-				$("#data").dataTable({
-					data : data.data,
+	$(document)
+			.ready(
+					function() {
+						$
+								.ajax({
+									url : "/MusicWebsite/LogAPI",
+									type : "get",
+									dataType : "json",
+									success : function(data) {
 
-					columns : [ {
-						data : null,
-						render : function(data, type, row) {
-							 var checkboxId =  data.idLog; // Assuming id is a unique identifier in your data
-	                            var checkboxClass = "checkbox"; // Set your desired class here
-	                            return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
-						}
-					}, {
-						data : 'idLog'
-					}, {
-						data : 'nationality'
-					}, {
-						data : 'levelLog'
-					}, {
-						data : 'addressPerforming'
-					}, {
-						data : 'preValue'
-					}, {
-						data : 'currentValue'
-					}, {
-						data : 'updatedDate'
-					}, {
-						data : 'status'
-					}, { 
-                        "data": null, 
-                        "render": function (data, type, row) {
-                            return '<a href="/MusicWebsite/RemoveLogController?idlog=' + data.idLog + '"><button style="color: black;">Delete</button></a>';
-                        }
-                    } ]
-				});
+										$("#data")
+												.dataTable(
+														{
+															data : data.data,
 
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log("Error: " + errorThrown);
-			}
-		});
+															columns : [
+																	{
+																		data : null,
+																		render : function(
+																				data,
+																				type,
+																				row) {
+																			var checkboxId = data.idLog; // Assuming id is a unique identifier in your data
+																			var checkboxClass = "checkbox"; // Set your desired class here
+																			return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
+																		}
+																	},
+																	{
+																		data : 'idLog'
+																	},
+																	{
+																		data : 'nationality'
+																	},
+																	{
+																		data : 'levelLog'
+																	},
+																	{
+																		data : 'addressPerforming'
+																	},
+																	{
+																		data : 'preValue'
+																	},
+																	{
+																		data : 'currentValue'
+																	},
+																	{
+																		data : 'updatedDate'
+																	},
+																	{
+																		data : 'status'
+																	},
+																	{
+																		"data" : null,
+																		"render" : function(
+																				data,
+																				type,
+																				row) {
+																			return '<a href="/MusicWebsite/RemoveLogController?idlog='
+																					+ data.idLog
+																					+ '"><button style="color: black;">Delete</button></a>';
+																		}
+																	} ]
+														});
 
-	})
+									},
+									error : function(jqXHR, textStatus,
+											errorThrown) {
+										console.log("Error: " + errorThrown);
+									}
+								});
+
+					})
 </script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

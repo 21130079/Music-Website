@@ -321,19 +321,20 @@ BEGIN
 END;
 
 	Insert into accounts(username,password_account,email)
-	VALUES ('user1','user1','user1@gmail.com');
+	VALUES ('user','user','user@gmail.com');
 
 	Insert into accounts(username,password_account,email)
-	VALUES ('aaa','aaa','aa@aa.com');
+	VALUES ('vvmtam','vvmtam','21130168@st.hcmuaf.edu.vn');
 
 	Insert into accounts(username,password_account,email)
-	VALUES ('admin','admin123','admin@gmail.com');
-	update roles_accounts set roleUser = 'admin' where username='admin';
+	VALUES ('pldat','pldat','21130022@st.hcmuaf.edu.vn');
 
-	select * from accounts
-	update accounts set password_account = 'aaa' where username = 'aaa'
+	Insert into accounts(username,password_account,email)
+	VALUES ('ngtnkhoa','ngtnkhoa','21130079@st.hcmuaf.edu.vn');
 
-	select * from history_premium_accounts
+	Insert into accounts(username,password_account,email)
+	VALUES ('admin','admin','admin@gmail.com');
+
 	INSERT INTO history_premium_accounts (username, type_premium, started_date)
 	values ('user1',3,GETDATE())
 

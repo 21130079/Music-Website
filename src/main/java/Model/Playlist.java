@@ -46,7 +46,7 @@ public class Playlist {
 	        int randomIndex = ThreadLocalRandom.current().nextInt(listSong.size());
 	        return listSong.get(randomIndex).getUrl_Img();
 	    }
-	    return "assets/img/Other/nullPlaylist.jpg";
+	    return "/MusicWebsite/assets/img/Other/nullPlaylist.jpg";
 	}
 
 	@Override

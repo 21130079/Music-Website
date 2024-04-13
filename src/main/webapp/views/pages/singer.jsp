@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ page import="database.*"%>
+<%@ page import="database.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -9,7 +9,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/x-icon" href="/MusicWebsite/assets/img/Other/logoPage.png">
+<link rel="icon" type="image/x-icon"
+	href="/MusicWebsite/assets/img/Other/logoPage.png">
 <title>Singer</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -23,7 +24,7 @@
 <link rel="stylesheet" type="text/css"
 	href="/MusicWebsite/assets/css/style.css">
 <style type="text/css">
-body{
+body {
 	background-color: #171717 !important;
 	overflow-x: hidden;
 }
@@ -35,9 +36,6 @@ body{
 	row-gap: 25px;
 	column-gap: 12px;
 }
-
-
-
 </style>
 </head>
 <body>
@@ -57,25 +55,28 @@ body{
 
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
-								<c:choose>
-								<c:when test="${fn:contains(sessionScope.account.roles, 'admin')}">
-									<td style="padding-left: 30px"><b><a
-											class="nav-link ${param.activeRanking}"
-											href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
-								</c:when>
-									<c:otherwise>
-									<td style="padding-left: 30px"><b><a
-										class="nav-link ${param.activeRanking}"
-										href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
-									</c:otherwise>
-								</c:choose>
 
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<c:choose>
+									<c:when
+										test="${fn:contains(sessionScope.account.roles, 'admin')}">
+										<td style="padding-left: 10px"><b><a
+												class="nav-link ${param.activeRanking}"
+												href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
+									</c:when>
+								</c:choose>
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
-								<td style="padding-left: 30px"><b><a class="nav-link"
+								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
+								<c:choose>
+									<c:when
+										test="${fn:contains(sessionScope.account.roles, 'user')}">
+										<td style="padding-left: 10px"><b><a class="nav-link"
+												href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
+									</c:when>
+								</c:choose>
 							</tr>
 						</table>
 					</div>
@@ -191,14 +192,11 @@ body{
 										for="">Password</label>
 								</div>
 								<div style="color: red">${message}</div>
-								
-								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
-								<br>
-								
+
 								<div style="color: red" class="signup-recaptcha-mess"></div>
-								
-								<button type="submit" class="btn-log" id="sign-up">Sign Up</button>
+
+								<button type="submit" class="btn-log" id="sign-up">Sign
+									Up</button>
 								<div class="sign-link">
 									<p>
 										Already have an account? <a href="#" class="signIn-link">Sign
@@ -249,13 +247,12 @@ body{
 								<div style="color: red">${errorAccount}</div>
 
 								<div class="g-recaptcha"
-									data-sitekey="6LfWo7QpAAAAAGhGuO-LqusRs71xWEGzkfSrdZJU"></div>
+									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
-								
+
 								<div style="color: red" class="login-recaptcha-mess"></div>
-								
 								<button type="submit" class="btn-log" id="login">Login</button>
-								
+
 								<div class="sign-link">
 									<p>
 										Don't have an account? <a href="#" class="signUp-link">Sign
@@ -291,26 +288,25 @@ body{
 	</header>
 	<div>
 		<jsp:useBean id="daosinger" class="database.DAOSinger" scope="request"></jsp:useBean>
-			
-			<c:forEach var ="singer" items="${daosinger.songsOfSinger}">
-			
+
+		<c:forEach var="singer" items="${daosinger.songsOfSinger}">
+
 			<div class="table-allMusic">
 				<h1 class="topic-music">
-				<b>${singer.key}</b>
+					<b>${singer.key}</b>
 				</h1>
 				<div class="trendingTable">
 					<c:forEach var="song" items="${singer.value}">
 						<div class="item trending-box">
 							<div class="card background-music">
 								<div class="img-form">
-									<img src="${song.url_Img}" class="card-img-top"
-										alt="...">
+									<img src="${song.url_Img}" class="card-img-top" alt="...">
 									<div class="icon-in-img">
 
 										<a class="inner-icon-in-img" href="navListSong.jsp"><i
 											style="font-size: 50px" class="bi-play-circle"></i></a>
 
-										
+
 									</div>
 								</div>
 								<div>
@@ -332,5 +328,6 @@ body{
 
 </body>
 
-	<script src="/MusicWebsite/assets/js/login.js"></script>
+<script src="/MusicWebsite/assets/js/login.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </html>
