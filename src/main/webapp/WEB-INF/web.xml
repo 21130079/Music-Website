@@ -229,7 +229,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>UserAuthenFilter</filter-name>
-    <url-pattern>/views/pages/upgradePre.jsp</url-pattern>
+    <url-pattern>/views/pages/upgrade_selector.jsp</url-pattern>
   </filter-mapping>
   <error-page>
     <error-code>404</error-code>

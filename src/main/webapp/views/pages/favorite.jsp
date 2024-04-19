@@ -53,6 +53,10 @@
 												class="nav-link ${param.activeRanking}"
 												href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
 									</c:when>
+									<c:otherwise>
+									<td style="padding-left: 10px"><b><a class="nav-link"
+												href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
+												</c:otherwise>
 								</c:choose>
 								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
@@ -60,13 +64,7 @@
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
 								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
-								<c:choose>
-									<c:when
-										test="${fn:contains(sessionScope.account.roles, 'user')}">
-										<td style="padding-left: 10px"><b><a class="nav-link"
-												href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
-									</c:when>
-								</c:choose>
+								
 							</tr>
 						</table>
 					</div>
