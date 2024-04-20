@@ -334,7 +334,5 @@ END;
 	VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
 	update roles_accounts set roleUser = 'admin' where username = 'admin'
 
-	select * from roles_accounts
-
 
 	

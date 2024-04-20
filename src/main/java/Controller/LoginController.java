@@ -26,6 +26,8 @@ import database.DAOLog;
 
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final int MAX_LOGIN_TIMES = 5;
+	private static final long THROTTLE_TIME = 300000;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -79,14 +81,49 @@ public class LoginController extends HttpServlet {
 		}
 
 		HttpSession session = request.getSession();
-		if (!checkFAccount) {
-			errorAccount = "Username or password is wrong";
+		
+		
+		//get throttle time
+		Long throttleTime = (Long) session.getAttribute("throttleTime");
+		
+		if (throttleTime != null && (System.currentTimeMillis() - throttleTime) < THROTTLE_TIME) {
+			long minute = ((THROTTLE_TIME - (System.currentTimeMillis() - throttleTime)) / (1000 * 60)) % 60;
+			long second = ((THROTTLE_TIME - (System.currentTimeMillis() - throttleTime)) / 1000) % 60;
+			
+			errorAccount = "Please wait " + minute + " minutes " + second + " seconds to continue";
 			request.setAttribute("errorAccount", errorAccount);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.include(request, response);
 		} else {
-			session.setAttribute("account", ac);
-			response.sendRedirect("index.jsp");
+			//get login times
+			Integer loginTimes = (Integer) session.getAttribute("loginTimes");
+			if (loginTimes == null) {
+				loginTimes = 0;
+			}
+			
+			if (!checkFAccount) {
+				loginTimes += 1;
+				
+				//login fail 5 times
+				if (loginTimes >= MAX_LOGIN_TIMES) {
+					//start throttle time
+					Long currentTime = System.currentTimeMillis();
+					session.setAttribute("throttleTime", currentTime);
+					
+					errorAccount = "Please wait 5 minutes to continue";
+					session.setAttribute("loginTimes", 0);
+				} else {
+					errorAccount = "Username or password is wrong";
+					session.setAttribute("loginTimes", loginTimes);
+				}
+				
+				request.setAttribute("errorAccount", errorAccount);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.include(request, response);
+			} else {
+				session.setAttribute("account", ac);
+				response.sendRedirect("index.jsp");
+			}
 		}
 	}
 	
