@@ -319,3 +319,4 @@ function appearImg(searchElement) {
 		bgElement.style.display = 'block';
 	}
 }
+

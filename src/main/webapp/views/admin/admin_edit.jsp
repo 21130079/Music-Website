@@ -120,7 +120,16 @@ td input {
 						onclick="document.getElementById('change-password').style.display='flex'">
 						<i class="bi bi-key-fill"></i>
 					</button>
-					<i class="bi bi-person-circle"></i>
+					<div class="person_circle">
+						<i class="bi bi-person-circle">
+						</i>
+						<div class="nav_person">
+								<div>My Information</div>
+								<div>Premium</div>
+								<div>Forgot Password</div>
+								<div>Logout</div>
+							</div>
+					</div>
 					<font color="White"> ${sessionScope.account.username} </font>
 					<a href="/MusicWebsite/LogOutController">
 						<button type="button" class="login-btn" onclick="reload()">Log
