@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 
 import Model.Account;
@@ -55,7 +57,7 @@ public class LoginController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		username = username.trim();
-		password = password.trim();
+		password = passwordHashing(password.trim());
 		DAOAccount daoAccount = new DAOAccount();
 		// ip address
 		String ipAddress = request.getRemoteAddr();
@@ -85,6 +87,24 @@ public class LoginController extends HttpServlet {
 		} else {
 			session.setAttribute("account", ac);
 			response.sendRedirect("index.jsp");
+		}
+	}
+	
+	public String passwordHashing(String password) {
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+			byte[] resultBytes = messageDigest.digest(password.getBytes());
+			StringBuilder sb = new StringBuilder();
+			
+            for (byte b : resultBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            
+            return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			
+			return null;
 		}
 	}
 

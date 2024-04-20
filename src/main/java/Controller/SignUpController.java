@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import Model.Account;
@@ -53,7 +55,7 @@ public class SignUpController extends HttpServlet {
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		username = username.trim();
-		password = password.trim();
+		password = passwordHashing(password.trim());
 		email = email.trim();
 		String errorSignUp = "";
 		Account account = null;
@@ -101,5 +103,22 @@ public class SignUpController extends HttpServlet {
 			response.sendRedirect("index.jsp");
 		}
 	}
-
+	
+	public String passwordHashing(String password) {
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+			byte[] resultBytes = messageDigest.digest(password.getBytes());
+			StringBuilder sb = new StringBuilder();
+			
+            for (byte b : resultBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            
+            return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			
+			return null;
+		}
+	}
 }
