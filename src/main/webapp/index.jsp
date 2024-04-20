@@ -119,7 +119,16 @@ body {
 						onclick="document.getElementById('change-password').style.display='flex'">
 						<i class="bi bi-key-fill"></i>
 					</button>
-					<i class="bi bi-person-circle"></i>
+					<div class="person_circle">
+						<i class="bi bi-person-circle">
+						</i>
+						<div class="nav_person">
+								<div>My Information</div>
+								<div>Premium</div>
+								<div>Forgot Password</div>
+								<div>Logout</div>
+							</div>
+					</div>
 					<font color="White"> ${sessionScope.account.username} </font>
 					<a href="/MusicWebsite/LogOutController">
 						<button type="button" class="login-btn" onclick="reload()">Log
@@ -509,8 +518,8 @@ body {
 
 	<!--Fix Footer-->
 	<jsp:include page="/views/components/footer.jsp"></jsp:include>
-	<script src="/MusicWebsite/assets/js/login.js"></script>
-	<script src="/MusicWebsite/assets/js/main.js"></script>
+	<script type="text/javascript" src="/MusicWebsite/assets/js/login.js"></script>
+	<script  type="text/javascript" src="/MusicWebsite/assets/js/main.js"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 

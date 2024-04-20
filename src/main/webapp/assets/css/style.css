@@ -774,3 +774,43 @@ a{
 .logo {
 	position: relative;
 }
+.person_circle{
+	position: relative;
+	display: inline-block;
+}
+.bi-person-circle{
+	cursor: pointer;
+}
+.nav_person{
+	display: grid;
+	position: absolute;
+	left :0px;
+	display:none;
+	height: 180px;
+	 box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
+	align-items:center;
+	justify-content :center;
+	text-align:center;
+	width: 150px;
+	background-color: white;
+	z-index:5;
+	border-radius: 5px;
+	
+}
+.nav_person div{
+	 padding: 5px;
+  border-radius: 3px;
+  /*  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.3); */
+  background-color: transparent;
+}
+.nav_person div:not(:last-child){
+	border-bottom: 1px solid gray;
+	}
+
+.nav_person div:hover {
+  background-color: red;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1);
+ 
+}
+	
