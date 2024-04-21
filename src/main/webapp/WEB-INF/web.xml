@@ -425,4 +425,24 @@
     <servlet-name>ViewServlet</servlet-name>
     <url-pattern>/ViewServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AccountAPI</display-name>
+    <servlet-name>AccountAPI</servlet-name>
+    <servlet-class>Controller.API.AccountAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccountAPI</servlet-name>
+    <url-pattern>/AccountAPI</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemoveAccountController</display-name>
+    <servlet-name>RemoveAccountController</servlet-name>
+    <servlet-class>Controller.admin.RemoveAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveAccountController</servlet-name>
+    <url-pattern>/RemoveAccountController</url-pattern>
+  </servlet-mapping>
 </web-app>

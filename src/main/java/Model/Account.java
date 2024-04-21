@@ -83,7 +83,7 @@ public class Account {
 	}
 
 	
-	private String getSecurePassword() {
+	public String getSecurePassword() {
 		String result ="";
 		for (int i = 0; i < password.length(); i++) {
 			result+="*";

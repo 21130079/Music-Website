@@ -1,8 +1,10 @@
 package database;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -247,8 +249,96 @@ public class DAOAccount extends AbsDao<Account>  {
 	public Account rereshAccount(Account account) {	
 		return selectByUsername(account.getUsername());
 	}
+	public ArrayList<String> getRoleAccount(String username){
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select roleUser from roles_accounts where username = ? ");
+			stmt.setString(1, username);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+
+				String roleUser = rs.getString("roleUser");
+				result.add(roleUser);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return result;
+	}
+	public ArrayList<Account> getListAll() {
+		ArrayList<Account> result = new ArrayList<Account>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select * from accounts ");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+
+				String username = rs.getString("username");
+				String password = rs.getString("password_account");
+				String email = rs.getString("email");
+				ArrayList<String> roleUser = getRoleAccount(username);
+				
+				Account account = new Account(username, password, email, roleUser, null, null);
+				account.setPassword(account.getSecurePassword());
+				result.add(account);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return result;
+	}
+	public int deleteByUserName(String username) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from accounts where username=? ");
+			stmt.setString(1,username);
+			stmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return 0;
+	}
+	
+	public void deleteListAccountByUsername(String[] idsToDelete) {
+	    PreparedStatement stmt = null;
+	    try {
+	        if (idsToDelete != null && idsToDelete.length > 0) {
+	            // Prepare SQL statement
+	            String sql = "DELETE FROM accounts WHERE username IN (";
+	            for (int i = 0; i < idsToDelete.length; i++) {
+	                if (i > 0) {
+	                    sql += ",";
+	                }
+	                sql += "?";
+	            }
+	            sql += ")";
+
+	            stmt = connection.prepareStatement(sql);
+
+	            // Set values for placeholders
+	            for (int i = 0; i < idsToDelete.length; i++) {
+	                stmt.setString(i + 1, idsToDelete[i]);
+	            }
+
+	            // Execute the DELETE statement
+	            stmt.executeUpdate();
+	        }
+
+
+	    } catch (Exception e) {
+	        System.out.println("Error: " + e.getMessage());
+	    } finally {
+	        // Close resources
+	        try {
+	            if (stmt != null) stmt.close();
+	        } catch (SQLException e) {
+	            System.out.println("Error closing database connection: " + e.getMessage());
+	        }
+	    }
+	}
 	public static void main(String[] args) {
 		System.out.println(new DAOAccount().selectByEmail("user1@gmail.com"));
 	}
-	
 }
