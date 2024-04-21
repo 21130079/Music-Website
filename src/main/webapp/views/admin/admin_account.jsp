@@ -30,9 +30,19 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" type="text/css"
 	href="/MusicWebsite/assets/css/style.css">
+<style type="text/css">
+.show-more-btn {
+	position: absolute;
+	right: 0px;
+	margin-right: 108px;
+	background-color: transparent;
+	border: 2px solid crimson;
+	border-radius: 15px;
+	color: crimson;
+	padding: 10px;
+}
 
-<style>
-* {
+.justify-content-between {
 	color: white;
 }
 
@@ -41,18 +51,48 @@
 	background-color: white;
 }
 
+th {
+	background-color: white;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+.content-bg {
+	
+}
+
+.add-music {
+	width: 240px;
+	height: 240px;
+	margin-top: 10px;
+}
+
+.edit-button {
+	border: none;
+	background-color: transparent;
+	padding-right: 100px;
+	font-size: 20px;
+}
+
 .log_admin {
+	color: white;
+	margin-left: 100px;
+}
+
+.account_admin {
+	color: white;
+	margin-left: 100px;
+}
+
+.log_admin:hover {
 	color: black;
 	border: 1px solid black;
 	background-color: white;
 	margin-left: 100px;
 	padding: 3px 60px 3px 60px;
 	border-radius: 20px 20px 20px 20px;
-	text-decoration: none;
-}
-
-.log_admin:hover {
-	color: black;
 }
 
 .account_admin {
@@ -61,6 +101,11 @@
 }
 
 .account_admin:hover {
+	color: black;
+	text-decoration: none;
+}
+
+.account_admin {
 	color: black;
 	border: 1px solid black;
 	background-color: white;
@@ -370,14 +415,10 @@
 		<thead>
 			<tr>
 				<th></th>
-				<th>ID</th>
-				<th>National</th>
-				<th>Level</th>
-				<th>Address performing</th>
-				<th>Previous value</th>
-				<th>Current value</th>
-				<th>Date</th>
-				<th>Status</th>
+				<th>User name</th>
+				<th>Password</th>
+				<th>Email</th>
+				<th>Role</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -397,7 +438,7 @@
 
 		if (selectedIds.length > 0) {
 			$.ajax({
-				url : '/MusicWebsite/RemoveLogController',
+				url : '/MusicWebsite/RemoveAccountController',
 				type : 'get',
 				data : {
 					selectedIds : selectedIds
@@ -415,78 +456,57 @@
 			alert("Không có phần tử nào được chọn.");
 		}
 	}
-	$(document)
-			.ready(
-					function() {
-						$
-								.ajax({
-									url : "/MusicWebsite/LogAPI",
-									type : "get",
-									dataType : "json",
-									success : function(data) {
+	$(document).ready(function() {
+		$.ajax({
+			url : "/MusicWebsite/AccountAPI",
+			type : "get",
+			dataType : "json",
+			success : function(data) {
 
-										$("#data")
-												.dataTable(
-														{
-															data : data.data,
+				$("#data").dataTable({
+					data : data.data,
 
-															columns : [
-																	{
-																		data : null,
-																		render : function(
-																				data,
-																				type,
-																				row) {
-																			var checkboxId = data.idLog; // Assuming id is a unique identifier in your data
-																			var checkboxClass = "checkbox"; // Set your desired class here
-																			return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
-																		}
-																	},
-																	{
-																		data : 'idLog'
-																	},
-																	{
-																		data : 'nationality'
-																	},
-																	{
-																		data : 'levelLog'
-																	},
-																	{
-																		data : 'addressPerforming'
-																	},
-																	{
-																		data : 'preValue'
-																	},
-																	{
-																		data : 'currentValue'
-																	},
-																	{
-																		data : 'updatedDate'
-																	},
-																	{
-																		data : 'status'
-																	},
-																	{
-																		"data" : null,
-																		"render" : function(
-																				data,
-																				type,
-																				row) {
-																			return '<a href="/MusicWebsite/RemoveLogController?idlog='
-																					+ data.idLog
-																					+ '"><button style="color: black;">Delete</button></a>';
-																		}
-																	} ]
-														});
+					columns : [
+						{
+							data : null,
+							render : function(
+									data,
+									type,
+									row) {
+								var checkboxId = data.username; // Assuming id is a unique identifier in your data
+								var checkboxClass = "checkbox"; // Set your desired class here
+								return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
+							}
+						},
+					{
+						data : 'username'
+					}, {
+						data : 'password'
+					}, {
+						data : 'email'
+					}, {
+						data : 'roles'
+					},
+					{
+						"data" : null,
+						"render" : function(
+								data,
+								type,
+								row) {
+							return '<a href="/MusicWebsite/RemoveAccountController?username='
+									+ data.username
+									+ '"><button style="color: black;">Delete</button></a>';
+						}
+					} ]
+				});
 
-									},
-									error : function(jqXHR, textStatus,
-											errorThrown) {
-										console.log("Error: " + errorThrown);
-									}
-								});
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log("Error: " + errorThrown);
+			}
+		});
 
-					})
+	})
 </script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

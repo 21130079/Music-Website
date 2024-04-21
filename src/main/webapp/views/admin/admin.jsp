@@ -64,7 +64,13 @@ body {
 	color: white;
 	margin-left: 100px;
 }
-
+.account_admin {
+	color: white;
+	margin-left: 100px;
+}
+a {
+text-decoration: none;
+}
 .log_admin:hover {
 	color: black;
 	border: 1px solid black;
@@ -72,6 +78,16 @@ body {
 	margin-left: 100px;
 	padding: 3px 60px 3px 60px;
 	border-radius: 20px 20px 20px 20px;
+}
+.account_admin:hover {
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	margin-left: 100px;
+	padding: 3px 60px 3px 60px;
+	border-radius: 20px 20px 20px 20px;
+			text-decoration: none;
+	
 }
 
 .song_admin {
@@ -368,6 +384,10 @@ body {
 				</h1>
 				<h2>
 					<a class="log_admin" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
+				</h2>
+				<h2>
+				<a class="account_admin" href="/MusicWebsite/views/admin/admin_account.jsp">Account</a>
+					
 				</h2>
 				<h2>
 					<a class="song_admin" href="/MusicWebsite/views/admin/admin.jsp">Song</a>
