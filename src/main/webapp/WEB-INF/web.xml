@@ -348,6 +348,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>UpgradeSelectorController</display-name>
+    <servlet-name>UpgradeSelectorController</servlet-name>
+    <servlet-class>Controller.user.UpgradeSelectorController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpgradeSelectorController</servlet-name>
+    <url-pattern>/UpgradeSelectorController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>vnpayQuery</display-name>
     <servlet-name>vnpayQuery</servlet-name>
     <servlet-class>Controller.vnpay.vnpayQuery</servlet-class>
@@ -406,15 +416,8 @@
     <servlet-name>LogAPI</servlet-name>
     <url-pattern>/LogAPI</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <display-name>UpgradeSelectorController</display-name>
-    <servlet-name>UpgradeSelectorController</servlet-name>
-    <servlet-class>Controller.user.UpgradeSelectorController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UpgradeSelectorController</servlet-name>
-    <url-pattern>/UpgradeSelectorController</url-pattern>
-  </servlet-mapping>
+  
+
   <servlet>
     <description></description>
     <display-name>ViewServlet</display-name>

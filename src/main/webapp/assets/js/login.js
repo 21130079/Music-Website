@@ -8,8 +8,6 @@ const formLogin = document.querySelectorAll('form')[2];
 const wrapper = document.querySelector('.wrapper');
 
 personicon.addEventListener('click',() =>{
-  // Select the content element
-  // Toggle the display style to show or hide the content
    let content = $('.nav_person');
   if (content.css('display') ==='none') {
    content.css('display','grid')
