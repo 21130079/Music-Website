@@ -1,6 +1,7 @@
---create table
+create database MusicWeb;
 use MusicWeb;
 
+--create table
 create table singers(
 	id_singer varchar(20) primary key,
 	name_singer nvarchar(255) not null,
@@ -316,24 +317,22 @@ BEGIN
         VALUES (@Username, @TypePremium, @StartedDate, @FinishDate);
     END
 END;
+	
+	Insert into accounts(username,password_account,email)
+	VALUES ('user','12dea96fec20593566ab75692c9949596833adc9','user@gmail.com');
 
 	Insert into accounts(username,password_account,email)
-	VALUES ('user','user','user@gmail.com');
+	VALUES ('vvmtam','be1e329741ecc2be4562018d6e50c57ae91d11aa','21130168@st.hcmuaf.edu.vn');
 
 	Insert into accounts(username,password_account,email)
-	VALUES ('vvmtam','vvmtam','21130168@st.hcmuaf.edu.vn');
+	VALUES ('pldat','bf23fa1e1fe7c3d7c81a11ab021667a3d2b47c93','21130022@st.hcmuaf.edu.vn');
 
 	Insert into accounts(username,password_account,email)
-	VALUES ('pldat','pldat','21130022@st.hcmuaf.edu.vn');
+	VALUES ('ngtnkhoa','9b4dc469c95f3d9b0665ee14e8eeeda3f4dcef3e','21130079@st.hcmuaf.edu.vn');
 
 	Insert into accounts(username,password_account,email)
-	VALUES ('ngtnkhoa','ngtnkhoa','21130079@st.hcmuaf.edu.vn');
-
-	Insert into accounts(username,password_account,email)
-	VALUES ('admin','admin','admin@gmail.com');
-
-	INSERT INTO history_premium_accounts (username, type_premium, started_date)
-	values ('user1',3,GETDATE())
+	VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
+	update roles_accounts set roleUser = 'admin' where username = 'admin'
 
 
 	
