@@ -808,7 +808,7 @@ a{
 	}
 
 .nav_person div:hover {
-  background-color: red;
+ 
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.1);
  
