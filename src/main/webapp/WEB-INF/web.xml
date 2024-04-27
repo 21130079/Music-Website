@@ -416,8 +416,6 @@
     <servlet-name>LogAPI</servlet-name>
     <url-pattern>/LogAPI</url-pattern>
   </servlet-mapping>
-  
-
   <servlet>
     <description></description>
     <display-name>ViewServlet</display-name>
@@ -447,5 +445,25 @@
   <servlet-mapping>
     <servlet-name>RemoveAccountController</servlet-name>
     <url-pattern>/RemoveAccountController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProfitChartServlet</display-name>
+    <servlet-name>ProfitChartServlet</servlet-name>
+    <servlet-class>Controller.admin.ProfitChartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfitChartServlet</servlet-name>
+    <url-pattern>/ProfitChartServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddSongAPI</display-name>
+    <servlet-name>AddSongAPI</servlet-name>
+    <servlet-class>Controller.API.AddSongAPI</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddSongAPI</servlet-name>
+    <url-pattern>/AddSongAPI</url-pattern>
   </servlet-mapping>
 </web-app>

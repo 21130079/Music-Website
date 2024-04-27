@@ -55,9 +55,7 @@ public class DAOFavorite extends AbsDao<Song> {
 		ArrayList<Song>  result = new ArrayList<Song>();
 		try {
 			PreparedStatement stmt = connection.prepareStatement("SELECT * from songs\r\n"
-					+ "	where id_song not in (select id_song from favorites join accounts\r\n"
-					+ "							on accounts.username=favorites.username\r\n"
-					+ "							where accounts.username = ?)");
+					+ "	where id_song not in (select id_song from favorites where username = ?)");
 			stmt.setString(1, username);
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
