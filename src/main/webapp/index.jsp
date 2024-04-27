@@ -262,7 +262,12 @@ body {
 									<input type="password" name="password" value="${passwordC }" required> <label
 										for="">Password</label>
 								</div>
-
+								
+								<div class="remember">
+									<input id="remember" type="checkbox" name="remember" value="true"> 
+									<label for="remember">Remember me</label>
+								</div>
+								
 								<div class="forgot-pass">
 									<a href="/MusicWebsite/views/pages/changePassword.jsp">Forgot
 										Password?</a>
@@ -272,9 +277,7 @@ body {
 								<div class="g-recaptcha"
 									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
-
-								<div style="color: red" class="login-recaptcha-mess"></div>
-
+							
 								<div style="color: red" class="login-recaptcha-mess"></div>
 								<button type="submit" class="btn-log" id="login">Login</button>
 

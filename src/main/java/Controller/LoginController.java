@@ -56,6 +56,8 @@ public class LoginController extends HttpServlet {
 		boolean checkFAccount = false;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String remember = request.getParameter("remember");
+
 		String passwordC = password.trim();
 		username = username.trim();
 		password = passwordHashing(password.trim());
@@ -125,8 +127,13 @@ public class LoginController extends HttpServlet {
 				Cookie usernameCookie = new Cookie("usernameC", username);
 				Cookie passwordCookie = new Cookie("passwordC", passwordC);
 				
-				usernameCookie.setMaxAge(60);
-				passwordCookie.setMaxAge(60);
+				if (remember != null) {					
+					usernameCookie.setMaxAge(120);
+					passwordCookie.setMaxAge(120);
+				} else {
+					usernameCookie.setMaxAge(0);
+					passwordCookie.setMaxAge(0);
+				}
 				
 				response.addCookie(usernameCookie);
 				response.addCookie(passwordCookie);
