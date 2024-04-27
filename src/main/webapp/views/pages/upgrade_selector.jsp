@@ -11,6 +11,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />
 <script src="/MusicWebsite/assets/js/jquery-1.11.3.min.js"></script>
 <title>Document</title>
 </head>
@@ -160,7 +161,6 @@ input {
 		</div>
 	</div>
 
-	<link href="https://pay.vnpay.vn/lib/vnpay/vnpay.css" rel="stylesheet" />
 	<script src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>
 	<script type="text/javascript">
 		$("#frmCreateOrder1").submit(function() {

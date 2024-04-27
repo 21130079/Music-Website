@@ -445,4 +445,14 @@
     <servlet-name>RemoveAccountController</servlet-name>
     <url-pattern>/RemoveAccountController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowMoreController</display-name>
+    <servlet-name>ShowMoreController</servlet-name>
+    <servlet-class>Controller.ShowMoreController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowMoreController</servlet-name>
+    <url-pattern>/ShowMoreController</url-pattern>
+  </servlet-mapping>
 </web-app>

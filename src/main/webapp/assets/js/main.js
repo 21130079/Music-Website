@@ -322,3 +322,25 @@ function appearImg(searchElement) {
 	}
 }
 
+function showMore() {
+	var quantity = document.querySelectorAll('.all-music-item').length;
+	$.ajax({
+		url: "/MusicWebsite/ShowMoreController",
+		type: "get",
+		data: {
+			data: quantity
+		},
+		success: function(data) {
+			if (data === '') {
+				$('.show-more-btn').css({'display':'none'});
+			} else {
+				let content = document.querySelector(".table-divMusic");
+				content.innerHTML += data;
+			}
+		},
+		error: function(xhr) {
+			
+		}
+	});
+}
+

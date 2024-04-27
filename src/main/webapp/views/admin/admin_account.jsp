@@ -169,16 +169,7 @@ body {
 			</ul>
 		</div>
 
-		<div class="search-box">
-			<form action="/MusicWebsite/SearchController" method="get"
-				style="margin-left: -169px;">
-				<button type="submit" class="btn-search" disabled="disabled">
-					<i class="bi bi-search" style="font-size: 22px"></i>
-				</button>
-				<input type="text" class="input-search" oninput="searchByName(this)"
-					onblur="appearImg(this)" placeholder="Search by name..."
-					name="searchInput">
-			</form>
+		<div>
 		</div>
 
 		<div class="sign-in">
@@ -325,12 +316,18 @@ body {
 								method="post">
 								<h2 class="log">Login</h2>
 								<div class="input-group">
-									<input type="text" name="username" required> <label
-										for="">Username</label>
+									<input type="text" name="username" value="${usernameC }"
+										required> <label for="">Username</label>
 								</div>
 								<div class="input-group">
-									<input type="password" name="password" required> <label
-										for="">Password</label>
+									<input type="password" name="password" value="${passwordC }"
+										required> <label for="">Password</label>
+								</div>
+
+								<div class="remember">
+									<input id="remember" type="checkbox" name="remember"
+										value="true"> <label for="remember">Remember
+										me</label>
 								</div>
 
 								<div class="forgot-pass">
@@ -342,8 +339,6 @@ body {
 								<div class="g-recaptcha"
 									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
-
-								<div style="color: red" class="login-recaptcha-mess"></div>
 
 								<div style="color: red" class="login-recaptcha-mess"></div>
 								<button type="submit" class="btn-log" id="login">Login</button>
@@ -456,57 +451,66 @@ body {
 			alert("Không có phần tử nào được chọn.");
 		}
 	}
-	$(document).ready(function() {
-		$.ajax({
-			url : "/MusicWebsite/AccountAPI",
-			type : "get",
-			dataType : "json",
-			success : function(data) {
+	$(document)
+			.ready(
+					function() {
+						$
+								.ajax({
+									url : "/MusicWebsite/AccountAPI",
+									type : "get",
+									dataType : "json",
+									success : function(data) {
 
-				$("#data").dataTable({
-					data : data.data,
+										$("#data")
+												.dataTable(
+														{
+															data : data.data,
 
-					columns : [
-						{
-							data : null,
-							render : function(
-									data,
-									type,
-									row) {
-								var checkboxId = data.username; // Assuming id is a unique identifier in your data
-								var checkboxClass = "checkbox"; // Set your desired class here
-								return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
-							}
-						},
-					{
-						data : 'username'
-					}, {
-						data : 'password'
-					}, {
-						data : 'email'
-					}, {
-						data : 'roles'
-					},
-					{
-						"data" : null,
-						"render" : function(
-								data,
-								type,
-								row) {
-							return '<a href="/MusicWebsite/RemoveAccountController?username='
-									+ data.username
-									+ '"><button style="color: black;">Delete</button></a>';
-						}
-					} ]
-				});
+															columns : [
+																	{
+																		data : null,
+																		render : function(
+																				data,
+																				type,
+																				row) {
+																			var checkboxId = data.username; // Assuming id is a unique identifier in your data
+																			var checkboxClass = "checkbox"; // Set your desired class here
+																			return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
+																		}
+																	},
+																	{
+																		data : 'username'
+																	},
+																	{
+																		data : 'password'
+																	},
+																	{
+																		data : 'email'
+																	},
+																	{
+																		data : 'roles'
+																	},
+																	{
+																		"data" : null,
+																		"render" : function(
+																				data,
+																				type,
+																				row) {
+																			return '<a href="/MusicWebsite/RemoveAccountController?username='
+																					+ data.username
+																					+ '"><button style="color: black;">Delete</button></a>';
+																		}
+																	} ]
+														});
 
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log("Error: " + errorThrown);
-			}
-		});
+									},
+									error : function(jqXHR, textStatus,
+											errorThrown) {
+										console.log("Error: " + errorThrown);
+									}
+								});
 
-	})
+					})
 </script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

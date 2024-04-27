@@ -9,6 +9,9 @@ html {
 
 }
 
+body {
+	overflow-x: hidden;
+}
 
 i {
 	color: white;
@@ -650,6 +653,17 @@ body {
 
 .duration {
 	color: white;
+}
+
+.show-more-btn {
+	position: absolute;
+	right: 0px;
+	margin-right: 108px;
+	background-color: transparent;
+	border: 2px solid crimson;
+	border-radius: 15px;
+	color: crimson;
+	padding: 10px;
 }
 
 p {
