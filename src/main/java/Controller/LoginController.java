@@ -2,6 +2,7 @@ package Controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -43,8 +44,7 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	/**
@@ -53,14 +53,14 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
 		boolean checkFAccount = false;
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String passwordC = password.trim();
 		username = username.trim();
 		password = passwordHashing(password.trim());
 		DAOAccount daoAccount = new DAOAccount();
+		
 		// ip address
 		String ipAddress = request.getRemoteAddr();
 		if (ipAddress.equals("0:0:0:0:0:0:0:1")) {
@@ -121,6 +121,16 @@ public class LoginController extends HttpServlet {
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 				rd.include(request, response);
 			} else {
+				//add cookie if account valid
+				Cookie usernameCookie = new Cookie("usernameC", username);
+				Cookie passwordCookie = new Cookie("passwordC", passwordC);
+				
+				usernameCookie.setMaxAge(60);
+				passwordCookie.setMaxAge(60);
+				
+				response.addCookie(usernameCookie);
+				response.addCookie(passwordCookie);
+				
 				session.setAttribute("account", ac);
 				response.sendRedirect("index.jsp");
 			}

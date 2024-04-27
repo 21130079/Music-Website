@@ -69,7 +69,6 @@ body {
 					<div class="navbar">
 						<table>
 							<tr>
-
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
 
@@ -256,11 +255,11 @@ body {
 								method="post">
 								<h2 class="log">Login</h2>
 								<div class="input-group">
-									<input type="text" name="username" required> <label
+									<input type="text" name="username" value="${usernameC }" required> <label
 										for="">Username</label>
 								</div>
 								<div class="input-group">
-									<input type="password" name="password" required> <label
+									<input type="password" name="password" value="${passwordC }" required> <label
 										for="">Password</label>
 								</div>
 
