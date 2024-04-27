@@ -333,6 +333,4 @@ END;
 	Insert into accounts(username,password_account,email)
 	VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
 	update roles_accounts set roleUser = 'admin' where username = 'admin'
-
-
 	

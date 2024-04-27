@@ -25,34 +25,6 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 
-<style type="text/css">
-.show-more-btn {
-	position: absolute;
-	right: 0px;
-	margin-right: 108px;
-	background-color: transparent;
-	border: 2px solid crimson;
-	border-radius: 15px;
-	color: crimson;
-	padding: 10px;
-}
-
-body {
-	overflow-x: hidden;
-}
-</style>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".show-more-btn").click(function(e) {
-			$(".item:hidden").slice(0, 12).fadeIn();
-			if ($(".item:hidden").length < 1) {
-				$(this).fadeOut();
-			}
-		});
-	});
-</script>
-
-
 </head>
 
 <body>
@@ -69,7 +41,6 @@ body {
 					<div class="navbar">
 						<table>
 							<tr>
-
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
 
@@ -81,7 +52,7 @@ body {
 												href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
 									</c:when>
 									<c:otherwise>
-									<td style="padding-left: 10px"><b><a class="nav-link"
+										<td style="padding-left: 10px"><b><a class="nav-link"
 												href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
 									</c:otherwise>
 								</c:choose>
@@ -91,7 +62,7 @@ body {
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
 								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
-								
+
 							</tr>
 						</table>
 					</div>
@@ -120,14 +91,13 @@ body {
 						<i class="bi bi-key-fill"></i>
 					</button>
 					<div class="person_circle">
-						<i class="bi bi-person-circle">
-						</i>
+						<i class="bi bi-person-circle"> </i>
 						<div class="nav_person">
-								<div>My Information</div>
-								<div>Premium</div>
-								<div>Forgot Password</div>
-								<div>Logout</div>
-							</div>
+							<div>My Information</div>
+							<div>Premium</div>
+							<div>Forgot Password</div>
+							<div>Logout</div>
+						</div>
 					</div>
 					<font color="White"> ${sessionScope.account.username} </font>
 					<a href="/MusicWebsite/LogOutController">
@@ -256,12 +226,18 @@ body {
 								method="post">
 								<h2 class="log">Login</h2>
 								<div class="input-group">
-									<input type="text" name="username" required> <label
-										for="">Username</label>
+									<input type="text" name="username" value="${usernameC }"
+										required> <label for="">Username</label>
 								</div>
 								<div class="input-group">
-									<input type="password" name="password" required> <label
-										for="">Password</label>
+									<input type="password" name="password" value="${passwordC }"
+										required> <label for="">Password</label>
+								</div>
+
+								<div class="remember">
+									<input id="remember" type="checkbox" name="remember"
+										value="true"> <label for="remember">Remember
+										me</label>
 								</div>
 
 								<div class="forgot-pass">
@@ -273,8 +249,6 @@ body {
 								<div class="g-recaptcha"
 									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
-
-								<div style="color: red" class="login-recaptcha-mess"></div>
 
 								<div style="color: red" class="login-recaptcha-mess"></div>
 								<button type="submit" class="btn-log" id="login">Login</button>
@@ -339,7 +313,7 @@ body {
 				<div class="table-divMusic">
 					<jsp:useBean id="daoSong" class="database.DAOSong"
 						scope="application"></jsp:useBean>
-					<c:set var="listItems" value="${daoSong.selectAll()}"></c:set>
+					<c:set var="listItems" value="${daoSong.selectNext12Products(0)}"></c:set>
 					<c:set var="isShowMore" value="false"></c:set>
 
 					<c:forEach begin="0" end="${fn:length(listItems) - 1}" var="i">
@@ -419,7 +393,7 @@ body {
 					</c:forEach>
 				</div>
 				<br />
-				<button class="show-more-btn" type="button">
+				<button class="show-more-btn" type="button" onclick="showMore()">
 					<b>Show More</b>
 				</button>
 			</div>
@@ -519,7 +493,7 @@ body {
 	<!--Fix Footer-->
 	<jsp:include page="/views/components/footer.jsp"></jsp:include>
 	<script type="text/javascript" src="/MusicWebsite/assets/js/login.js"></script>
-	<script  type="text/javascript" src="/MusicWebsite/assets/js/main.js"></script>
+	<script type="text/javascript" src="/MusicWebsite/assets/js/main.js"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 </body>
 

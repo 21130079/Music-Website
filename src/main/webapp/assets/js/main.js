@@ -1,4 +1,3 @@
-var topicMusics = document.querySelectorAll('.scroll');
 var isPlaying = false;
 var idPlaying = null;
 var progress = document.querySelector('#progress');
@@ -16,19 +15,14 @@ var isShuffle = false;
 var played = [];
 var playedArrayTest = [];
 var count = 0;
+var ajaxDelayTimer;
 
 
 if (played.length <= 1) {
 	btnSkipBefore.disabled = true;
 }
-window.onscroll = () => {
-	topicMusics.forEach(sec => {
-		let id = sec.getAttribute('id');
-	});
-}
 
 function playMusic(id, nameSong, nameSinger, srcImg) {
-console.log("hi4");
 	var btn = document.getElementById(id);
 	var footer = document.getElementById("footer");
 	var iTag = btn.querySelector('.bi' + id);
@@ -54,7 +48,6 @@ console.log("hi4");
 	}
 
 	if (id == null || !isPlaying) {
-		console.log("Hi3");
 		iTag.classList.remove('bi-play-circle');
 		iTag.classList.add('bi-pause-circle');
 		iTagPauseFooter.classList.remove('bi-play-circle');
@@ -71,24 +64,26 @@ console.log("hi4");
 
 		if (playedArrayTest.indexOf(id) == -1) {
 			playedArrayTest.push(id);
-			$.ajax({
-				url: "/MusicWebsite/CountViewController",
-				type: "get",
-				data: {
-					idSong: id
-				},
-				success: function(reponse) {
-					console.log("Lượt view đã được cập nhật");
-					console.log(id);
-					$('#V'+id).html(reponse);
-				},
-				error: function(xhr, status, error) {
-					// Xử lý lỗi (nếu có)
 
-				}
-			});
-			
-		} 
+			clearTimeout(ajaxDelayTimer);
+
+			ajaxDelayTimer = setTimeout(function() {
+				$.ajax({
+					url: "/MusicWebsite/CountViewController",
+					type: "get",
+					data: {
+						idSong: id
+					},
+					success: function(reponse) {
+						$('#V' + id).html(reponse);
+					},
+					error: function(xhr, status, error) {
+						// Xử lý lỗi (nếu có)
+
+					}
+				});
+			}, 100);
+		}
 
 	} else {
 		if (idPlaying == id) {
@@ -103,9 +98,7 @@ console.log("hi4");
 			btnPauseFooter.value = srcImg;
 			auTag.pause();
 			isPlaying = false;
-		console.log("Hi");
 		} else {
-			console.log("hi2");
 			var btnPlaying = document.getElementById(idPlaying);
 			var auTagPlaying = btnPlaying.querySelector('.au' + idPlaying);
 			var iTagPlaying = btnPlaying.querySelector('.bi' + idPlaying);
@@ -128,25 +121,25 @@ console.log("hi4");
 			isPlaying = true;
 			idPlaying = id;
 			auTag.currentTime = 0;
-			$.ajax({
-				url: "/MusicWebsite/CountViewController",
-				type: "get",
-				data: {
-					idSong: id
-				},
-				success: function(reponse) {
-					console.log("Lượt view đã được cập nhật");
-					$('#V'+id).html(reponse);
-					console.log(id);
+			clearTimeout(ajaxDelayTimer);
 
-				},
-				error: function(xhr, status, error) {
-					// Xử lý lỗi (nếu có)
-					console.error("Lỗi: " + error);
-				}
-			});
+			ajaxDelayTimer = setTimeout(function() {
+				$.ajax({
+					url: "/MusicWebsite/CountViewController",
+					type: "get",
+					data: {
+						idSong: id
+					},
+					success: function(reponse) {
+						$('#V' + id).html(reponse);
 
-
+					},
+					error: function(xhr, status, error) {
+						// Xử lý lỗi (nếu có)
+						console.error("Lỗi: " + error);
+					}
+				});
+			}, 100);
 		}
 	}
 
@@ -226,8 +219,6 @@ function skipAfterMusic() {
 		nextId = "SO" + nextId;
 	}
 
-	console.log(nextId);
-
 	var item = document.querySelector('#' + nextId);
 	var songAndSinger = item.querySelector('.song-singer');
 	var song = songAndSinger.querySelector('b');
@@ -284,31 +275,42 @@ function shuffleMode() {
 
 function searchByName(searchElement) {
 	var inputText = searchElement.value;
+
 	searchElement.addEventListener("keypress", function(event) {
 		if (event.key === "Enter") {
 			event.preventDefault();
 		}
 	});
+
 	var bgElement = document.querySelector(".content-bg");
 	bgElement.style.display = 'none';
+
 	var showMoreBtn = document.querySelector(".show-more-btn");
 	showMoreBtn.style.display = 'none';
+
 	var contentDiv = document.querySelector(".background-music");
 	contentDiv.querySelector("b").innerHTML = 'Search For: ' + inputText;
-	$.ajax({
-		url: "/MusicWebsite/SearchController",
-		type: "get",
-		data: {
-			searchInput: inputText
-		},
-		success: function(data) {
-			var content = document.querySelector(".table-divMusic");
-			content.innerHTML = data;
-		},
-		error: function(xhr) {
-			
+
+	clearTimeout(ajaxDelayTimer);
+
+	ajaxDelayTimer = setTimeout(function() {
+		if (inputText !== '') {
+			$.ajax({
+				url: "/MusicWebsite/SearchController",
+				type: "get",
+				data: {
+					searchInput: inputText
+				},
+				success: function(data) {
+					let content = document.querySelector(".table-divMusic");
+					content.innerHTML = data;
+				},
+				error: function(xhr) {
+
+				}
+			});
 		}
-	});
+	}, 100);
 }
 
 function appearImg(searchElement) {
@@ -318,5 +320,27 @@ function appearImg(searchElement) {
 		var bgElement = document.querySelector(".content-bg");
 		bgElement.style.display = 'block';
 	}
+}
+
+function showMore() {
+	var quantity = document.querySelectorAll('.all-music-item').length;
+	$.ajax({
+		url: "/MusicWebsite/ShowMoreController",
+		type: "get",
+		data: {
+			data: quantity
+		},
+		success: function(data) {
+			if (data === '') {
+				$('.show-more-btn').css({'display':'none'});
+			} else {
+				let content = document.querySelector(".table-divMusic");
+				content.innerHTML += data;
+			}
+		},
+		error: function(xhr) {
+			
+		}
+	});
 }
 

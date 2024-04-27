@@ -83,6 +83,37 @@ public class DAOSong extends AbsDao<Song>{
 		return result;
 	}
 	
+	public ArrayList<Song> selectNext12Products(int quantity) {
+		ArrayList<Song> result = new ArrayList<Song>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select * from songs order by id_song offset ? rows fetch next 12 rows only");
+			stmt.setInt(1, quantity);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id_song = rs.getString("id_song");
+				String name_song = rs.getString("name_song");
+				Time duration = rs.getTime("duration");
+				String genre = rs.getString("genre");
+				String urlImg = rs.getString("urlImg");
+				String urlAudio = rs.getString("urlAudio");
+				int songview = rs.getInt("songview");
+				String id_singer = rs.getString("id_singer");
+				
+				DAOSinger daoSinger = new DAOSinger();
+				Singer singer = daoSinger.selectById(id_singer);
+				
+				Song song = new Song(id_song, name_song, duration, genre, singer, urlImg, urlAudio, songview);
+				
+				result.add(song);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public int update(Song song) {
 		Song oldSong = selectById(song.getId_Song());
