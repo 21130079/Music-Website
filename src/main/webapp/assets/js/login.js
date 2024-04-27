@@ -7,14 +7,23 @@ const formSignUp = document.querySelectorAll('form')[1];
 const formLogin = document.querySelectorAll('form')[2];
 const wrapper = document.querySelector('.wrapper');
 
+
 personicon.addEventListener('click', () => {
-	// Select the content element
-	// Toggle the display style to show or hide the content
 	let content = $('.nav_person');
 	if (content.css('display') === 'none') {
 		content.css('display', 'grid')
 	} else {
 		content.css('display', 'none')
+	}
+});
+
+formLogin.addEventListener('submit', (e) => {
+	const captchaResponse = grecaptcha.getResponse();
+	console.log(captchaResponse)
+
+	if (!captchaResponse.length > 0) {
+		document.querySelector('.login-recaptcha-mess').innerHTML = "Please verify that you are not a robot.";
+		e.preventDefault();
 	}
 });
 

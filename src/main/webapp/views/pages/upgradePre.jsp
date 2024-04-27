@@ -401,16 +401,17 @@ ul {
 							<i class="fa-solid fa-music"></i> Premium
 						</div>
 						<h2>Mini</h2>
-						<p>20.000₫ cho 1 tuần</p>
+						<p>20,000 VND for 1 week</p>
 						<hr>
 					</div>
 					<ul class="option_content">
-						<li>1 tài khoản Premium</li>
-						<li>Cho phép thêm tối đa 5 Playlist</li>
-						<li>Thanh toán một lần</li>
+					<li>Unlimited number of Favorite songs</li>
+						<li>Unlimited number of Playlists</li>
+						<li>Full payment</li>
+						<li>Download Music for free</li>
 					</ul>
 					<a href="/MusicWebsite/UpgradeSelectorController?type=mini"><button
-							class="inner_button">Mua Premium Mini</button></a>
+							class="inner_button">Buy Premium Mini</button></a>
 				</div>
 			</div>
 
@@ -421,18 +422,17 @@ ul {
 							<i class="fa-solid fa-music"></i> Premium
 						</div>
 						<h2>Individual</h2>
-						<p>55.000₫ cho 1 tháng</p>
+						<p>55,000 VND for 1 month</p>
 						<hr>
 					</div>
 					<ul class="option_content">
-						<li>Không giới hạn số bài hát Favorite</li>
-						<li>Không giới hạn số bài hát Favorite</li>
-						<li>Không giới hạn số lượng Playlist</li>
-						<li>Thanh toán một lần</li>
-						<li>Dowload Nhạc miễn phí</li>
+						<li>Unlimited number of Favorite songs</li>
+						<li>Unlimited number of Playlists</li>
+						<li>Full payment</li>
+						<li>Download Music for free</li>
 					</ul>
 					<a href="/MusicWebsite/UpgradeSelectorController?type=individual">
-						<button class="inner_button">Mua Premium Individual</button>
+						<button class="inner_button">Buy Premium Individual</button>
 					</a>
 				</div>
 			</div>
@@ -444,18 +444,19 @@ ul {
 							<i class="fa-solid fa-music"></i> Premium
 						</div>
 						<h2>Student</h2>
-						<p>45.000₫ cho 1 tháng</p>
+						<p>45,000 VND for 1 month</p>
 
 						<hr>
 					</div>
 					<ul class="option_content">
-						<li>Giảm giá cho sinh viên đủ điều kiện</li>
-						<li>Không giới hạn số bài hát Favorite</li>
-						<li>Không giới hạn số lượng Playlist</li>
-						<li>Thanh toán một lần</li>
+						<li>Discount for qualifying students</li>
+						<li>Unlimited number of Favorite songs</li>
+						<li>Unlimited number of Playlists</li>
+						<li>Full payment</li>
+						<li>Download Music for free</li>
 					</ul>
 					<a href="/MusicWebsite/UpgradeSelectorController?type=student">
-						<button class="inner_button">Mua Premium Student</button>
+						<button class="inner_button">Buy Premium Student</button>
 					</a>
 				</div>
 			</div>

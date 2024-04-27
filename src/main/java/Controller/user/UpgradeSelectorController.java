@@ -33,13 +33,14 @@ public class UpgradeSelectorController extends HttpServlet {
 		String type = request.getParameter("type");
 
 		if (type.equals("mini")) {
+			
 			request.setAttribute("title", "Mini");
 			request.setAttribute("color", "#CFF56A");
 			request.setAttribute("optionText1", "1 Week");
-			request.setAttribute("optionText2", "1 Month");
+			request.setAttribute("optionText2", "2 Week");
 
-			request.setAttribute("optionPrice1", "20000");
-			request.setAttribute("optionPrice2", "70000");
+			request.setAttribute("optionPrice1", "15000");
+			request.setAttribute("optionPrice2", "30000");
 		} else if (type.equals("individual")) {
 			request.setAttribute("color", "#FFD2D7");
 			request.setAttribute("title", "Individual");

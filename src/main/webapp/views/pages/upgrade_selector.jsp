@@ -18,17 +18,22 @@
 <style>
 body {
 	width: 100%;
-	display: grid;
-	align-items: center;
+	height:100%;
+	display: grid;	
 	justify-content: center;
 	margin: 0px;
+
 }
 
 #container {
-	margin-top: 20px;
+	
+	margin-top: 30px;
 	width: 700px;
 	height: 100%;
-	grid-template-rows: 1fr 2fr;
+	display:grid;
+	border-radius: 10px;
+	padding: 10px 20px;
+	box-shadow: 0 4px 8px rgba(33, 38, 44, .16);
 }
 
 #selector_header {
@@ -38,7 +43,7 @@ body {
 }
 
 #selector_body {
-	margin-top: 20px;
+	
 	width: 100%;
 	display: grid;
 	grid-template-rows: auto auto;
@@ -47,13 +52,14 @@ body {
 
 #selector_body .payment_option:first-child {
 	border-radius: 10px 10px 0px 0px;
-	border: 1px solid red;
+    border: 1px solid black;
 	box-shadow: 10px;
 }
 
 #selector_body .payment_option {
-	border-radius: 0px 0px 10px 10px;
-	border: 1px solid red;
+	
+	border-radius:  0px 0px 10px 10px;
+    border: 1px solid black;
 }
 
 .script_payment {
@@ -61,11 +67,12 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	margin: 20px;
+	margin-bottom: 0px;
 	;
 }
 
 p {
-	font-size: 20px;
+	font-size: 16px;
 }
 
 i {
@@ -76,11 +83,15 @@ i {
 .payment_box {
 	width: 90%;
 	margin-left: 3.5%;
-	border: 1px solid red;
+	border: 1px solid black;
 	margin-bottom: 10px;
 	padding: 10px;
 	border-radius: 10px;
-	display: none;
+	
+}
+.payment_box:hover{
+ background-color: rgba(0, 0, 0, 0.1);
+ box-shadow: 0 4px 8px rgba(33, 38, 44, .16);
 }
 
 button {
@@ -105,35 +116,33 @@ input {
 
 		<div id="selector_header">
 			<div>
-				<h2>Bạn đã chọn</h2>
+				<h2>You have chosen</h2>
 				<h2>
 					<font color="${color}">Premium ${title}</font>
 				</h2>
 
 			</div>
 			<div class=description_box>
-				<a href="/MusicWebsite/views/pages/upgradePre.jsp">Thay đổi gói</a>
+				<a href="/MusicWebsite/views/pages/upgradePre.jsp">Change to premium package</a>
 
 			</div>
 		</div>
 		<div id="selector_body">
-			<h2>Trả trước một lần, không tự động gia hạn.</h2>
+			<h2>Pay once in advance, not automatically renewed.</h2>
 			<div id="paymment_options">
 			
 				<form class="payment_option" action="/MusicWebsite/ajaxServlet"
 					id="frmCreateOrder1" method="post">
+					<input type="hidden" name = "amount" value="${optionPrice1}">
 					<div class="script_payment">
 						<div>
-							<h2>${optionText1}</h2>
-							<input name="amount" value="${optionPrice1}₫" readonly>
+							<h2>${optionPrice1}₫ for ${optionText1}</h2>
+							
 						</div>
-						<div>
-							<i class="bi bi-arrow-down-square"
-								onclick="showPaymentMethod('pay_1',this)"></i>
-						</div>
+						
 					</div>
 					<button type="submit" class="payment_box" id="pay_1">
-						<p>Thanh toán bằng VNPay</p>
+						<p>Pay with VNPay</p>
 						<i></i>
 					</button>
 				</form>
@@ -142,17 +151,14 @@ input {
 				<form class="payment_option" action="/MusicWebsite/ajaxServlet"
 					id="frmCreateOrder2" method="post">
 					<div class="script_payment">
+					<input type="hidden" name = "amount" value="${optionPrice2}">
 						<div>
-							<h2>${optionText2}</h2>
-							<input name="amount" value="${optionPrice2}₫" readonly>
+							<h2>${optionPrice2}₫ for ${optionText2}</h2>
 						</div>
-						<div>
-							<i class="bi bi-arrow-down-square"
-								onclick="showPaymentMethod('pay_2',this)"></i>
-						</div>
+						
 					</div>
 					<button type="submit" class="payment_box" id="pay_2">
-						<p>Thanh toán bằng VNPay</p>
+						<p>Pay with VNPay</p>
 						<i></i>
 					</button>
 				</form>
