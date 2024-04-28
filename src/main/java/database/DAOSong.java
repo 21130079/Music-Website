@@ -87,6 +87,37 @@ public class DAOSong extends AbsDao<Song>{
 		return result;
 	}
 	
+	public ArrayList<Song> selectNext12Products(int quantity) {
+		ArrayList<Song> result = new ArrayList<Song>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select * from songs order by id_song offset ? rows fetch next 12 rows only");
+			stmt.setInt(1, quantity);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id_song = rs.getString("id_song");
+				String name_song = rs.getString("name_song");
+				Time duration = rs.getTime("duration");
+				String genre = rs.getString("genre");
+				String urlImg = rs.getString("urlImg");
+				String urlAudio = rs.getString("urlAudio");
+				int songview = rs.getInt("songview");
+				String id_singer = rs.getString("id_singer");
+				
+				DAOSinger daoSinger = new DAOSinger();
+				Singer singer = daoSinger.selectById(id_singer);
+				
+				Song song = new Song(id_song, name_song, duration, genre, singer, urlImg, urlAudio, songview);
+				
+				result.add(song);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public int update(Song song) {
 		Song oldSong = selectById(song.getId_Song());
@@ -322,6 +353,7 @@ public class DAOSong extends AbsDao<Song>{
 	public Map<String, Integer> getAllGenres() {
 		  Map<String, Integer> genreOccurrences = new HashMap<>();
 
+
 	        try (PreparedStatement stmt = connection.prepareStatement(
 	                "SELECT genre FROM songs")) {
 
@@ -377,5 +409,56 @@ public class DAOSong extends AbsDao<Song>{
 	        return songCount;
 	    }
 	  
-	 
+
+	public ArrayList<Song> selectSongByGenre(String genreString){
+		ArrayList<Song> result = new ArrayList<Song>();
+		try {
+			PreparedStatement stmt = connection
+					.prepareStatement("select * from songs where genre =?");
+
+			stmt.setString(1, genreString);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id_song = rs.getString("id_song");
+				String name_song = rs.getString("name_song");
+				Time duration = rs.getTime("duration");
+				String genre = rs.getString("genre");
+				String urlImg = rs.getString("urlImg");
+				String urlAudio = rs.getString("urlAudio");
+				int songview = rs.getInt("songview");
+				String id_singer = rs.getString("id_singer");
+				DAOSinger daoSinger = new DAOSinger();
+				Singer singer = daoSinger.selectById(id_singer);
+				Song song = new Song(id_song, name_song, duration, genre, singer, urlImg, urlAudio, songview);
+				result.add(song);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+		return result;
+	}
+	public ArrayList<String> getAllGenre() {
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select genre from songs");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String genre_song = rs.getString("genre");
+
+				if(!result.contains(genre_song)) {
+					result.add(genre_song);
+				}
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		
+		return result;
+	}
+	
+
 }

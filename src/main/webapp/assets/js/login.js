@@ -7,25 +7,37 @@ const formSignUp = document.querySelectorAll('form')[1];
 const formLogin = document.querySelectorAll('form')[2];
 const wrapper = document.querySelector('.wrapper');
 
-personicon.addEventListener('click',() =>{
-   let content = $('.nav_person');
-  if (content.css('display') ==='none') {
-   content.css('display','grid')
-  } else {
-    content.css('display','none')  }
+
+personicon.addEventListener('click', () => {
+	let content = $('.nav_person');
+	if (content.css('display') === 'none') {
+		content.css('display', 'grid')
+	} else {
+		content.css('display', 'none')
+	}
 });
-
-
 
 formLogin.addEventListener('submit', (e) => {
 	const captchaResponse = grecaptcha.getResponse();
 	console.log(captchaResponse)
-	
+
 	if (!captchaResponse.length > 0) {
 		document.querySelector('.login-recaptcha-mess').innerHTML = "Please verify that you are not a robot.";
 		e.preventDefault();
 	}
 });
+
+if (!(typeof formLogin === 'undefined')) {
+	formLogin.addEventListener('submit', (e) => {
+		const captchaResponse = grecaptcha.getResponse();
+
+		if (!captchaResponse.length > 0) {
+			document.querySelector('.login-recaptcha-mess').innerHTML = "Please verify that you are not a robot.";
+			e.preventDefault();
+		}
+	});
+}
+
 
 if (checkCommand.name.length == 0) {
 	wrapper.classList.add('animate-signUp');
@@ -34,16 +46,19 @@ if (checkCommand.name.length == 0) {
 	wrapper.classList.add('animate-signIn');
 	wrapper.classList.remove('animate-signUp');
 }
+if (!(typeof formLogin === 'undefined')) {
+	signUpLink.addEventListener('click', () => {
+		wrapper.classList.add('animate-signIn');
+		wrapper.classList.remove('animate-signUp');
+	});
+}
 
-signUpLink.addEventListener('click', () => {
-	wrapper.classList.add('animate-signIn');
-	wrapper.classList.remove('animate-signUp');
-});
-
-signInLink.addEventListener('click', () => {
-	wrapper.classList.add('animate-signUp');
-	wrapper.classList.remove('animate-signIn');
-});
+if (!(typeof formLogin === 'undefined')) {
+	signInLink.addEventListener('click', () => {
+		wrapper.classList.add('animate-signUp');
+		wrapper.classList.remove('animate-signIn');
+	});
+}
 
 function checkUsername(input) {
 	const firstChar = input.value.charAt(0);
@@ -57,11 +72,11 @@ function checkUsername(input) {
 }
 
 document.querySelector('form').addEventListener('submit', (e) => {
-   var recaptcha = document.querySelector("#g-recaptcha-response").value;
-   if (recaptcha === "") {
-      e.preventDefault();
-      alert("Please check the recaptcha");
-   }
+	var recaptcha = document.querySelector("#g-recaptcha-response").value;
+	if (recaptcha === "") {
+		e.preventDefault();
+		alert("Please check the recaptcha");
+	}
 });
 
 

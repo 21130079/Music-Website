@@ -1,6 +1,7 @@
 package Controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ public class LogOutController extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -36,12 +37,23 @@ public class LogOutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		HttpSession session = request.getSession();
 		session.invalidate();
-		
-		
-		response.sendRedirect(request.getHeader("referer"));
+
+		Cookie cookies[] = request.getCookies();
+
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("usernameC")) {
+				request.setAttribute("usernameC", cookie.getValue());
+			}
+
+			if (cookie.getName().equals("passwordC")) {
+				request.setAttribute("passwordC", cookie.getValue());
+			}
+		}
+
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**
