@@ -1,9 +1,12 @@
 package database;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 
@@ -85,5 +88,42 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 	public int delete(HistoryPremium t) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public double getProfitForMonth(int month) {
+		
+		try (CallableStatement stmt = connection.prepareCall("{ ? = call dbo.CalculateProfitForMonth(?) }")) {
+            stmt.registerOutParameter(1, Types.FLOAT); // Đăng ký loại dữ liệu của tham số trả về
+            stmt.setInt(2, month); // Thiết lập tham số đầu vào
+
+            // Thực hiện gọi hàm
+            stmt.execute();
+
+            // Lấy kết quả từ tham số đầu ra
+            int profit = stmt.getInt(1);
+           
+            return profit;
+    } catch (Exception e) {
+        e.printStackTrace();
+    
+	
+	}
+		return 0;
+	}
+	public double getIncomeInThisMonth() {
+		 int currentMonth = LocalDate.now().getMonthValue();
+		 return getProfitForMonth(currentMonth); 
+	}
+	public double getAvgRevenue(){
+		double total = 0;
+		 int currentMonth = LocalDate.now().getMonthValue();
+		for (int i = 1; i < 12; i++) {
+			if(i<currentMonth) {
+				total += getProfitForMonth(i);
+			}
+		}
+		return total/(currentMonth-1);
+	}
+	public static void main(String[] args) {
+		System.out.println(new DAOHistoryPremium().getProfitForMonth(6));;
 	}
 }

@@ -332,7 +332,31 @@ END;
 
 	Insert into accounts(username,password_account,email)
 	VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
-	update roles_accounts set roleUser = 'admin' where username = 'admin'
-
+	update roles_accounts set roleUser = 'admin' where username = 'admin';
+	
+CREATE FUNCTION dbo.CalculateProfitForMonth(@month INT)
+RETURNS float
+AS
+BEGIN
+    DECLARE @start_date DATE;
+    DECLARE @end_date DATE;
+	
+    SET @start_date = DATEFROMPARTS(YEAR(GETDATE()), @month, 1);
+    SET @end_date = DATEADD(DAY, -1, DATEADD(MONTH, 1, @start_date));
+	 DECLARE @profit float  =0 ;
+    SELECT @profit = SUM(CASE [type_premium]
+                                WHEN  1 THEN 15000
+                                WHEN  2 THEN 30000
+                                WHEN  3 THEN 55000
+                                WHEN  4 THEN 255000
+                                WHEN 5 THEN 45000
+                                WHEN 6 THEN 225000
+                                ELSE 0
+                           END)
+    FROM [MusicWeb].[dbo].[history_premium_accounts]
+	  WHERE [started_date] BETWEEN @start_date AND @end_date;
+	
+    RETURN @profit;
+END;
 
 	

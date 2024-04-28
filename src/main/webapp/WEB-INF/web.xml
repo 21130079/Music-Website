@@ -466,4 +466,25 @@
     <servlet-name>AddSongAPI</servlet-name>
     <url-pattern>/AddSongAPI</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GenreChartServlet</display-name>
+    <servlet-name>GenreChartServlet</servlet-name>
+    <servlet-class>Controller.chart.GenreChartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GenreChartServlet</servlet-name>
+    <url-pattern>/GenreChartServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <description></description>
+    <display-name>TopSongsChartImage</display-name>
+    <servlet-name>TopSongsChartImage</servlet-name>
+    <servlet-class>Controller.chart.TopSongsChartImage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TopSongsChartImage</servlet-name>
+    <url-pattern>/TopSongsChartImage</url-pattern>
+  </servlet-mapping>
 </web-app>

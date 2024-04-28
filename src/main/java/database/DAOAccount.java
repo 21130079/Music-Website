@@ -338,7 +338,25 @@ public class DAOAccount extends AbsDao<Account>  {
 	        }
 	    }
 	}
+	   public int countAccounts() {
+	        int accountCount = 0;
+
+	        try (PreparedStatement stmt = connection.prepareStatement(
+	                "SELECT COUNT(*) AS account_count FROM accounts")) {
+
+	            ResultSet rs = stmt.executeQuery();
+
+	            if (rs.next()) {
+	                accountCount = rs.getInt("account_count");
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return accountCount;
+	    }
 	public static void main(String[] args) {
-		System.out.println(new DAOAccount().selectByEmail("user1@gmail.com"));
+		System.out.println(new DAOAccount().countAccounts());
 	}
 }
