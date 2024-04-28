@@ -272,7 +272,31 @@ function shuffleMode() {
 		btnShuffle.querySelector('.bi-shuffle').style = "font-size: 30px; color: red;";
 	}
 }
+function searchByGenre(genre) {
 
+	console.log(genre);
+	var bgElement = document.querySelector(".content-bg");
+	bgElement.style.display = 'none';
+	var showMoreBtn = document.querySelector(".show-more-btn");
+	showMoreBtn.style.display = 'none';
+	var contentDiv = document.querySelector(".background-music");
+	contentDiv.querySelector("b").innerHTML = 'Genre: ' + genre;
+	$.ajax({
+		url: "/MusicWebsite/SearchController",
+		type: "get",
+		data: {
+			searchInput2: genre,
+			numberput: 2
+		},
+		success: function(data) {
+			var content = document.querySelector(".table-divMusic");
+			content.innerHTML = data;
+		},
+		error: function(xhr) {
+
+		}
+	});
+}
 function searchByName(searchElement) {
 	var inputText = searchElement.value;
 
@@ -299,7 +323,9 @@ function searchByName(searchElement) {
 				url: "/MusicWebsite/SearchController",
 				type: "get",
 				data: {
-					searchInput: inputText
+					searchInput: inputText,
+					numberput: 1
+
 				},
 				success: function(data) {
 					let content = document.querySelector(".table-divMusic");
@@ -332,14 +358,14 @@ function showMore() {
 		},
 		success: function(data) {
 			if (data === '') {
-				$('.show-more-btn').css({'display':'none'});
+				$('.show-more-btn').css({ 'display': 'none' });
 			} else {
 				let content = document.querySelector(".table-divMusic");
 				content.innerHTML += data;
 			}
 		},
 		error: function(xhr) {
-			
+
 		}
 	});
 }
