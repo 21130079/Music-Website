@@ -3,8 +3,12 @@ package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import Model.Account;
 import Model.IPAddress;
@@ -346,6 +350,65 @@ public class DAOSong extends AbsDao<Song>{
 		}
 		return null;
 	}
+	public Map<String, Integer> getAllGenres() {
+		  Map<String, Integer> genreOccurrences = new HashMap<>();
+
+
+	        try (PreparedStatement stmt = connection.prepareStatement(
+	                "SELECT genre FROM songs")) {
+
+	            ResultSet rs = stmt.executeQuery();
+
+	            while (rs.next()) {
+	                String genre = rs.getString("genre");
+	                genreOccurrences.put(genre, genreOccurrences.getOrDefault(genre, 0) + 1);
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return genreOccurrences;
+	    }
+	  public Map<String, Integer> getTopSongs() {
+	        Map<String, Integer> topSongs = new LinkedHashMap<>();
+
+	        try (PreparedStatement stmt = connection.prepareStatement(
+	                "SELECT TOP 5 name_song, songview FROM songs ORDER BY songview DESC")) {
+
+	            ResultSet rs = stmt.executeQuery();
+
+	            while (rs.next()) {
+	                String songName = rs.getString("name_song");
+	                int viewCount = rs.getInt("songview");
+	                topSongs.put(songName, viewCount);
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return topSongs;
+	    }
+	  public int countSongs() {
+	        int songCount = 0;
+
+	        try (PreparedStatement stmt = connection.prepareStatement(
+	                "SELECT COUNT(*) AS song_count FROM songs")) {
+
+	            ResultSet rs = stmt.executeQuery();
+
+	            if (rs.next()) {
+	                songCount = rs.getInt("song_count");
+	            }
+
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return songCount;
+	    }
+	  
 
 	public ArrayList<Song> selectSongByGenre(String genreString){
 		ArrayList<Song> result = new ArrayList<Song>();
@@ -397,4 +460,5 @@ public class DAOSong extends AbsDao<Song>{
 		return result;
 	}
 	
+
 }

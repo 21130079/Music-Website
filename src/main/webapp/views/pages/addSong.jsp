@@ -11,15 +11,6 @@
 <html>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/x-icon"
-	href="/MusicWebsite/assets/img/Other/logoPage.png">
-<title>KD Music</title>
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -38,37 +29,36 @@
 	src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="/MusicWebsite/assets/css/style.css" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="/MusicWebsite/assets/css/style.css">
+
 <title>Insert title here</title>
 
 <style type="text/css">
-#songTable th, #songTable td {
+#SongTable th, #SongTable td {
     border: 1px solid #ddd; /* Đặt border cho các ô */
     padding: 8px; /* Khoảng cách giữa nội dung và border */
     text-align: left; /* Căn lề nội dung */
 }
 
-#songTable_wrapper{
+#SongTable_wrapper{
 	width: 90% !important;
 	margin-left:5.5%;
 	color:white;
 	margin-top: 20px;
 }
-#songTable th {
+#SongTable th {
     background-color: grey; /* Màu nền cho tiêu đề */
     color: black; /* Màu chữ cho tiêu đề */
 }
 
-#songTable tbody tr:nth-child(even) {
+#SongTable tbody tr:nth-child(even) {
     background-color: #1a1a1a; /* Màu nền cho hàng chẵn trong chế độ tối */
     color: #fff; /* Màu chữ cho hàng chẵn trong chế độ tối */
 }
 
 /* Định nghĩa màu nền cho hàng lẻ */
-#songTable tbody tr:nth-child(odd) {
+#SongTable tbody tr:nth-child(odd) {
     background-color: #242424; /* Màu nền cho hàng lẻ trong chế độ tối */
     color: #fff; /* Màu chữ cho hàng lẻ trong chế độ tối */
 }
@@ -102,9 +92,14 @@ background-color: #171717;
 	float: right;
 	margin-right: 7%;
 }
-#songTable{
+#SongTable{
 	background:black;
-	width: 100% !important;
+width: 100% !important;
+	
+	}
+	
+	.custom-select{
+	padding: .25rem 1rem !important;
 	}
 
 .checkbox {
@@ -113,15 +108,8 @@ background-color: #171717;
 	margin: 30px;
 }
 
-.nav-link {
-	margin: 5px 5px;
-	font-size: 18px;
-	color: rgb(180, 180, 180);
-}
 
-.nav-link:hover {
-	color: rgb(140, 140, 140);
-}
+
 </style>
 </head>
 
@@ -135,7 +123,11 @@ background-color: #171717;
 		});
 	});
 </script>
+		<jsp:include page="../components/header.jsp"></jsp:include>
 <body>
+<<<<<<< HEAD
+	
+=======
 	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
@@ -386,6 +378,7 @@ background-color: #171717;
 			</c:if>
 		</div>
 	</header>
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 	<c:choose>
 			<c:when test="${fn:contains(type,'favorite')}">
 				<c:url var="url" value="/AddFavoriteController">
@@ -398,7 +391,7 @@ background-color: #171717;
 			</c:otherwise>
 		</c:choose>
 	<form action="${url}" method="get">
-    <table id="songTable" class="display stripe">
+    <table id="SongTable" class="display stripe">
         <thead>
             <tr>
                 <th><i style="font-size: 30px; padding-left: 40px;" class="bi bi-music-note-list"></i> <label for="">Song</label></th>
@@ -444,13 +437,13 @@ background-color: #171717;
         <input type="hidden" name="idplaylist" value="${idplaylist}">
     </div>
 </form>
-<script>
-    $(document).ready(function() {
-        var table = $('#songTable').DataTable({
-            "paging": true, // Cho phép phân trang nếu cần
-            "searching": true // Cho phép tìm kiếm
-        });
+<script type="text/javascript">
+$(document).ready(function() {
+    var table = $('#SongTable').DataTable({
+        "paging": true, // Cho phép phân trang nếu cần
+        "searching": true // Cho phép tìm kiếm	
     });
+});
 </script>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>

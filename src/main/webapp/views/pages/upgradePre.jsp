@@ -131,8 +131,11 @@ ul {
 	color: #A7A7A7 !important;
 }
 </style>
-
+<jsp:include page="../components/header.jsp"></jsp:include>
 <body>
+<<<<<<< HEAD
+	
+=======
 	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
@@ -384,6 +387,7 @@ ul {
 			</c:if>
 		</div>
 	</header>
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 	<div id="container">
 		<div class="wrapper_button">
 			<c:url var="url" value="/index.jsp"></c:url>

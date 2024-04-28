@@ -61,7 +61,11 @@ td input {
 	border-radius: 50px;
 }
 </style>
+<jsp:include page="../components/admin_header.jsp"/>
 <body>
+<<<<<<< HEAD
+	
+=======
 	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
@@ -308,6 +312,7 @@ td input {
 		</div>
 	</header>
 
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 	<br>
 	<h1 style="color: white;">Edit Song</h1>
 	<form action="/MusicWebsite/UpdateSongController" method="post"

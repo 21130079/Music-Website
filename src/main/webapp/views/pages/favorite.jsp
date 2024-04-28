@@ -27,8 +27,11 @@
 	href="/MusicWebsite/assets/css/style.css">
 
 </head>
+<jsp:include page="../components/header.jsp"></jsp:include>
 <body>
 
+<<<<<<< HEAD
+=======
 	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
@@ -290,6 +293,7 @@
 		</div>
 	</header>
 
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 	<div class="listSong">
 
 		<div class="listSong-title teamplate-listsong">

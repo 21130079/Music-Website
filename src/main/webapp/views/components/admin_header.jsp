@@ -1,103 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
+    <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+<link rel="stylesheet" href="/MusicWebsite/assets/css/style.css" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap4.css"
-	rel="stylesheet">
-
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.js"></script>
-<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
-<script
-	src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-<link rel="stylesheet" type="text/css"
-	href="/MusicWebsite/assets/css/style.css">
-
-<style>
-* {
-	color: white;
-}
-
-#data td {
-	color: black;
-	background-color: white;
-}
-
-/* .log_admin {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
-	text-decoration: none;
-}
-
-.log_admin:hover {
-	color: black;
-}
-
-.account_admin {
-	color: white;
-	margin-left: 100px;
-} */
-/* 
-.account_admin:hover {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
-	text-decoration: none;
-}
-
-.song_admin:hover {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
-}
-
-.song_admin {
-	color: white;
-	margin-left: 100px;
-} */
-</style>
 </head>
-<jsp:include page="../components/admin_header.jsp"/>
-<body>
-<<<<<<< HEAD
-	<br>
-=======
-	<header id="header">
+<style>
+.nav-link{
+margin: 5px 5px;
+    font-size: 18px;
+    color: rgb(180, 180, 180);
+}
+</style>
+
+<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
 				src="/MusicWebsite/assets/img/Other/logo.png" alt=""
 				style="height: 171px;">
 			</a>
 		</div>
-		<div class="col-6">
+		<div class="col-9">
 			<ul class="nav">
 				<li class="nav-item">
 					<div class="navbar">
@@ -105,22 +41,13 @@
 							<tr>
 
 								<td><b><a class="nav-link "
-										href="/MusicWebsite/index.jsp">Home</a></b></td>
-
-								<c:choose>
-									<c:when
-										test="${fn:contains(sessionScope.account.roles, 'admin')}">
-										<td style="padding-left: 10px"><b><a
-												class="nav-link ${param.activeRanking}"
-												href="/MusicWebsite/views/admin/admin.jsp">Management</a></b></td>
-									</c:when>
-								</c:choose>
-								<td style="padding-left: 10px"><b><a class="nav-link"
-										href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
-								<td style="padding-left: 10px"><b><a class="nav-link"
-										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
-								<td style="padding-left: 10px"><b><a class="nav-link"
-										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
+										href="/MusicWebsite/views/admin/admin-pane.jsp">Home</a></b></td>
+										<td style="padding-left: 10px"><b><a  class="nav-link "
+												href="/MusicWebsite/index.jsp">User View</a></b></td>
+								<td style="padding-left: 10px"><b><a class="song_admin nav-link" href="/MusicWebsite/views/admin/admin.jsp">Song</a></b></td>
+								<td style="padding-left: 10px"><b>		<a class="log_admin nav-link" href="/MusicWebsite/views/admin/admin_account.jsp">Accoint</a></b></td>
+								<td style="padding-left: 10px"><b>		<a class="log_admin nav-link" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a></b></td>
+								
 							</tr>
 						</table>
 					</div>
@@ -128,9 +55,17 @@
 			</ul>
 		</div>
 
-		<div>
+<div class="search-box">
+			<form action="/MusicWebsite/SearchController" method="get"
+				style="margin-left: -169px;">
+				<button type="submit" class="btn-search" disabled="disabled">
+					<i class="bi bi-search" style="font-size: 22px"></i>
+				</button>
+				<input type="text" class="input-search" oninput="searchByName(this)"
+					onblur="appearImg(this)" placeholder="Search by name..."
+					name="searchInput">
+			</form>
 		</div>
-
 		<div class="sign-in">
 			<c:choose>
 				<c:when test="${sessionScope.account!=null}">
@@ -140,13 +75,14 @@
 						<i class="bi bi-key-fill"></i>
 					</button>
 					<div class="person_circle">
-						<i class="bi bi-person-circle"> </i>
+						<i class="bi bi-person-circle">
+						</i>
 						<div class="nav_person">
-							<div>My Information</div>
-							<div>Premium</div>
-							<div>Forgot Password</div>
-							<div>Logout</div>
-						</div>
+								<div>My Information</div>
+								<div>Premium</div>
+								<div>Forgot Password</div>
+								<div>Logout</div>
+							</div>
 					</div>
 					<font color="White"> ${sessionScope.account.username} </font>
 					<a href="/MusicWebsite/LogOutController">
@@ -275,19 +211,14 @@
 								method="post">
 								<h2 class="log">Login</h2>
 								<div class="input-group">
-									<input type="text" name="username" value="${usernameC }" required> <label
+									<input type="text" name="username" required> <label
 										for="">Username</label>
 								</div>
 								<div class="input-group">
-									<input type="password" name="password" value="${passwordC }" required> <label
+									<input type="password" name="password" required> <label
 										for="">Password</label>
 								</div>
-								
-								<div class="remember">
-									<input id="remember" type="checkbox" name="remember" value="true"> 
-									<label for="remember">Remember me</label>
-								</div>
-								
+
 								<div class="forgot-pass">
 									<a href="/MusicWebsite/views/pages/changePassword.jsp">Forgot
 										Password?</a>
@@ -297,7 +228,9 @@
 								<div class="g-recaptcha"
 									data-sitekey="6LccxrYpAAAAAAPNc2PDdoWNK1r2SAWs8uwSNZgG"></div>
 								<br>
-							
+
+								<div style="color: red" class="login-recaptcha-mess"></div>
+
 								<div style="color: red" class="login-recaptcha-mess"></div>
 								<button type="submit" class="btn-log" id="login">Login</button>
 
@@ -334,158 +267,7 @@
 			</c:if>
 		</div>
 	</header>
-	<div class="title"
-		style="display: flex; justify-content: space-between; width: 100%; margin-top: 20px">
-		<div style="display: flex;">
-			<h1 class="topic-music topic-trending">
-				<b>Admin</b>
-			</h1>
-			<h2>
-				<a class="log_admin" style="text-decoration: none;"
-					href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
-			</h2>
-			<h2>
-				<a class="account_admin"
-					href="/MusicWebsite/views/admin/admin_account.jsp">Account</a>
-
-			</h2>
-			<h2>
-				<a class="song_admin" style="text-decoration: none;"
-					href="/MusicWebsite/views/admin/admin.jsp">Song</a>
-			</h2>
-		</div>
-
->>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
-		<button style="color: black; float: right;" onclick="getSelectedIds()">Delete
-			selected</button>
-
-
-	
-	<jsp:useBean id="daoLog" class="database.DAOLog"></jsp:useBean>
-	<c:set var="listItems" value="${daoLog.selectAll()}"></c:set>
-
-	<table id="data" class="table-bordered table-striped"
-		style="width: 100%">
-		<thead>
-			<tr>
-				<th></th>
-				<th>ID</th>
-				<th>National</th>
-				<th>Level</th>
-				<th>Address performing</th>
-				<th>Previous value</th>
-				<th>Current value</th>
-				<th>Date</th>
-				<th>Status</th>
-				<th></th>
-			</tr>
-		</thead>
-	</table>
+<body>		
+	   
 </body>
-
-<script src="/MusicWebsite/assets/js/login.js"></script>
-<script>
-	function getSelectedIds() {
-		var selectedIds = [];
-		var checkboxes = document.querySelectorAll('.checkbox');
-		checkboxes.forEach(function(checkbox) {
-			if (checkbox.checked) {
-				selectedIds.push(checkbox.id);
-			}
-		});
-
-		if (selectedIds.length > 0) {
-			$.ajax({
-				url : '/MusicWebsite/RemoveLogController',
-				type : 'get',
-				data : {
-					selectedIds : selectedIds
-				},
-				success : function(response) {
-					alert('Đã xóa các log đã chọn');
-					window.location.reload();
-
-				},
-				error : function() {
-					alert('Đã xảy ra lỗi.');
-				}
-			});
-		} else {
-			alert("Không có phần tử nào được chọn.");
-		}
-	}
-	$(document)
-			.ready(
-					function() {
-						$
-								.ajax({
-									url : "/MusicWebsite/LogAPI",
-									type : "get",
-									dataType : "json",
-									success : function(data) {
-
-										$("#data")
-												.dataTable(
-														{
-															data : data.data,
-
-															columns : [
-																	{
-																		data : null,
-																		render : function(
-																				data,
-																				type,
-																				row) {
-																			var checkboxId = data.idLog; // Assuming id is a unique identifier in your data
-																			var checkboxClass = "checkbox"; // Set your desired class here
-																			return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
-																		}
-																	},
-																	{
-																		data : 'idLog'
-																	},
-																	{
-																		data : 'nationality'
-																	},
-																	{
-																		data : 'levelLog'
-																	},
-																	{
-																		data : 'addressPerforming'
-																	},
-																	{
-																		data : 'preValue'
-																	},
-																	{
-																		data : 'currentValue'
-																	},
-																	{
-																		data : 'updatedDate'
-																	},
-																	{
-																		data : 'status'
-																	},
-																	{
-																		"data" : null,
-																		"render" : function(
-																				data,
-																				type,
-																				row) {
-																			return '<a href="/MusicWebsite/RemoveLogController?idlog='
-																					+ data.idLog
-																					+ '"><button style="color: black;">Delete</button></a>';
-																		}
-																	} ]
-														});
-
-									},
-									error : function(jqXHR, textStatus,
-											errorThrown) {
-										console.log("Error: " + errorThrown);
-									}
-								});
-
-					})
-</script>
-<script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

@@ -37,8 +37,11 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
+<jsp:include page="views/components/header.jsp"></jsp:include>
 <body>
+<<<<<<< HEAD
+	
+=======
 	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
@@ -314,6 +317,7 @@
 			</c:if>
 		</div>
 	</header>
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 	<!--Container-->
 	<div class="container">
 		<!--SLIDER-->

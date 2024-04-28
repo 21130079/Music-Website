@@ -119,7 +119,11 @@ p {
 
 <title>List Song</title>
 </head>
+<jsp:include page="../components/header.jsp"></jsp:include>
 <body>
+<<<<<<< HEAD
+	
+=======
 	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
@@ -370,6 +374,7 @@ p {
 			</c:if>
 		</div>
 	</header>
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 	<!--audio playing -->
 	<div id="auPlaying"></div>
 

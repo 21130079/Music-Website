@@ -10,24 +10,21 @@
 <title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.css"
 	rel="stylesheet">
-<link
-	href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap4.css"
-	rel="stylesheet">
-
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.js"></script>
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
 <script
 	src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
 <link rel="stylesheet" type="text/css"
 	href="/MusicWebsite/assets/css/style.css">
 <style type="text/css">
@@ -76,7 +73,7 @@ body {
 	font-size: 20px;
 }
 
-.log_admin {
+/* .log_admin {
 	color: white;
 	margin-left: 100px;
 }
@@ -98,14 +95,14 @@ body {
 .account_admin {
 	color: white;
 	margin-left: 100px;
-}
+} */
 
-.account_admin:hover {
+/* .account_admin:hover {
 	color: black;
 	text-decoration: none;
 }
-
-.account_admin {
+ */
+/* .account_admin {
 	color: black;
 	border: 1px solid black;
 	background-color: white;
@@ -113,9 +110,9 @@ body {
 	padding: 3px 60px 3px 60px;
 	border-radius: 20px 20px 20px 20px;
 	text-decoration: none;
-}
+} */
 
-.song_admin:hover {
+/* .song_admin:hover {
 	color: black;
 	border: 1px solid black;
 	background-color: white;
@@ -127,10 +124,15 @@ body {
 .song_admin {
 	color: white;
 	margin-left: 100px;
-}
+} */
 </style>
 </head>
+<jsp:include page="../components/admin_header.jsp"/>
 <body>
+<<<<<<< HEAD
+	<br>
+	
+=======
 	<header id="header">
 		<div class="logo">
 			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
@@ -397,6 +399,7 @@ body {
 			</h2>
 		</div>
 
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 		<button style="color: black; float: right;" onclick="getSelectedIds()">Delete
 			selected</button>
 
@@ -461,10 +464,15 @@ body {
 									dataType : "json",
 									success : function(data) {
 
+<<<<<<< HEAD
+				$("#data").DataTable({
+					data : data.data,
+=======
 										$("#data")
 												.dataTable(
 														{
 															data : data.data,
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 
 															columns : [
 																	{

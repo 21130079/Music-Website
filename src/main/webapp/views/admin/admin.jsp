@@ -42,6 +42,9 @@
 body {
 	overflow-x: hidden;
 }
+.card{
+background-color: transparent !important;
+}
 
 .content-bg {
 	
@@ -60,18 +63,18 @@ body {
 	font-size: 20px;
 }
 
-.log_admin {
+/* .log_admin {
 	color: white;
 	margin-left: 100px;
 }
 .account_admin {
 	color: white;
 	margin-left: 100px;
-}
+} */
 a {
 text-decoration: none;
 }
-.log_admin:hover {
+/* .log_admin:hover {
 	color: black;
 	border: 1px solid black;
 	background-color: white;
@@ -97,7 +100,7 @@ text-decoration: none;
 	margin-left: 100px;
 	padding: 3px 60px 3px 60px;
 	border-radius: 20px 20px 20px 20px;
-}
+} */
 </style>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
@@ -112,22 +115,11 @@ text-decoration: none;
 
 
 </head>
-
+<jsp:include page="../components/admin_header.jsp"/>
 <body>
-	<header id="header">
-		<div class="logo">
-			<a href="/MusicWebsite/index.jsp" class="img-logo"> <img
-				src="/MusicWebsite/assets/img/Other/logo.png" alt=""
-				style="height: 171px;">
-			</a>
-		</div>
-		<div class="col-6">
-			<ul class="nav">
-				<li class="nav-item">
-					<div class="navbar">
-						<table>
-							<tr>
 
+<<<<<<< HEAD
+=======
 								<td><b><a class="nav-link "
 										href="/MusicWebsite/index.jsp">Home</a></b></td>
 
@@ -368,25 +360,12 @@ text-decoration: none;
 			</c:if>
 		</div>
 	</header>
+>>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 	<!--Container-->
 	<div class="container">
 		<div class="background-music" id="trending">
 			<br>
-			<div class="title" style="display: flex;">
-				<h1 class="topic-music topic-trending">
-					<b>Admin</b>
-				</h1>
-				<h2>
-					<a class="log_admin" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
-				</h2>
-				<h2>
-				<a class="account_admin" href="/MusicWebsite/views/admin/admin_account.jsp">Account</a>
-					
-				</h2>
-				<h2>
-					<a class="song_admin" href="/MusicWebsite/views/admin/admin.jsp">Song</a>
-				</h2>
-			</div>
+			
 			<div class="table-allMusic">
 				<div class="trendingTable">
 					<div class="add-music">
@@ -407,7 +386,7 @@ text-decoration: none;
 									<img src="${song.url_Img}" class="card-img-top" alt="...">
 
 								</div>
-								<div>
+								
 									<form action="">
 										<h5 class="title-trending ${song.id_Song }">
 											<b>${song.name_Song}</b>
@@ -421,7 +400,7 @@ text-decoration: none;
 											<i class="bi bi-trash"></i>
 										</a>
 									</form>
-								</div>
+								
 							</div>
 						</div>
 					</c:forEach>
