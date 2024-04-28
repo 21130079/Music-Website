@@ -24,7 +24,18 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+	integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+	crossorigin="anonymous"></script>
 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -62,7 +73,24 @@
 										href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
 								<td style="padding-left: 10px"><b><a class="nav-link"
 										href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
+								<td><div class="dropdown">
 
+										<button class="btn btn-secondary dropdown-toggle"
+											type="button" data-bs-toggle="dropdown" aria-expanded="false"
+											style="margin-right: 10px; background-color: rgb(63, 63, 63);color: rgb(180,180,180)
+											;border: 0px ;font-size: 20px;font-weight: 20px">
+											Genre</button>
+										<ul class="dropdown-menu">
+											<jsp:useBean id="daoSong2" class="database.DAOSong"></jsp:useBean>
+											<c:forEach var="listGenre" items="${daoSong2.getAllGenre()}">
+												<p>
+												<li><a class="dropdown-item" href="#" id="${listGenre}"
+													onclick="searchByGenre(this.id)">${listGenre}</a></li>
+												</p>
+
+											</c:forEach>
+										</ul>
+									</div></td>
 							</tr>
 						</table>
 					</div>
