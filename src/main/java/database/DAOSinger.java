@@ -3,6 +3,7 @@ package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -33,6 +34,27 @@ public class DAOSinger extends AbsDao<Singer> {
 		ArrayList<Singer> result = new ArrayList<Singer>();
 		try {
 			PreparedStatement stmt = connection.prepareStatement("select * from singers");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String id_singer = rs.getString("id_singer");
+				String name_Singer = rs.getString("name_singer");
+				
+				Singer singer = new Singer(id_singer, name_Singer);
+				result.add(singer);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<Singer> selectNext3Singers(int quantity) {
+		ArrayList<Singer> result = new ArrayList<Singer>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select * from singers order by id_song offset ? rows fetch next 3 rows only");
+			stmt.setInt(1, quantity);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String id_singer = rs.getString("id_singer");

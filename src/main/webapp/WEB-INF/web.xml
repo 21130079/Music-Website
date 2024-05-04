@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
   <display-name>MusicWebsite</display-name>
   <welcome-file-list>
@@ -477,7 +476,6 @@
     <servlet-name>GenreChartServlet</servlet-name>
     <url-pattern>/GenreChartServlet</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <description></description>
     <display-name>TopSongsChartImage</display-name>
@@ -488,5 +486,14 @@
     <servlet-name>TopSongsChartImage</servlet-name>
     <url-pattern>/TopSongsChartImage</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>LazyLoadingController</display-name>
+    <servlet-name>LazyLoadingController</servlet-name>
+    <servlet-class>Controller.LazyLoadingController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LazyLoadingController</servlet-name>
+    <url-pattern>/LazyLoadingController</url-pattern>
+  </servlet-mapping>
 </web-app>

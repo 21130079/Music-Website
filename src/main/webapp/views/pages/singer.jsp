@@ -40,48 +40,62 @@ body {
 </head>
 <jsp:include page="../components/header.jsp"></jsp:include>
 <body>
-	<div>
-		<jsp:useBean id="daosinger" class="database.DAOSinger" scope="request"></jsp:useBean>
+	<jsp:useBean id="daosinger" class="database.DAOSinger" scope="request"></jsp:useBean>
 
-		<c:forEach var="singer" items="${daosinger.songsOfSinger}">
+	<c:forEach var="singer" items="${daosinger.songsOfSinger}">
+		<div class="table-allMusic">
+			<h1 class="topic-music">
+				<b>${singer.key}</b>
+			</h1>
+			<div class="trendingTable">
+				<c:forEach var="song" items="${singer.value}">
+					<div class="item trending-box">
+						<div class="card background-music">
+							<div class="img-form">
+								<img src="${song.url_Img}" class="card-img-top" alt="...">
+								<div class="icon-in-img">
 
-			<div class="table-allMusic">
-				<h1 class="topic-music">
-					<b>${singer.key}</b>
-				</h1>
-				<div class="trendingTable">
-					<c:forEach var="song" items="${singer.value}">
-						<div class="item trending-box">
-							<div class="card background-music">
-								<div class="img-form">
-									<img src="${song.url_Img}" class="card-img-top" alt="...">
-									<div class="icon-in-img">
-
-										<a class="inner-icon-in-img" href="navListSong.jsp"><i
-											style="font-size: 50px" class="bi-play-circle"></i></a>
+									<a class="inner-icon-in-img" href="navListSong.jsp"><i
+										style="font-size: 50px" class="bi-play-circle"></i></a>
 
 
-									</div>
-								</div>
-								<div>
-									<h5 class="title-trending">
-										<b>${song.getName_Song()}</b>
-									</h5>
-									<h6 class="title-trending">
-										<b>${song.getSinger().getName_Singer()}</b>
-									</h6>
 								</div>
 							</div>
-
+							<div>
+								<h5 class="title-trending">
+									<b>${song.getName_Song()}</b>
+								</h5>
+								<h6 class="title-trending">
+									<b>${song.getSinger().getName_Singer()}</b>
+								</h6>
+							</div>
 						</div>
-					</c:forEach>
-				</div>
-			</div>
-		</c:forEach>
-	</div>
 
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	</c:forEach>
 </body>
 
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(window).scroll(function() {
+			if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+				$.ajax({
+					url : "/MusicWebsite/LazyLoadingController",
+					type : "get",
+					data: {
+						data: quantity
+					},
+					success : function(data) {
+						$('body').append(data);
+					}
+				});
+			}
+		});
+	});
+</script>
 </html>
