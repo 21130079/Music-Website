@@ -7,6 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import Model.Singer;
+import Model.Song;
+import database.DAOSinger;
+import database.DAOSong;
 
 /**
  * Servlet implementation class LazyLoadingController
@@ -26,6 +32,8 @@ public class LazyLoadingController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int quantity = Integer.parseInt(request.getParameter("data"));
+		ArrayList<Singer> songs = new DAOSinger().selectNext3Singers(quantity);
 		PrintWriter out = response.getWriter();
 		
 	}

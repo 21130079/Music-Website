@@ -42,7 +42,7 @@ body {
 <body>
 	<jsp:useBean id="daosinger" class="database.DAOSinger" scope="request"></jsp:useBean>
 
-	<c:forEach var="singer" items="${daosinger.songsOfSinger}">
+	<c:forEach var="singer" items="${daosinger.getSongsOfSinger(0)}">
 		<div class="table-allMusic">
 			<h1 class="topic-music">
 				<b>${singer.key}</b>
@@ -81,6 +81,7 @@ body {
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">
+	const quantity = document.querySelectorAll('.table-allMusic').length;
 	$(document).ready(function() {
 		$(window).scroll(function() {
 			if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
