@@ -70,7 +70,6 @@ body {
 								</h6>
 							</div>
 						</div>
-
 					</div>
 				</c:forEach>
 			</div>
@@ -81,16 +80,12 @@ body {
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">
-	const quantity = document.querySelectorAll('.table-allMusic').length;
 	$(document).ready(function() {
 		$(window).scroll(function() {
-			if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+			if ($(window).scrollTop() >= $(document).height() - $(window).height() * 1.1) {
 				$.ajax({
 					url : "/MusicWebsite/LazyLoadingController",
 					type : "get",
-					data: {
-						data: quantity
-					},
 					success : function(data) {
 						$('body').append(data);
 					}
