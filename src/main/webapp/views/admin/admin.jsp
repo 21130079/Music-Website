@@ -15,17 +15,22 @@
 <link rel="icon" type="image/x-icon"
 	href="MusicWebsite/assets/img/Other/logoPage.png">
 <title>Admin</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/MusicWebsite/assets/css/style.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.css"
+	rel="stylesheet">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.js"></script>
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+<script
+	src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
 
 <style type="text/css">
 .show-more-btn {
@@ -49,7 +54,11 @@ background-color: transparent !important;
 .content-bg {
 	
 }
-
+#data_wrapper{
+background-color: transparent;
+display: grid;
+	row-gap: 10px;
+}
 .add-music {
 	width: 240px;
 	height: 240px;
@@ -62,7 +71,42 @@ background-color: transparent !important;
 	padding-right: 100px;
 	font-size: 20px;
 }
+.row {
+background-color: transparent !important;
+}
+.justify-content-between{
+margin-left: 4.8% !important;
+width: 90% !important;
+color: white;
 
+}
+.dt-search label{
+margin-bottom: 0px !important;
+word-spacing: 10px;
+}
+.dt-search{
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+.dt-length{
+	justify-self: end;
+}
+table{
+color: white;
+text-align:  center;
+align-items: center;
+}
+
+.song_img{
+	width: 100px;
+	height: 100px;
+}
+.bi-trash{
+ 	font-size: 20px;
+ 	margin-top: 5px;
+}
 /* .log_admin {
 	color: white;
 	margin-left: 100px;
@@ -101,17 +145,36 @@ text-decoration: none;
 	padding: 3px 60px 3px 60px;
 	border-radius: 20px 20px 20px 20px;
 } */
+
+.addsong{
+	display: flex;
+	justify-content: right;
+	
+}
+.addsong a {
+	
+background-color: transparent;
+	border: 1px solid #007BFF;
+	border-radius: 5px;
+	color: #007BFF;
+	padding: 1px;
+	margin-right: 6%;
+	text-align: center;
+}
+.addsong button{
+background-color: transparent;
+color: #007BFF;
+	padding: 3px 8px;
+	
+	text-align: center;
+}
+.plus{
+color: white;
+font-size: 20px;
+font-weight: bold;
+}
 </style>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".show-more-btn").click(function(e) {
-			$(".item:hidden").slice(0, 12).fadeIn();
-			if ($(".item:hidden").length < 1) {
-				$(this).fadeOut();
-			}
-		});
-	});
-</script>
+
 
 
 </head>
@@ -120,54 +183,82 @@ text-decoration: none;
 
 
 	<!--Container-->
-	<div class="container">
-		<div class="background-music" id="trending">
+		
 			<br>
+				<div class="addsong">
+					<a href="admin_add.jsp">
+					<button> <i class="plus">+</i> Add Song</button>
+					</a>
+				</div>
 			
-			<div class="table-allMusic">
-				<div class="trendingTable">
-					<div class="add-music">
-						<a href="admin_add.jsp" style="display: block">
-							<button type="button"
-								style="width: 100%; height: 100%; background-color: rgb(63, 63, 63);">
-								<i class="bi bi-plus-circle"
-									style="font-size: 55px; margin: 100px auto; display: flex; justify-content: center;"></i>
-							</button>
-						</a>
-					</div>
-
+				   <table id="data" class="table-bordered table-striped" style="width: 90%;margin-left: 5.5%">
+						<thead>
+							<tr>
+							    <th>Song name</th>
+							     <th>Image</th>
+							    <th>Duration</th>
+							    <th>Genre</th>
+							    <th>Singer</th>
+							    <th>View</th>
+								<th></th>
+							</tr>
+					</thead>
+				
 					<jsp:useBean id="DAOSong" class="database.DAOSong"></jsp:useBean>
+					<tbody>
 					<c:forEach var="song" items="${DAOSong.selectAll()}">
-						<div class="item trending-box">
-							<div class="card background-music">
-								<div class="img-form">
-									<img src="${song.url_Img}" class="card-img-top" alt="...">
-
-								</div>
 								
-									<form action="">
-										<h5 class="title-trending ${song.id_Song }">
-											<b>${song.name_Song}</b>
-										</h5>
-										<a class="edit-button" type="button"
-											style="padding-right: 10px; margin-left: 12px;"
+								<tr>
+									<td>${song.name_Song}</td>
+									<td><img class="song_img" src="${song.url_Img}"></td>
+									<td>${song.duration}</td>
+									<td>${song.genre}</td>
+									<td>${song.singer.name_Singer}</td>
+									<td>${song.songView}</td>
+									<td>
+										<div style="display: flex; align-items: center; justify-content: center;"> <a class="edit-button" type="button"
+											style="padding-right: 10px"
 											href="/MusicWebsite/EditSongController?idSong=${song.id_Song}">
 											<i class="bi bi-pencil-square"></i>
-										</a> <a class="edit-button" type="button"
-											href="/MusicWebsite/DeleteSongController?idSong=${song.id_Song }">
-											<i class="bi bi-trash"></i>
-										</a>
-									</form>
+										</a> 
+										<div class="delete-btn" id="${song.id_Song}" ><i class="bi bi-trash"></i></div>
+										</div>
+									 </td>
+								 </tr>
 								
-							</div>
-						</div>
+						
 					</c:forEach>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
+					</tbody>
+					</table>
 
-<script src="/MusicWebsite/assets/js/login.js"></script>
+</body>
+		<script type="text/javascript">
+	
+    $(document).ready(function () {
+        let table = $('#data').DataTable({
+            "paging":true,
+            "seaching":true
+        });
+        
+        $('.delete-btn').click(function() {
+            let idSong = $(this).attr("id");
+            let button = $(this);
+
+            $.ajax({
+                url: '/MusicWebsite/DeleteSongController',
+                type: 'get',
+                data: { idSong:idSong},
+                success: function(response) {
+                    table.row(button.closest("tr")).remove().draw(true);
+                },
+                error: function() {
+                    // Handle error
+                }
+            });
+        });
+        
+    });
+	</script>
+
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

@@ -45,7 +45,7 @@ margin: 5px 5px;
 										<td style="padding-left: 10px"><b><a  class="nav-link "
 												href="/MusicWebsite/index.jsp">User View</a></b></td>
 								<td style="padding-left: 10px"><b><a class="song_admin nav-link" href="/MusicWebsite/views/admin/admin.jsp">Song</a></b></td>
-								<td style="padding-left: 10px"><b>		<a class="log_admin nav-link" href="/MusicWebsite/views/admin/admin_account.jsp">Accoint</a></b></td>
+								<td style="padding-left: 10px"><b>		<a class="log_admin nav-link" href="/MusicWebsite/views/admin/admin_account.jsp">Account</a></b></td>
 								<td style="padding-left: 10px"><b>		<a class="log_admin nav-link" href="/MusicWebsite/views/admin/admin_log.jsp">Log</a></b></td>
 								
 							</tr>

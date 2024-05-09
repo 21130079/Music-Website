@@ -152,7 +152,6 @@ body {
 			</h2>
 		</div>
 
->>>>>>> 335797e9ec5b09eedcba9652e99fad19a9e2f7ed
 		<button style="color: black; float: right;" onclick="getSelectedIds()">Delete
 			selected</button>
 
