@@ -33,16 +33,6 @@
 	src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap4.js"></script>
 
 <style type="text/css">
-.show-more-btn {
-	position: absolute;
-	right: 0px;
-	margin-right: 108px;
-	background-color: transparent;
-	border: 2px solid crimson;
-	border-radius: 15px;
-	color: crimson;
-	padding: 10px;
-}
 
 body {
 	overflow-x: hidden;
@@ -168,10 +158,27 @@ color: #007BFF;
 	
 	text-align: center;
 }
-.plus{
+.feature button i{
 color: white;
-font-size: 20px;
+font-size: 18px;
 font-weight: bold;
+}
+.feature{
+	display: flex;
+	justify-content: right;
+	margin-right:6%; 
+	column-gap: 10px;
+	
+}
+.feature button{
+	padding: 5px 10px !important;
+	font-size: 16px !important;
+	border-radius: 5px !important;
+	}
+
+.checkbox{
+width: 18px;
+height: 18px;
 }
 </style>
 
@@ -185,15 +192,18 @@ font-weight: bold;
 	<!--Container-->
 		
 			<br>
-				<div class="addsong">
-					<a href="admin_add.jsp">
+		<div class="feature">
+		<a href="admin_add.jsp">
 					<button> <i class="plus">+</i> Add Song</button>
 					</a>
-				</div>
+		<button  id="deleteSongs_btn"><i class="bi bi-trash"></i>Delete
+			selected</button>
+		</div>
 			
 				   <table id="data" class="table-bordered table-striped" style="width: 90%;margin-left: 5.5%">
 						<thead>
-							<tr>
+							<tr style="color: black;background-color:lightgray;">
+							<th></th>
 							    <th>Song name</th>
 							     <th>Image</th>
 							    <th>Duration</th>
@@ -209,6 +219,8 @@ font-weight: bold;
 					<c:forEach var="song" items="${DAOSong.selectAll()}">
 								
 								<tr>
+									<td><input type="checkbox" id="${song.id_Song}" class="checkbox">
+									</td>
 									<td>${song.name_Song}</td>
 									<td><img class="song_img" src="${song.url_Img}"></td>
 									<td>${song.duration}</td>
@@ -221,7 +233,7 @@ font-weight: bold;
 											href="/MusicWebsite/EditSongController?idSong=${song.id_Song}">
 											<i class="bi bi-pencil-square"></i>
 										</a> 
-										<div class="delete-btn" id="${song.id_Song}" ><i class="bi bi-trash"></i></div>
+										<div style=" cursor: pointer;" class="delete-btn" id="${song.id_Song}" ><i class="bi bi-trash"></i></div>
 										</div>
 									 </td>
 								 </tr>
@@ -256,8 +268,30 @@ font-weight: bold;
                 }
             });
         });
-        
-    });
+        $('#deleteSongs_btn').click(function() {
+            $('.checkbox:checked').each(function() {
+                var checkbox = $(this);
+                $.ajax({
+                    url: '/MusicWebsite/DeleteSongController',
+                    type: 'get',
+                    data: {
+                        idSong: checkbox.attr('id')
+                    },
+                    success: function(response) {
+                        table.row(checkbox.closest("tr")).remove().draw(true);
+                    },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+            });
+        });
+	});
+    
+    
+   
+	
+
 	</script>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>

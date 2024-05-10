@@ -28,33 +28,65 @@
 <link rel="stylesheet" type="text/css"
 	href="/MusicWebsite/assets/css/style.css">
 <style type="text/css">
-.show-more-btn {
-	position: absolute;
-	right: 0px;
-	margin-right: 108px;
-	background-color: transparent;
-	border: 2px solid crimson;
-	border-radius: 15px;
-	color: crimson;
-	padding: 10px;
-}
+
 
 .justify-content-between {
 	color: white;
 }
-
-#data td {
-	color: black;
-	background-color: white;
+#data_wrapper{
+background-color: transparent;
+display: grid;
+	row-gap: 10px;
+	width: 100%;
+}
+.add-music {
+	width: 240px;
+	height: 240px;
+	margin-top: 10px;
 }
 
-th {
-	background-color: white;
+.edit-button {
+	border: none;
+	background-color: transparent;
+	padding-right: 100px;
+	font-size: 20px;
 }
+.row {
+background-color: transparent !important;
+}
+.justify-content-between{
+margin-left: 4.8% !important;
+width: 90% !important;
+color: white;
+
+}
+.dt-search label{
+margin-bottom: 0px !important;
+word-spacing: 10px;
+}
+.dt-search{
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+.dt-length{
+	justify-self: end;
+}
+table{
+color: white;
+text-align:  center;
+align-items: center;
+}
+
+
+
 
 body {
 	overflow-x: hidden;
+	
 }
+
 
 .content-bg {
 	
@@ -72,98 +104,50 @@ body {
 	padding-right: 100px;
 	font-size: 20px;
 }
-
-/* .log_admin {
-	color: white;
-	margin-left: 100px;
+.feature{
+	display: flex;
+	justify-content: right;
+	margin-right:6%; 
+	column-gap: 10px;
+	
 }
+.feature button{
+	padding: 5px 10px !important;
+	font-size: 16px !important;
+	border-radius: 5px !important;
+	}
 
-.account_admin {
-	color: white;
-	margin-left: 100px;
+.checkbox{
+width: 18px;
+height: 18px;
 }
-
-.log_admin:hover {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
+.plus{
+color: white;
+font-size: 18px;
+font-weight: bold;
 }
-
-.account_admin {
-	color: white;
-	margin-left: 100px;
-} */
-
-/* .account_admin:hover {
-	color: black;
-	text-decoration: none;
-}
- */
-/* .account_admin {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
-	text-decoration: none;
-} */
-
-/* .song_admin:hover {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
-}
-
-.song_admin {
-	color: white;
-	margin-left: 100px;
-} */
 </style>
-</head>
 <jsp:include page="../components/admin_header.jsp"/>
+</head>
+
 <body>
-
-	<br>
-	<div class="title"
-		style="display: flex; justify-content: space-between; width: 100%; margin-top: 20px">
-		<div style="display: flex;">
-			<h1 class="topic-music topic-trending">
-				<b>Admin</b>
-			</h1>
-			<h2>
-				<a class="log_admin" style="text-decoration: none;"
-					href="/MusicWebsite/views/admin/admin_log.jsp">Log</a>
-			</h2>
-			<h2>
-				<a class="account_admin"
-					href="/MusicWebsite/views/admin/admin_account.jsp">Account</a>
-
-			</h2>
-			<h2>
-				<a class="song_admin" style="text-decoration: none;"
-					href="/MusicWebsite/views/admin/admin.jsp">Song</a>
-			</h2>
+	<br>	
+		<div class="feature">
+		<a href="admin_add.jsp">
+					<button> <i class="plus">+</i> Add Account</button>
+					</a>
+		<button  id="delecteAccounts_btn">Delete
+			selected</button>
 		</div>
 
-		<button style="color: black; float: right;" onclick="getSelectedIds()">Delete
-			selected</button>
 
-
-	</div>
 	<jsp:useBean id="daoLog" class="database.DAOLog"></jsp:useBean>
 	<c:set var="listItems" value="${daoLog.selectAll()}"></c:set>
 
 	<table id="data" class="table-bordered table-striped"
-		style="width: 100%">
+		style="width: 90%;margin-left: 5.5%">
 		<thead>
-			<tr>
+			<tr style="color: black;background-color:lightgray;">
 				<th></th>
 				<th>User name</th>
 				<th>Password</th>
@@ -173,39 +157,13 @@ body {
 			</tr>
 		</thead>
 	</table>
+	
 </body>
 
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script>
-	function getSelectedIds() {
-		var selectedIds = [];
-		var checkboxes = document.querySelectorAll('.checkbox');
-		checkboxes.forEach(function(checkbox) {
-			if (checkbox.checked) {
-				selectedIds.push(checkbox.id);
-			}
-		});
 
-		if (selectedIds.length > 0) {
-			$.ajax({
-				url : '/MusicWebsite/RemoveAccountController',
-				type : 'get',
-				data : {
-					selectedIds : selectedIds
-				},
-				success : function(response) {
-					alert('Đã xóa các log đã chọn');
-					window.location.reload();
 
-				},
-				error : function() {
-					alert('Đã xảy ra lỗi.');
-				}
-			});
-		} else {
-			alert("Không có phần tử nào được chọn.");
-		}
-	}
 	$(document)
 			.ready(
 					function() {
@@ -265,6 +223,32 @@ body {
 										console.log("Error: " + errorThrown);
 									}
 								});
+						$(delecteAccounts_btn).click(function getSelectedIds() {
+						    var selectedIds = [];
+						    $('.checkbox:checked').each(function() {
+						        selectedIds.push($(this).attr('id'));
+						    });
+
+						    if (selectedIds.length > 0) {
+						        $.ajax({
+						            url: '/MusicWebsite/RemoveAccountController',
+						            type: 'get',
+						            data: {
+						                selectedIds: selectedIds
+						            },
+						            success: function(response) {
+						                $.each(selectedIds, function(index, id) {
+						                	$("#data").DataTable().row($('#' + id).closest("tr")).remove().draw(true);
+
+						                });
+						            },
+						            error: function() {
+						                
+						            }
+						        });
+						    } 
+						});
+						
 
 					})
 </script>
