@@ -7,7 +7,7 @@ create table singers(
 	name_singer nvarchar(255) not null,
 	yearOfBirth int 
 );
-
+select * from singers order by id_singer offset 0 rows fetch next 3 rows only
 create table songs(
 	id_song varchar(20) primary key,
 	id_singer varchar(20) foreign key  references singers(id_singer),
