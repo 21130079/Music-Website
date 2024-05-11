@@ -55,6 +55,9 @@ i {
 	margin-right: 3%;
 }
 
+button {
+	cursor: pointer;
+}
 
 .trendingTable {
 	border-collapse: collapse;
@@ -322,12 +325,13 @@ button.btn-inner-td {
 	text-decoration: none;
 }
 
-.login-btn {
+.login-btn, .notification-btn {
 	background-color: rgb(63, 63, 63);
 	border-style: none;
 	line-height: 71px;
-
 	color: rgb(180, 180, 180);
+	background-color: transparent; 
+	border: none;
 }
 
 .cancelbtn {
@@ -782,7 +786,7 @@ a {
 	vertical-align: -3px;
 }
 
-.bi-key-fill {
+.bi-key-fill, .bi-bell-fill {
 	font-size: 30px;
 	vertical-align: -3px;
 	padding-right: 15px;
@@ -813,7 +817,7 @@ a {
 .nav_person {
 	display: grid;
 	position: absolute;
-	left: 0px;
+	left: -10px;
 	display: none;
 	height: 180px;
 	box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
@@ -824,7 +828,6 @@ a {
 	background-color: white;
 	z-index: 5;
 	border-radius: 5px;
-
 }
 
 .nav_person div {
@@ -846,4 +849,20 @@ a {
 .remember {
 	margin-top: -15px;
 	padding-bottom: 20px;
+}
+
+#notification-board {
+	display: none;
+	position: absolute;
+	line-height: 50px;
+	box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 150px;
+	background-color: white;
+	z-index: 5;
+	border-radius: 5px;
+	left: 1200px;
+    top: 60px;
 }

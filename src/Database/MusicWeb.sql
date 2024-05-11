@@ -7,7 +7,7 @@ create table singers(
 	name_singer nvarchar(255) not null,
 	yearOfBirth int 
 );
-select * from singers order by id_singer offset 0 rows fetch next 3 rows only
+
 create table songs(
 	id_song varchar(20) primary key,
 	id_singer varchar(20) foreign key  references singers(id_singer),
@@ -39,7 +39,6 @@ create table history_premium_accounts(
 	finish_date date,
 );
 
---x quan ly playlist-nhac
 create table playlists(
 	id_playlist varchar(20) ,
 	name_playlist nvarchar(20) not null,
@@ -59,10 +58,10 @@ create table playlists_songs (
 	username varchar(255) ,
 	id_playlist varchar(20),
 	id_song varchar(20) foreign key references songs(id_song),
-	 foreign key(id_playlist,username) references playlists(id_playlist,username),
+	foreign key(id_playlist,username) references playlists(id_playlist,username),
 	primary key(id_playlist,id_song)
 );
---(x) ds yeu thich
+
 create table favorites(
 	id_song varchar(20) foreign key references songs(id_song),
 	username varchar(255) foreign key references  accounts(username),
@@ -79,6 +78,14 @@ create table logs(
 	updated_date DATETIME DEFAULT GETDATE() not null ,
 	exec_status char(25) not null
 );
+
+create table notifications(
+	id_notification varchar(255) primary key,
+	username varchar(255) foreign key references accounts(username),
+	level_notification varchar(255) not null,
+	descript varchar(255) not null
+);
+
 CREATE SEQUENCE seq_logs
 	START WITH 1  INCREMENT BY 1;
 
@@ -317,24 +324,7 @@ BEGIN
         VALUES (@Username, @TypePremium, @StartedDate, @FinishDate);
     END
 END;
-	
-	Insert into accounts(username,password_account,email)
-	VALUES ('user','12dea96fec20593566ab75692c9949596833adc9','user@gmail.com');
 
-	Insert into accounts(username,password_account,email)
-	VALUES ('vvmtam','be1e329741ecc2be4562018d6e50c57ae91d11aa','21130168@st.hcmuaf.edu.vn');
-
-	Insert into accounts(username,password_account,email)
-	VALUES ('pldat','bf23fa1e1fe7c3d7c81a11ab021667a3d2b47c93','21130022@st.hcmuaf.edu.vn');
-
-	Insert into accounts(username,password_account,email)
-	VALUES ('ngtnkhoa','9b4dc469c95f3d9b0665ee14e8eeeda3f4dcef3e','21130079@st.hcmuaf.edu.vn');
-
-	Insert into accounts(username,password_account,email)
-	VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
-
-	update roles_accounts set roleUser = 'admin' where username = 'admin';
-	
 CREATE FUNCTION dbo.CalculateProfitForMonth(@month INT)
 RETURNS float
 AS
@@ -359,6 +349,24 @@ BEGIN
 	
     RETURN @profit;
 END;
-
-
 	
+Insert into accounts(username,password_account,email)
+VALUES ('user','12dea96fec20593566ab75692c9949596833adc9','user@gmail.com');
+
+Insert into accounts(username,password_account,email)
+VALUES ('vvmtam','be1e329741ecc2be4562018d6e50c57ae91d11aa','21130168@st.hcmuaf.edu.vn');
+
+Insert into accounts(username,password_account,email)
+VALUES ('pldat','bf23fa1e1fe7c3d7c81a11ab021667a3d2b47c93','21130022@st.hcmuaf.edu.vn');
+
+Insert into accounts(username,password_account,email)
+VALUES ('ngtnkhoa','9b4dc469c95f3d9b0665ee14e8eeeda3f4dcef3e','21130079@st.hcmuaf.edu.vn');
+
+Insert into accounts(username,password_account,email)
+VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
+
+update roles_accounts set roleUser = 'admin' where username = 'admin';
+
+
+insert into notifications(id_notification, username, level_notification, descript)
+values ('test', 'user', 'WARNING', 'login fail')

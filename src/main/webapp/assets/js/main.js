@@ -16,7 +16,7 @@ var played = [];
 var playedArrayTest = [];
 var count = 0;
 var ajaxDelayTimer;
-
+document.querySelector('#notification-board').style.display = 'none';
 
 if (played.length <= 1) {
 	btnSkipBefore.disabled = true;
@@ -364,9 +364,20 @@ function showMore() {
 				content.innerHTML += data;
 			}
 		},
-		error: function(xhr) {
-
+		error: function(xhr, status, error) {
+			console.error("Lỗi: " + error);
 		}
 	});
 }
+
+function showNotificationBoard(button) {
+	let content = document.querySelector('#notification-board');
+	if (content.style.display === 'none') {
+		content.style.display = 'grid';
+	} else {
+		content.style.display = 'none';
+	}
+}
+
+
 

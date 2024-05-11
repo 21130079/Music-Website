@@ -37,7 +37,15 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<jsp:include page="views/components/header.jsp"></jsp:include>
+
+<c:choose>
+	<c:when test="${sessionScope.account.roles[0]=='admin'}">
+		<jsp:include page="views/components/admin_header.jsp"/>
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="views/components/header.jsp"></jsp:include>	
+	</c:otherwise>
+</c:choose>
 <body>
 
 	<!--Container-->
