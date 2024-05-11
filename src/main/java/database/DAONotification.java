@@ -55,6 +55,60 @@ public class DAONotification extends AbsDao<Notification> {
 		}
 		return result;
 	}
+	
+	public ArrayList<Notification> selectByUsername(String usernameChecked) {
+		ArrayList<Notification> result = new ArrayList<Notification>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select * from notifications where username = ? order by time_execute desc");
+			
+			stmt.setString(0, usernameChecked);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				String idNotification = rs.getString("id_notification");
+				String username = rs.getString("username");
+				String levelNotification = rs.getString("level_notification");
+				String descript = rs.getString("descript");
+				Timestamp timeExecute = rs.getTimestamp("time_execute");
+				
+				Notification notification = new Notification(idNotification, username, ELevel.getLevelLog(levelNotification), descript, timeExecute);
+				
+				result.add(notification);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return result;
+	}
+	
+	public ArrayList<Notification> selectByLevel(String levelChecked) {
+		ArrayList<Notification> result = new ArrayList<Notification>();
+		try {
+			PreparedStatement stmt = connection.prepareStatement("select * from notifications where level_notification = ? order by time_execute desc");
+			
+			stmt.setString(0, levelChecked);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				String idNotification = rs.getString("id_notification");
+				String username = rs.getString("username");
+				String levelNotification = rs.getString("level_notification");
+				String descript = rs.getString("descript");
+				Timestamp timeExecute = rs.getTimestamp("time_execute");
+				
+				Notification notification = new Notification(idNotification, username, ELevel.getLevelLog(levelNotification), descript, timeExecute);
+				
+				result.add(notification);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+		return result;
+	}
 
 	@Override
 	public int update(Notification t) {
