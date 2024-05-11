@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.util.Iterator;
 
 import Model.*;
 import Model.ELevel.Level;
@@ -63,19 +63,33 @@ public class DAOAccount extends AbsDao<Account>  {
 	}
 	
 	@Override
+
 	public int update(Account t) {
-		try {
-			PreparedStatement stmt = connection
-					.prepareStatement("update accounts set email=? and password_account=? where usename=? ");
-			stmt.setString(1, t.getEmail());
-			stmt.setString(2, t.getPassword());
-			stmt.executeUpdate();
-			return 1;
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		return 0;
+	    try {
+	        PreparedStatement stmt = connection.prepareStatement("update accounts set email=?, password_account=? where username=? ");
+	        stmt.setString(1, t.getEmail());
+	        stmt.setString(2, t.getPassword());
+	        stmt.setString(3, t.getUsername()); // Assuming username is the third parameter
+	        stmt.executeUpdate();
+	        
+	        stmt = connection.prepareStatement("delete from roles_accounts where username=? ");
+	        stmt.setString(1, t.getUsername());
+	        stmt.executeUpdate();
+	        
+	        for (String role : t.getRoles()) {
+	            stmt = connection.prepareStatement("insert into roles_accounts (username, roleUser) values(?, ?) ");
+	            stmt.setString(1, t.getUsername());
+	            stmt.setString(2, role);
+	            stmt.executeUpdate();
+	        }
+	        
+	        return 1;
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Print the exception for debugging
+	    }
+	    return 0;
 	}
+
 	
 	@Override
 	public int delete(Account t) {
@@ -194,19 +208,7 @@ public class DAOAccount extends AbsDao<Account>  {
 
 	}
 	
-	public int updateRoles(String username, String newRoles) {
-		try {
-			PreparedStatement stmt = connection
-					.prepareStatement("update accounts set roles=? where usename=? ");
-			stmt.setString(1, newRoles);
-			stmt.setString(2, username);
-			stmt.executeUpdate();
-			return 1;
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		return 0;
-	}
+	
 	
 	public int updatePassword(String email, String newPass) {
 		Account acc = selectByEmail(email);

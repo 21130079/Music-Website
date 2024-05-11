@@ -75,7 +75,7 @@ public class DeleteSongController extends HttpServlet {
 			emptyDicAudio.delete();
 		}
 
-		response.sendRedirect("/MusicWebsite/views/admin/admin.jsp");
+		response.sendRedirect("/MusicWebsite/views/admin/admin_song.jsp");
 	}
 
 	/**

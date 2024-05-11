@@ -36,72 +36,121 @@
 	color: white;
 }
 
-#data td {
-	color: black;
-	background-color: white;
+#data_wrapper{
+background-color: transparent;
+display: grid;
+	row-gap: 10px;
+	width: 100%;
+}
+.add-music {
+	width: 240px;
+	height: 240px;
+	margin-top: 10px;
 }
 
-/* .log_admin {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
-	text-decoration: none;
+.edit-button {
+	border: none;
+	background-color: transparent;
+	padding-right: 100px;
+	font-size: 20px;
+}
+.row {
+background-color: transparent !important;
+}
+.justify-content-between{
+margin-left: 4.8% !important;
+width: 90% !important;
+color: white;
+
+}
+.dt-search label{
+margin-bottom: 0px !important;
+word-spacing: 10px;
+}
+.dt-search{
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+.dt-length{
+	justify-self: end;
+}
+table{
+color: white;
+text-align:  center;
+align-items: center;
 }
 
-.log_admin:hover {
-	color: black;
+
+
+
+body {
+	overflow-x: hidden;
+	
 }
 
-.account_admin {
-	color: white;
-	margin-left: 100px;
-} */
-/* 
-.account_admin:hover {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
-	text-decoration: none;
+
+.content-bg {
+	
 }
 
-.song_admin:hover {
-	color: black;
-	border: 1px solid black;
-	background-color: white;
-	margin-left: 100px;
-	padding: 3px 60px 3px 60px;
-	border-radius: 20px 20px 20px 20px;
+.add-music {
+	width: 240px;
+	height: 240px;
+	margin-top: 10px;
 }
 
-.song_admin {
-	color: white;
-	margin-left: 100px;
-} */
+.edit-button {
+	border: none;
+	background-color: transparent;
+	padding-right: 100px;
+	font-size: 20px;
+}
+.feature{
+	display: flex;
+	justify-content: right;
+	margin-right:6%; 
+	column-gap: 10px;
+	
+}
+.feature button{
+	padding: 5px 10px !important;
+	font-size: 16px !important;
+	border-radius: 5px !important;
+	}
+
+.checkbox{
+width: 18px;
+height: 18px;
+}
+.plus{
+color: white;
+font-size: 18px;
+font-weight: bold;
+}
 </style>
 </head>
 <jsp:include page="../components/admin_header.jsp"/>
 <body>
 
 	<br>
-
-		<button style="color: black; float: right;" onclick="getSelectedIds()">Delete
+	<div class="feature">
+		<a href="admin_add.jsp">
+					<button> <i class="plus">+</i> Add Account</button>
+					</a>
+		<button id="deleteLogs_btn">Delete
 			selected</button>
+		</div>
 
-
-	
+	 <br>
 	<jsp:useBean id="daoLog" class="database.DAOLog"></jsp:useBean>
 	<c:set var="listItems" value="${daoLog.selectAll()}"></c:set>
 
 	<table id="data" class="table-bordered table-striped"
-		style="width: 100%">
+		style="width: 90%;margin-left: 5.5%">
 		<thead>
-			<tr>
+			<tr style="color: black;background-color:lightgray;">
 				<th></th>
 				<th>ID</th>
 				<th>National</th>
@@ -119,40 +168,12 @@
 
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script>
-	function getSelectedIds() {
-		var selectedIds = [];
-		var checkboxes = document.querySelectorAll('.checkbox');
-		checkboxes.forEach(function(checkbox) {
-			if (checkbox.checked) {
-				selectedIds.push(checkbox.id);
-			}
-		});
 
-		if (selectedIds.length > 0) {
-			$.ajax({
-				url : '/MusicWebsite/RemoveLogController',
-				type : 'get',
-				data : {
-					selectedIds : selectedIds
-				},
-				success : function(response) {
-					alert('Đã xóa các log đã chọn');
-					window.location.reload();
-
-				},
-				error : function() {
-					alert('Đã xảy ra lỗi.');
-				}
-			});
-		} else {
-			alert("Không có phần tử nào được chọn.");
-		}
-	}
 	$(document)
-			.ready(
-					function() {
-						$
-								.ajax({
+			.ready(function() {
+					
+						
+						$.ajax({
 									url : "/MusicWebsite/LogAPI",
 									type : "get",
 									dataType : "json",
@@ -205,9 +226,7 @@
 																				data,
 																				type,
 																				row) {
-																			return '<a href="/MusicWebsite/RemoveLogController?idlog='
-																					+ data.idLog
-																					+ '"><button style="color: black;">Delete</button></a>';
+																			return '<button style="color: black;" class="delete_btn" id="'+data.idLog+'">Delete</button></a>';
 																		}
 																	} ]
 														});
@@ -218,8 +237,46 @@
 										console.log("Error: " + errorThrown);
 									}
 								});
+						
+						
+							$('#deleteLogs_btn').click(function() {
+							    $('.checkbox:checked').each(function() {
+							        var checkbox = $(this);
+							        $.ajax({
+							            url: '/MusicWebsite/RemoveLogController',
+							            type: 'get',
+							            data: {
+							            	idLog: checkbox.attr('id')
+							            },
+							            success: function(response) {
+							            	 $("#data").DataTable().row(checkbox.closest("tr")).remove().draw(true);
+							            },
+							            error: function() {
+							                // Handle error
+							               
+							            }
+							        });
+							    });
+							});
 
-					})
+							$(document).on('click', '.delete_btn', function() {
+						            let idLog = $(this).attr("id");
+						            let button = $(this);
+									console.log(idLog);
+						            $.ajax({
+						                url: '/MusicWebsite/RemoveLogController',
+						                type: 'get',
+						                data: { idLog:idLog},
+						                success: function(response) {
+						                	 $("#data").DataTable().row(button.closest("tr")).remove().draw(true);
+						                },
+						                error: function() {
+						                    // Handle error
+						                }
+						            });
+						        });
+						
+					});
 </script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </html>
