@@ -332,6 +332,10 @@ END;
 
 	Insert into accounts(username,password_account,email)
 	VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
+	
+	insert into accounts(username,password_account,email) 
+	values('superadmin','b8e86f6a2d432d2b8d38f3ecfb33bbc534e51071','superadmin@gmail.com');
+	insert into roles_accounts (username,roleUser) values('superadmin','super admin');
 
 	update roles_accounts set roleUser = 'admin' where username = 'admin';
 	

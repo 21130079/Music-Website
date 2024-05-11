@@ -54,6 +54,7 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		boolean checkFAccount = false;
+		System.out.println(new LoginController().passwordHashing("superadmin1"));
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String remember = request.getParameter("remember");
@@ -160,6 +161,9 @@ public class LoginController extends HttpServlet {
 			
 			return null;
 		}
+	}
+	public static void main(String[] args) {
+	
 	}
 
 }

@@ -84,7 +84,7 @@ align-items: center;
 
 body {
 	overflow-x: hidden;
-	
+	position: relative;
 }
 
 
@@ -126,6 +126,54 @@ color: white;
 font-size: 18px;
 font-weight: bold;
 }
+#edit_account,#add_account,#confirm_pass{
+	background-color: white;
+ position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: grid;
+  row-gap:10px;
+  padding:10px 50px;
+  height: 550px;
+ 
+}
+#confirm_pass{
+height: auto;
+
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+#roles{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.roles{
+display: flex;
+    align-items: center;
+
+}
+.roles input{
+margin-left: 10px;
+margin-right: 2px;
+}
+.bi-x{
+	position: absolute;
+	    font-size: 40px;
+	    right:0px;
+	    top:-10px;
+	    color: red;
+	   	font-weight: bold;
+	   	cursor: pointer;
+}
+.wrapper_account{
+	top:0px;
+	left:0px;
+	width: 100%;
+	position:absolute;
+	height: 100vh;
+		 display: none;
+}
 </style>
 <jsp:include page="../components/admin_header.jsp"/>
 </head>
@@ -133,8 +181,8 @@ font-weight: bold;
 <body>
 	<br>	
 		<div class="feature">
-		<a href="admin_add.jsp">
-					<button> <i class="plus">+</i> Add Account</button>
+		<a>
+					<button id="add-account"> <i class="plus">+</i> Add Account</button>
 					</a>
 		<button  id="delecteAccounts_btn">Delete
 			selected</button>
@@ -157,100 +205,226 @@ font-weight: bold;
 			</tr>
 		</thead>
 	</table>
+	<div class="wrapper_account" id="wrapper_edit">
+	<form id="edit_account" action="/MusicWebsite/UpdateAccountController" method="post">
+	<div></div>
+			<i class="bi bi-x" id="x_edit_acc"></i>
+			<h2>Change Information Account</h2>
+			<input type="text" id="edit_username" placeholder="username" name="username" required="required">
+			<input type="email"  id="edit_email" placeholder="email" name="email" required="required">
+			<input type="password" id="edit_password" placeholder="password" name="password" required="required">
+			<div >
+			
+			<div>Role</div>
+				<div id="roles">
+					<div class="roles">User: <input type="checkbox" id="cb_edit_role_user" name="user" value="user"> user</div>
+					<div class="roles">Admin: <input type="radio" id="ra_edit_role_admin" name="admin" value="admin"> admin  
+								   <input type="radio" name="admin" id="ra_edit_role_spadmin" value="super admin"> super admin
+							</div>
+				</div>
+			</div>
+			
+			<h4>Confirm Your Password</h4>
+			<input type="password" placeholder="your password" name="spAdminPassword" required="required">
+			<button type="submit">submit</button>
+	</form>
+	</div>
 	
+			<c:choose>
+				<c:when test="${errorAccount==null}">
+					<c:set var="display" value="none"></c:set>
+				</c:when>
+				<c:otherwise>
+					<c:set var="display" value="grid"/>
+				</c:otherwise>
+			</c:choose>
+			
+	<div class="wrapper_account"  id="wrapper_add" style="display: ${display}">
+	<form id="add_account" action="/MusicWebsite/AddAccountController" method="post">
+	<div></div>
+			<i class="bi bi-x" id="x_add_acc"></i>
+			<h2>Create New Account</h2>
+			<input type="text" placeholder="username" name="username" required="required">
+			<input type="email" placeholder="email" name="email" required="required">
+			<input type="password" placeholder="password" name="password" required="required">
+			<div >
+				<div>Role</div>
+	
+				<div id="roles">
+					<div class="roles">User: <input type="checkbox" name="user" value="user"> user</div>
+					<div class="roles">Admin: <input type="radio"  name="admin" value="admin"> admin  
+								   <input type="radio" name="admin"  value="super admin"> super admin
+							
+							</div>
+				</div>
+			</div>
+			<div style="color: red">${errorAccount}</div>
+			<h4>Confirm Your Password</h4>
+			<input type="password" placeholder="your password" name="spAdminPassword" required="required">
+			<button type="submit">submit</button>
+	</form>
+	</div>
+	<div class="wrapper_account"  id="wrapper_pass">
+	<div id="confirm_pass">
+	<div></div>
+			<i class="bi bi-x" onclick="hidenConfirmPass()"></i>
+		
+		<button type="button">submit</button>
+		</div>
+	</div>
 </body>
 
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script>
 
+    $(document).ready(function() {
+    	
+    	
+    	  
+        $.ajax({
+            url: "/MusicWebsite/AccountAPI",
+            type: "get",
+            dataType: "json",
+            success: function(data) {
+                $("#data").dataTable({
+                    data: data.data,
+                    columns: [
+                        {
+                            data: null,
+                            render: function(data, type, row) {
+                                var checkboxId = data.username;
+                                var checkboxClass = "checkbox";
+                                return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
+                            }
+                        },
+                        { data: 'username' },
+                        { data: 'password' },
+                        { data: 'email' },
+                        { data: 'roles' },
+                        {
+                            data: null,
+                            render: function(data, type, row) {
+                                return '<div style="display: flex; align-items: center; justify-content: center;">' +
+                                    '<a class="edit-button" id="' + data.username + '" type="button" style="padding-right: 10px" ' +
+                                    '>' +
+                                    '<i class="bi bi-pencil-square "></i></a>' +
+                                    '<div style="cursor: pointer;" class="delete-btn" id="' + data.username + '">' +
+                                    '<i class="bi bi-trash"></i></div></div>';
+                            }
+                        }
+                    ]
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Error: " + errorThrown);
+            }
+        });
 
-	$(document)
-			.ready(
-					function() {
-						$
-								.ajax({
-									url : "/MusicWebsite/AccountAPI",
-									type : "get",
-									dataType : "json",
-									success : function(data) {
+        $('#deleteLogs_btn').click(function() {
+		    $('.checkbox:checked').each(function() {
+		        var checkbox = $(this);
+		        $.ajax({
+		            url: '/MusicWebsite/RemoveAccountController',
+		            type: 'get',
+		            data: {
+		            	username: checkbox.attr('id')
+		            },
+		            success: function(response) {
+		            	 $("#data").DataTable().row(checkbox.closest("tr")).remove().draw(true);
+		            },
+		            error: function() {
+		                // Handle error
+		               
+		            }
+		        });
+		    });
+		});
 
-										$("#data")
-												.dataTable(
-														{
-															data : data.data,
+		$(document).on('click', '.delete_btn', function() {
+	            let username = $(this).attr("id");
+	            let button = $(this);
+				console.log(idLog);
+	            $.ajax({
+	                url: '/MusicWebsite/RemoveAccountController',
+	                type: 'get',
+	                data: { username:username},
+	                success: function(response) {
+	                	 $("#data").DataTable().row(button.closest("tr")).remove().draw(true);
+	                },
+	                error: function() {
+	                    // Handle error
+	                }
+	            });
+	        });
+	
+        $(document).on('click', '.edit-button', function() {
+        	
+                 let username = $(this).attr("id");
+                 console.log(username);
+                 let button = $(this);
 
+                 $.ajax({
+                     url: '/MusicWebsite/EditAccountController',
+                     type: 'get',
+                     data: { username:username},
+                     success: function(response) {
+                     	
+                     	let rowIndex = $(this).closest('tr').index(); 
+                     	var rowData = $('#data').DataTable().row(rowIndex).data();
+                     	$('#edit_username').val(response.username);
+                        $('#edit_email').val(response.email);
+                        $('#edit_password').val(response.password);
+                        console.log(response.roles);
+                        if (response.roles.includes("user")) {
+                            $('#cb_edit_role_user').prop('checked', true);
+                        }else{
+                        	  $('#cb_edit_role_user').prop('checked', false);
+                        }
+                        if (response.roles.includes("admin")) {
+                        	$('#ra_edit_role_admin').prop('checked', true); 
+                        } else if (response.roles.includes("super admin")) {
+                            $('#ra_edit_role_spadmin').prop('checked', true); 
+                        }else{
+                        	$('#ra_edit_role_admin').prop('checked', true); 
+                        	 $('#ra_edit_role_spadmin').prop('checked', false); 
+                        }
+                        
+                     },
+                     error: function() {
+                         // Handle error
+                     }
+                 });
+            
+        });
 
-															columns : [
-																	{
-																		data : null,
-																		render : function(
-																				data,
-																				type,
-																				row) {
-																			var checkboxId = data.username; // Assuming id is a unique identifier in your data
-																			var checkboxClass = "checkbox"; // Set your desired class here
-																			return '<input type="checkbox" id="' + checkboxId + '" class="' + checkboxClass + '">';
-																		}
-																	},
-																	{
-																		data : 'username'
-																	},
-																	{
-																		data : 'password'
-																	},
-																	{
-																		data : 'email'
-																	},
-																	{
-																		data : 'roles'
-																	},
-																	{
-																		"data" : null,
-																		"render" : function(
-																				data,
-																				type,
-																				row) {
-																			return '<a href="/MusicWebsite/RemoveAccountController?username='
-																					+ data.username
-																					+ '"><button style="color: black;">Delete</button></a>';
-																		}
-																	} ]
-														});
-
-									},
-									error : function(jqXHR, textStatus,
-											errorThrown) {
-										console.log("Error: " + errorThrown);
-									}
-								});
-						$(delecteAccounts_btn).click(function getSelectedIds() {
-						    var selectedIds = [];
-						    $('.checkbox:checked').each(function() {
-						        selectedIds.push($(this).attr('id'));
-						    });
-
-						    if (selectedIds.length > 0) {
-						        $.ajax({
-						            url: '/MusicWebsite/RemoveAccountController',
-						            type: 'get',
-						            data: {
-						                selectedIds: selectedIds
-						            },
-						            success: function(response) {
-						                $.each(selectedIds, function(index, id) {
-						                	$("#data").DataTable().row($('#' + id).closest("tr")).remove().draw(true);
-
-						                });
-						            },
-						            error: function() {
-						                
-						            }
-						        });
-						    } 
-						});
-						
-
-					})
+        
+        $('#add-account').click(function showUi() {
+        	
+			$('#wrapper_add').css('display','grid');
+		});
+        $(document).on('click', '.edit-button', function() {
+            $('#wrapper_edit').css('display', 'grid');
+        });
+		$('#x_add_acc').click(function hidenUi() {
+			$('#wrapper_add').css('display','none');
+		});
+		$('#x_edit_acc').click(function hidenUi() {
+			$('#wrapper_edit').css('display','none');
+		});
+		
+		
+		
+    });
+    function showConfirmPass() {
+		$('#wrapper_pass').css('display','block');
+		$('#wrapper_add').css('display','none');
+		$('#wrapper_edit').css('display','none');
+	}
+    function hidenConfirmPass() {
+		$('#wrapper_pass').css('display','none');
+	
+	}
 </script>
+
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

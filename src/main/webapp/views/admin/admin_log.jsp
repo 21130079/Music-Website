@@ -139,7 +139,7 @@ font-weight: bold;
 		<a href="admin_add.jsp">
 					<button> <i class="plus">+</i> Add Account</button>
 					</a>
-		<button  onclick="getSelectedIds()">Delete
+		<button id="deleteLogs_btn">Delete
 			selected</button>
 		</div>
 
@@ -168,40 +168,12 @@ font-weight: bold;
 
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script>
-	function getSelectedIds() {
-		var selectedIds = [];
-		var checkboxes = document.querySelectorAll('.checkbox');
-		checkboxes.forEach(function(checkbox) {
-			if (checkbox.checked) {
-				selectedIds.push(checkbox.id);
-			}
-		});
 
-		if (selectedIds.length > 0) {
-			$.ajax({
-				url : '/MusicWebsite/RemoveLogController',
-				type : 'get',
-				data : {
-					selectedIds : selectedIds
-				},
-				success : function(response) {
-					alert('Đã xóa các log đã chọn');
-					window.location.reload();
-
-				},
-				error : function() {
-					alert('Đã xảy ra lỗi.');
-				}
-			});
-		} else {
-			alert("Không có phần tử nào được chọn.");
-		}
-	}
 	$(document)
-			.ready(
-					function() {
-						$
-								.ajax({
+			.ready(function() {
+					
+						
+						$.ajax({
 									url : "/MusicWebsite/LogAPI",
 									type : "get",
 									dataType : "json",
@@ -254,9 +226,7 @@ font-weight: bold;
 																				data,
 																				type,
 																				row) {
-																			return '<a href="/MusicWebsite/RemoveLogController?idlog='
-																					+ data.idLog
-																					+ '"><button style="color: black;">Delete</button></a>';
+																			return '<button style="color: black;" class="delete_btn" id="'+data.idLog+'">Delete</button></a>';
 																		}
 																	} ]
 														});
@@ -267,8 +237,46 @@ font-weight: bold;
 										console.log("Error: " + errorThrown);
 									}
 								});
+						
+						
+							$('#deleteLogs_btn').click(function() {
+							    $('.checkbox:checked').each(function() {
+							        var checkbox = $(this);
+							        $.ajax({
+							            url: '/MusicWebsite/RemoveLogController',
+							            type: 'get',
+							            data: {
+							            	idLog: checkbox.attr('id')
+							            },
+							            success: function(response) {
+							            	 $("#data").DataTable().row(checkbox.closest("tr")).remove().draw(true);
+							            },
+							            error: function() {
+							                // Handle error
+							               
+							            }
+							        });
+							    });
+							});
 
-					})
+							$(document).on('click', '.delete_btn', function() {
+						            let idLog = $(this).attr("id");
+						            let button = $(this);
+									console.log(idLog);
+						            $.ajax({
+						                url: '/MusicWebsite/RemoveLogController',
+						                type: 'get',
+						                data: { idLog:idLog},
+						                success: function(response) {
+						                	 $("#data").DataTable().row(button.closest("tr")).remove().draw(true);
+						                },
+						                error: function() {
+						                    // Handle error
+						                }
+						            });
+						        });
+						
+					});
 </script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </html>

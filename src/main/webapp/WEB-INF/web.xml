@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
   <display-name>MusicWebsite</display-name>
   <welcome-file-list>
@@ -477,7 +476,6 @@
     <servlet-name>GenreChartServlet</servlet-name>
     <url-pattern>/GenreChartServlet</url-pattern>
   </servlet-mapping>
-
   <servlet>
     <description></description>
     <display-name>TopSongsChartImage</display-name>
@@ -488,5 +486,51 @@
     <servlet-name>TopSongsChartImage</servlet-name>
     <url-pattern>/TopSongsChartImage</url-pattern>
   </servlet-mapping>
-
+  <filter>
+    <display-name>SuperAdminAuhtenFilter</display-name>
+    <filter-name>SuperAdminAuhtenFilter</filter-name>
+    <filter-class>Filter.SuperAdminAuhtenFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SuperAdminAuhtenFilter</filter-name>
+    <url-pattern>/views/admin/admin_account.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SuperAdminAuhtenFilter</filter-name>
+    <url-pattern>/EditAccountController</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateAccountController</display-name>
+    <servlet-name>UpdateAccountController</servlet-name>
+    <servlet-class>Controller.admin.UpdateAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateAccountController</servlet-name>
+    <url-pattern>/UpdateAccountController</url-pattern>
+  </servlet-mapping>
+  <filter-mapping>
+    <filter-name>SuperAdminAuhtenFilter</filter-name>
+    <url-pattern>/UpdateAccountController</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditAccountController</display-name>
+    <servlet-name>EditAccountController</servlet-name>
+    <servlet-class>Controller.admin.EditAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditAccountController</servlet-name>
+    <url-pattern>/EditAccountController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddAccountController</display-name>
+    <servlet-name>AddAccountController</servlet-name>
+    <servlet-class>Controller.admin.AddAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddAccountController</servlet-name>
+    <url-pattern>/AddAccountController</url-pattern>
+  </servlet-mapping>
 </web-app>
