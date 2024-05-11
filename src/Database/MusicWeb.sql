@@ -83,7 +83,8 @@ create table notifications(
 	id_notification varchar(255) primary key,
 	username varchar(255) foreign key references accounts(username),
 	level_notification varchar(255) not null,
-	descript varchar(255) not null
+	descript varchar(255) not null,
+	time_execute datetime not null default current_timestamp
 );
 
 CREATE SEQUENCE seq_logs
@@ -370,3 +371,6 @@ update roles_accounts set roleUser = 'admin' where username = 'admin';
 
 insert into notifications(id_notification, username, level_notification, descript)
 values ('test', 'user', 'WARNING', 'login fail')
+
+delete from notifications where id_notification = 'test'
+select * from notifications

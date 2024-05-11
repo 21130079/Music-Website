@@ -81,6 +81,8 @@
 	<div class="sign-in">
 		<c:choose>
 			<c:when test="${sessionScope.account!=null}">
+				<c:set var="listNotifications" value="${daoSong.selectNext12Products(0)}"></c:set>
+			
 				<button style="background-color: transparent; border: none"
 					type="button" class="login-btn"
 					onclick="document.getElementById('change-password').style.display='flex'">
@@ -90,7 +92,7 @@
 				<button type="button" class="notification-btn" onclick="showNotificationBoard(this)">
 					<i class="bi bi-bell-fill"></i>
 				</button>
-
+				
 				<div id="notification-board">
 					<div>My Information</div>
 					<div>Premium</div>

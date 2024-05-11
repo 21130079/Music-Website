@@ -135,8 +135,8 @@ button {
 	width: fit-content;
 	height: fit-content;
 	position: relative;
-
 	margin-top: 10px;
+    margin-left: -40px;
 }
 
 .search-icon {
