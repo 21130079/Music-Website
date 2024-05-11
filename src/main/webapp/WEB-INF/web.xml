@@ -496,4 +496,14 @@
     <servlet-name>LazyLoadingController</servlet-name>
     <url-pattern>/LazyLoadingController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ExportFileController</display-name>
+    <servlet-name>ExportFileController</servlet-name>
+    <servlet-class>Controller.ExportFileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExportFileController</servlet-name>
+    <url-pattern>/ExportFileController</url-pattern>
+  </servlet-mapping>
 </web-app>
