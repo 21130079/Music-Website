@@ -22,6 +22,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 
 /**
  *
@@ -36,10 +38,16 @@ public class ajaxServlet extends HttpServlet {
         String vnp_Command = "pay";
         String orderType = "other";
         
+        String periodText = req.getParameter("period");
         String amountText = req.getParameter("amount");
+        
+        HttpSession session = req.getSession();
+        session.setAttribute("period", periodText);
+        session.setAttribute("amount", amountText);
+        
         amountText = amountText.substring(0, amountText.length() - 1);
         
-        long amount = Integer.parseInt(amountText)*100;
+        long amount = Integer.parseInt(amountText)*1000;
         
         String bankCode = "";
         

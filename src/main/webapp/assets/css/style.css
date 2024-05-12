@@ -830,14 +830,14 @@ a {
 	border-radius: 5px;
 }
 
-.nav_person div {
+.nav_person div, #notification-board div {
 	padding: 5px;
 	border-radius: 3px;
 	/*  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.3); */
 	background-color: transparent;
 }
 
-.nav_person div:not(:last-child) {
+.nav_person div:not(:last-child), #notification-board div:not(:last-child) {
 	border-bottom: 1px solid gray;
 }
 
@@ -859,10 +859,99 @@ a {
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	width: 150px;
+	width: 450px;
 	background-color: white;
 	z-index: 5;
 	border-radius: 5px;
-	left: 1200px;
+	left: 870px;
     top: 60px;
 }
+
+.notification-item-content {
+	color: black;
+	line-height: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

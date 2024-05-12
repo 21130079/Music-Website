@@ -7,13 +7,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 import Model.Account;
 import Model.IPAddress;
 import Model.Log;
+import Model.Notification;
 import Model.ELevel.Level;
 import database.DAOAccount;
 import database.DAOLog;
+import database.DAONotification;
 
 /**
  * Servlet implementation class NewPasswordController
@@ -36,8 +41,8 @@ public class NewPasswordController extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		Account acc = (Account) session.getAttribute("account");
-		String oldPass = request.getParameter("oldPass");
-		String newPass = request.getParameter("newPass");
+		String oldPass = passwordHashing(request.getParameter("oldPass"));
+		String newPass = passwordHashing(request.getParameter("newPass"));
 		String messageOldPass = null;
 		String messageNewPass = null;
 		session.setAttribute("account", acc);
@@ -68,17 +73,18 @@ public class NewPasswordController extends HttpServlet {
 				
 			}
 		} else {
-			
 			messageOldPass = "Invalid current password !";
 			request.setAttribute("messageOldPass", messageOldPass);
 			request.setAttribute("messageNewPass", null);
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		if (isValid) {
-		
+			new DAONotification().insert(new Notification(UUID.randomUUID().toString(), acc.getUsername(), Level.INFO,
+					"Change password successfully", null));
 			response.sendRedirect("/MusicWebsite/index.jsp");
 		}else {
-			
+			new DAONotification().insert(new Notification(UUID.randomUUID().toString(), acc.getUsername(), Level.INFO,
+			 		"Change password failed", null));
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		session.setAttribute("account", acc);
@@ -92,4 +98,21 @@ public class NewPasswordController extends HttpServlet {
 		doGet(request, response);
 	}
 
+	public String passwordHashing(String password) {
+		try {
+			MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+			byte[] resultBytes = messageDigest.digest(password.getBytes());
+			StringBuilder sb = new StringBuilder();
+			
+            for (byte b : resultBytes) {
+                sb.append(String.format("%02x", b));
+            }
+            
+            return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			
+			return null;
+		}
+	}
 }

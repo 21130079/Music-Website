@@ -61,7 +61,7 @@ public class DAONotification extends AbsDao<Notification> {
 		try {
 			PreparedStatement stmt = connection.prepareStatement("select * from notifications where username = ? order by time_execute desc");
 			
-			stmt.setString(0, usernameChecked);
+			stmt.setString(1, usernameChecked);
 			
 			ResultSet rs = stmt.executeQuery();
 			

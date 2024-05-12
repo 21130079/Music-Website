@@ -75,6 +75,9 @@
 	<div class="sign-in">
 		<c:choose>
 			<c:when test="${sessionScope.account!=null}">
+				<jsp:useBean id="daoNotification" class="database.DAONotification" scope="session"></jsp:useBean>
+				<c:set var="listNotifications" value="${daoNotification.selectAll()}"></c:set>
+			
 				<button style="background-color: transparent; border: none"
 					type="button" class="login-btn"
 					onclick="document.getElementById('change-password').style.display='flex'">
@@ -87,9 +90,37 @@
 				</button>
 
 				<div id="notification-board">
-					<div>My Information</div>
-					<div>Premium</div>
-					<div>Forgot Password</div>
+					<c:if test="${fn:length(listNotifications)!=0}">
+						<c:forEach begin="0" end="${fn:length(listNotifications) - 1}"
+							var="i">
+							<c:choose>
+								<c:when test="${listNotifications[i].levelNotification=='ALERT' }">
+									<div class="notification-item" style="background-color: orange;">
+										<p class="notification-item-content">${listNotifications[i].username }: ${listNotifications[i].descript }</p>
+										<p class="notification-item-content">Time: ${listNotifications[i].timeExecute }</p>
+									</div>
+								</c:when>
+								<c:when test="${listNotifications[i].levelNotification=='WARNING' }">
+									<div class="notification-item" style="background-color: yellow;">
+										<p class="notification-item-content">${listNotifications[i].username }: ${listNotifications[i].descript }</p>
+										<p class="notification-item-content">Time: ${listNotifications[i].timeExecute }</p>
+									</div>
+								</c:when>
+								<c:when test="${listNotifications[i].levelNotification=='DANGER' }">
+									<div class="notification-item" style="background-color: red;">
+										<p class="notification-item-content">${listNotifications[i].username }: ${listNotifications[i].descript }</p>
+										<p class="notification-item-content">Time: ${listNotifications[i].timeExecute }</p>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="notification-item">
+										<p class="notification-item-content">${listNotifications[i].username }: ${listNotifications[i].descript }</p>
+										<p class="notification-item-content">Time: ${listNotifications[i].timeExecute }</p>
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</c:if>
 				</div>
 
 				<div class="person_circle">

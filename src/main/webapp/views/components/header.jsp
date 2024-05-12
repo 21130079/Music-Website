@@ -81,7 +81,8 @@
 	<div class="sign-in">
 		<c:choose>
 			<c:when test="${sessionScope.account!=null}">
-				<c:set var="listNotifications" value="${daoSong.selectNext12Products(0)}"></c:set>
+				<jsp:useBean id="daoNotification" class="database.DAONotification" scope="session"></jsp:useBean>
+				<c:set var="listNotifications" value="${daoNotification.selectByUsername(sessionScope.account.username)}"></c:set>
 			
 				<button style="background-color: transparent; border: none"
 					type="button" class="login-btn"
@@ -94,9 +95,15 @@
 				</button>
 				
 				<div id="notification-board">
-					<div>My Information</div>
-					<div>Premium</div>
-					<div>Forgot Password</div>
+					<c:if test="${fn:length(listNotifications)!=0}">
+						<c:forEach begin="0" end="${fn:length(listNotifications) - 1}"
+							var="i">
+							<div class="notification-item">
+								<p class="notification-item-content">${listNotifications[i].descript }</p>
+								<p class="notification-item-content">Time: ${listNotifications[i].timeExecute }</p>
+							</div>
+						</c:forEach>
+					</c:if>
 				</div>
 
 				<div class="person_circle">

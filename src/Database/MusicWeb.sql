@@ -3,46 +3,46 @@ use MusicWeb;
 
 --create table
 create table singers(
-	id_singer varchar(20) primary key,
+	id_singer nvarchar(20) primary key,
 	name_singer nvarchar(255) not null,
 	yearOfBirth int 
 );
 
 create table songs(
-	id_song varchar(20) primary key,
-	id_singer varchar(20) foreign key  references singers(id_singer),
+	id_song nvarchar(20) primary key,
+	id_singer nvarchar(20) foreign key  references singers(id_singer),
 	name_song nvarchar(255) not null,
 	duration time not null,
 	genre nvarchar(255) not null,
-	urlImg varchar(255) not null,
-	urlAudio varchar(255) not null,
+	urlImg nvarchar(255) not null,
+	urlAudio nvarchar(255) not null,
 	songview int
 );
 
 create table accounts(
-	username varchar(255) primary key,
-	email varchar(255)not null,
+	username nvarchar(255) primary key,
+	email nvarchar(255)not null,
 	password_account nvarchar(255) not null,
 );
 
 create table roles_accounts (
-	username varchar(255) foreign key references  accounts(username),
-	roleUser varchar(255),
+	username nvarchar(255) foreign key references  accounts(username),
+	roleUser nvarchar(255),
 	primary key(roleUser,username)
 )
 
 create table history_premium_accounts(
 	id int PRIMARY KEY IDENTITY,
-	username varchar(255) foreign key references  accounts(username),
+	username nvarchar(255) foreign key references  accounts(username),
 	type_premium int ,
 	started_date date,
 	finish_date date,
 );
 
 create table playlists(
-	id_playlist varchar(20) ,
+	id_playlist nvarchar(20) ,
 	name_playlist nvarchar(20) not null,
-	username varchar(255) foreign key references  accounts(username),
+	username nvarchar(255) foreign key references  accounts(username),
 	primary key(id_playlist,username)
 	
 );
@@ -51,39 +51,39 @@ create table playlists(
 
 	ALTER TABLE playlists
 	ADD CONSTRAINT playlist_insert 
-	DEFAULT  'PLA' + CAST(NEXT VALUE FOR seq_Playlist AS VARCHAR(17))
+	DEFAULT  'PLA' + CAST(NEXT VALUE FOR seq_Playlist AS nvarchar(17))
 	FOR id_playlist ;
 
 create table playlists_songs (
-	username varchar(255) ,
-	id_playlist varchar(20),
-	id_song varchar(20) foreign key references songs(id_song),
+	username nvarchar(255) ,
+	id_playlist nvarchar(20),
+	id_song nvarchar(20) foreign key references songs(id_song),
 	foreign key(id_playlist,username) references playlists(id_playlist,username),
 	primary key(id_playlist,id_song)
 );
 
 create table favorites(
-	id_song varchar(20) foreign key references songs(id_song),
-	username varchar(255) foreign key references  accounts(username),
+	id_song nvarchar(20) foreign key references songs(id_song),
+	username nvarchar(255) foreign key references  accounts(username),
 	primary key(username,id_song)
 );
 
 create table logs(
-	id_log varchar(255) primary key,
-	nationality varchar(255) not null ,
-	level_log varchar(255) not null,
-	address_performing varchar(255) not null,
-	pre_value varchar(255) ,
-	current_value varchar(255),
+	id_log nvarchar(255) primary key,
+	nationality nvarchar(255) not null ,
+	level_log nvarchar(255) not null,
+	address_performing nvarchar(255) not null,
+	pre_value nvarchar(255) ,
+	current_value nvarchar(255),
 	updated_date DATETIME DEFAULT GETDATE() not null ,
 	exec_status char(25) not null
 );
 
 create table notifications(
-	id_notification varchar(255) primary key,
-	username varchar(255) foreign key references accounts(username),
-	level_notification varchar(255) not null,
-	descript varchar(255) not null,
+	id_notification nvarchar(255) primary key,
+	username nvarchar(255) foreign key references accounts(username),
+	level_notification nvarchar(255) not null,
+	descript nvarchar(255) not null,
 	time_execute datetime not null default current_timestamp
 );
 
@@ -92,7 +92,7 @@ CREATE SEQUENCE seq_logs
 
 	ALTER TABLE logs
 	ADD CONSTRAINT logs_insert 
-	DEFAULT  'lOG' + CAST(NEXT VALUE FOR seq_logs AS VARCHAR(252))
+	DEFAULT  'lOG' + CAST(NEXT VALUE FOR seq_logs AS nvarchar(252))
 	FOR id_log ;
 
 
@@ -229,7 +229,7 @@ INSERT INTO SONGS(id_song,name_song,duration,genre,urlImg,urlAudio,songview,id_s
 
 	ALTER TABLE songs
 	ADD CONSTRAINT song_insert 
-	DEFAULT  'SO' + CAST(NEXT VALUE FOR seq_songs AS VARCHAR(17))
+	DEFAULT  'SO' + CAST(NEXT VALUE FOR seq_songs AS nvarchar(17))
 	FOR id_song ;
 
 	CREATE SEQUENCE seq_singers
@@ -237,7 +237,7 @@ INSERT INTO SONGS(id_song,name_song,duration,genre,urlImg,urlAudio,songview,id_s
 
 	ALTER TABLE singers
 	ADD CONSTRAINT singers_insert 
-	DEFAULT  'SN' + CAST(NEXT VALUE FOR seq_singers AS VARCHAR(17))
+	DEFAULT  'SN' + CAST(NEXT VALUE FOR seq_singers AS nvarchar(17))
 	FOR id_singer ;
 
 	ALTER TABLE roles_accounts
@@ -253,7 +253,7 @@ BEGIN
     -- Check for INSERT operation
     IF EXISTS (SELECT 1 FROM inserted)
     BEGIN
-        DECLARE @usernameinsert VARCHAR(255);
+        DECLARE @usernameinsert nvarchar(255);
 
         -- Assuming there is only one row being inserted
         SELECT @usernameinsert = username FROM inserted;
@@ -272,7 +272,7 @@ ON history_premium_accounts
 INSTEAD OF INSERT
 AS
 BEGIN
-    DECLARE @Username varchar(255);
+    DECLARE @Username nvarchar(255);
     DECLARE @TypePremium int;
     DECLARE @StartedDate date;
     DECLARE @FinishDate date;
@@ -373,4 +373,5 @@ insert into notifications(id_notification, username, level_notification, descrip
 values ('test', 'user', 'WARNING', 'login fail')
 
 delete from notifications where id_notification = 'test'
-select * from notifications
+
+select * from notifications order by time_execute desc
