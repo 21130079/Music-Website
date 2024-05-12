@@ -152,7 +152,7 @@ public class UpdateSongController extends HttpServlet {
 			}
 		}
 		
-		response.sendRedirect("/MusicWebsite/views/admin/admin.jsp");
+		response.sendRedirect("/MusicWebsite/views/admin/admin_song.jsp");
 	}
 
 }

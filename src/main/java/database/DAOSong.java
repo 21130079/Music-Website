@@ -147,7 +147,7 @@ public class DAOSong extends AbsDao<Song>{
 			return 1;
 		} catch (Exception e) {
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Songs", song.toString(),
-					null, null, "failed");
+					"null", null, "failed");
 			new DAOLog().insert(log);
 			e.getStackTrace();
 		}
@@ -218,13 +218,22 @@ public class DAOSong extends AbsDao<Song>{
 	@Override
 	public int delete(Song t) {
 		try {
-			PreparedStatement stmt = connection.prepareStatement("delete from songs where id_song=?");
+			PreparedStatement stmt = connection.prepareStatement("delete from playlists_songs where id_song=?");
 			
 			stmt.setString(1, t.getId_Song());
 			stmt.execute();
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.DANGER, "Songs", t.toString(),null, null,
-					"successed");
-			daolog.insert(log);
+			
+			 stmt = connection.prepareStatement("delete from favorites where id_song=?");
+				
+				stmt.setString(1, t.getId_Song());
+				stmt.execute();
+			 stmt = connection.prepareStatement("delete from songs where id_song=?");
+			stmt.setString(1, t.getId_Song());
+			stmt.execute();
+			stmt.close();
+			connection.close();
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.DANGER, "Songs", t.toString(),"null", null,"successed");
+			new DAOLog().insert(log);
 			
 			return 1;
 		} catch (Exception e) {

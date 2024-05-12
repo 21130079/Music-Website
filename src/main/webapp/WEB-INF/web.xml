@@ -496,6 +496,54 @@
     <servlet-name>TopSongsChartImage</servlet-name>
     <url-pattern>/TopSongsChartImage</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
+  <filter>
+    <display-name>SuperAdminAuhtenFilter</display-name>
+    <filter-name>SuperAdminAuhtenFilter</filter-name>
+    <filter-class>Filter.SuperAdminAuhtenFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SuperAdminAuhtenFilter</filter-name>
+    <url-pattern>/views/admin/admin_account.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>SuperAdminAuhtenFilter</filter-name>
+    <url-pattern>/EditAccountController</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateAccountController</display-name>
+    <servlet-name>UpdateAccountController</servlet-name>
+    <servlet-class>Controller.admin.UpdateAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateAccountController</servlet-name>
+    <url-pattern>/UpdateAccountController</url-pattern>
+  </servlet-mapping>
+  <filter-mapping>
+    <filter-name>SuperAdminAuhtenFilter</filter-name>
+    <url-pattern>/UpdateAccountController</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditAccountController</display-name>
+    <servlet-name>EditAccountController</servlet-name>
+    <servlet-class>Controller.admin.EditAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditAccountController</servlet-name>
+    <url-pattern>/EditAccountController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddAccountController</display-name>
+    <servlet-name>AddAccountController</servlet-name>
+    <servlet-class>Controller.admin.AddAccountController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddAccountController</servlet-name>
+    <url-pattern>/AddAccountController</url-pattern>
+
   <servlet>
     <description></description>
     <display-name>LazyLoadingController</display-name>
@@ -505,5 +553,16 @@
   <servlet-mapping>
     <servlet-name>LazyLoadingController</servlet-name>
     <url-pattern>/LazyLoadingController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ExportFileController</display-name>
+    <servlet-name>ExportFileController</servlet-name>
+    <servlet-class>Controller.ExportFileController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ExportFileController</servlet-name>
+    <url-pattern>/ExportFileController</url-pattern>
+
   </servlet-mapping>
 </web-app>

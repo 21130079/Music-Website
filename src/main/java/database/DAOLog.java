@@ -17,17 +17,17 @@ public class DAOLog extends AbsDao<Log>{
 	@Override
 	public int insert(Log t) {
 		try {
-			PreparedStatement stmt = connection.prepareStatement(
+			PreparedStatement stm = connection.prepareStatement(
 					"insert into logs (nationality,level_log,address_performing,pre_value,current_value,exec_status) values(?,?,?,?,?,?)");
 
-			stmt.setString(1, t.getNationality());
-			stmt.setString(2, t.getLevelLog());
-			stmt.setString(3, t.getAddressPerforming());
-			stmt.setString(4, t.getPreValue());
-			stmt.setString(5, t.getCurrentValue());
+			stm.setString(1, t.getNationality());
+			stm.setString(2, t.getLevelLog());
+			stm.setString(3, t.getAddressPerforming());
+			stm.setString(4, t.getPreValue());
+			stm.setString(5, t.getCurrentValue());
 			
-			stmt.setString(6, t.getStatus());
-			stmt.execute();
+			stm.setString(6, t.getStatus());
+			stm.execute();
 			return 1;
 
 		} catch (Exception e) {

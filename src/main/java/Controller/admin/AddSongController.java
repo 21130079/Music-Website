@@ -114,7 +114,7 @@ public class AddSongController extends HttpServlet {
 			daoSong.insert(song);
 			
 			
-			response.sendRedirect("/MusicWebsite/views/admin/admin.jsp");
+			response.sendRedirect("/MusicWebsite/views/admin/admin_song.jsp");
 		} catch (Exception e) {
 			// TODO: handle exception
 		

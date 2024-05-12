@@ -24,6 +24,9 @@ public class Account {
 		this.playlists = playlists;
 	}
 
+	public Account(String username) {
+		this.username = username;
+	}
 	public String getUsername() {
 		return username;
 	}

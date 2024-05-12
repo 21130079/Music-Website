@@ -326,6 +326,24 @@ BEGIN
     END
 END;
 
+	Insert into accounts(username,password_account,email)
+	VALUES ('vvmtam','be1e329741ecc2be4562018d6e50c57ae91d11aa','21130168@st.hcmuaf.edu.vn');
+
+	Insert into accounts(username,password_account,email)
+	VALUES ('pldat','bf23fa1e1fe7c3d7c81a11ab021667a3d2b47c93','21130022@st.hcmuaf.edu.vn');
+
+	Insert into accounts(username,password_account,email)
+	VALUES ('ngtnkhoa','9b4dc469c95f3d9b0665ee14e8eeeda3f4dcef3e','21130079@st.hcmuaf.edu.vn');
+
+	Insert into accounts(username,password_account,email)
+	VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
+	
+	insert into accounts(username,password_account,email) 
+	values('superadmin','b8e86f6a2d432d2b8d38f3ecfb33bbc534e51071','superadmin@gmail.com');
+	insert into roles_accounts (username,roleUser) values('superadmin','super admin');
+
+	update roles_accounts set roleUser = 'admin' where username = 'admin';
+	
 CREATE FUNCTION dbo.CalculateProfitForMonth(@month INT)
 RETURNS float
 AS
@@ -368,10 +386,182 @@ VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
 
 update roles_accounts set roleUser = 'admin' where username = 'admin';
 
+CREATE FUNCTION dbo.CalculateProfitForToday()
+	RETURNS float
+	AS
+	BEGIN
+		DECLARE @today DATE = CAST(GETDATE() AS DATE);		
+		DECLARE @profit FLOAT = 0;
+		SELECT @profit = SUM(CASE [type_premium]
+									WHEN  1 THEN 15000
+									WHEN  2 THEN 30000
+									WHEN  3 THEN 55000
+									WHEN  4 THEN 255000
+									WHEN 5 THEN 45000
+									WHEN 6 THEN 225000
+									ELSE 0
+							   END)
+		FROM [dbo].[history_premium_accounts]
+		WHERE [started_date] = @today;
 
-insert into notifications(id_notification, username, level_notification, descript)
-values ('test', 'user', 'WARNING', 'login fail')
+		RETURN @profit;
+	END;
+--Tính tổng tiền theo 1 thời gian cho trước
+CREATE FUNCTION dbo.CalculateTotalAmountForDate(@date DATE, @type int) --theo ngày
+RETURNS FLOAT
+AS
+	BEGIN		
+		DECLARE @profit FLOAT = 0;
+		SELECT @profit = SUM(CASE [type_premium]
+									WHEN  1 THEN 15000
+									WHEN  2 THEN 30000
+									WHEN  3 THEN 55000
+									WHEN  4 THEN 255000
+									WHEN 5 THEN 45000
+									WHEN 6 THEN 225000
+									ELSE 0
+							   END)
+		FROM [dbo].[history_premium_accounts]
+		WHERE [started_date] = @date and [type_premium] = @type;
 
-delete from notifications where id_notification = 'test'
+		RETURN @profit;
+END;
 
-select * from notifications order by time_execute desc
+CREATE FUNCTION dbo.CalculateTotalAmountForMonth(@month int,@year int, @type int) --theo tháng
+RETURNS FLOAT
+AS
+	BEGIN		
+		DECLARE @profit FLOAT = 0;
+		SELECT @profit = SUM(CASE [type_premium]
+									WHEN  1 THEN 15000
+									WHEN  2 THEN 30000
+									WHEN  3 THEN 55000
+									WHEN  4 THEN 255000
+									WHEN 5 THEN 45000
+									WHEN 6 THEN 225000
+									ELSE 0
+							   END)
+		FROM [dbo].[history_premium_accounts]
+		WHERE MONTH(started_date) = @month and YEAR(started_date) = @year and [type_premium] = @type;
+
+		RETURN @profit;
+END;
+CREATE FUNCTION dbo.CalculateTotalAmountForYear(@year int, @type int) -- theo năm
+RETURNS FLOAT
+AS
+	BEGIN		
+		DECLARE @profit FLOAT = 0;
+		SELECT @profit = SUM(CASE [type_premium]
+									WHEN  1 THEN 15000
+									WHEN  2 THEN 30000
+									WHEN  3 THEN 55000
+									WHEN  4 THEN 255000
+									WHEN 5 THEN 45000
+									WHEN 6 THEN 225000
+									ELSE 0
+							   END)
+		FROM [dbo].[history_premium_accounts]
+		WHERE  YEAR(started_date) = @year and [type_premium] = @type;
+
+		RETURN @profit;
+END;
+
+CREATE FUNCTION dbo.CalculateTotalAmountForPrecious(@year int,@precious int,@type int) -- theo quý
+RETURNS FLOAT
+AS
+	BEGIN		
+		DECLARE @profit FLOAT = 0;
+
+		SELECT @profit = SUM(CASE [type_premium]
+									WHEN  1 THEN 15000
+									WHEN  2 THEN 30000
+									WHEN  3 THEN 55000
+									WHEN  4 THEN 255000
+									WHEN 5 THEN 45000
+									WHEN 6 THEN 225000
+									ELSE 0
+							   END)
+		FROM [dbo].[history_premium_accounts]
+		WHERE  (@precious = 1 AND MONTH(started_date) IN (1, 2, 3)) and YEAR(started_date) = @year and [type_premium] = @type
+        OR (@precious = 2 AND MONTH(started_date) IN (4, 5, 6)and YEAR(started_date) = @year and [type_premium] = @type)
+		OR(@precious = 3 AND MONTH(started_date) IN (7, 8, 9)and YEAR(started_date) = @year and [type_premium] = @type)
+		OR(@precious = 4 AND MONTH(started_date) IN (10, 11, 12)and YEAR(started_date) = @year and [type_premium] = @type)
+
+		RETURN @profit;
+END;
+	
+
+
+
+
+--Tìm type có số lượng nhiều nhất theo 1 thời gian cho trước
+SELECT TOP 1 type_premium, COUNT(type_premium) AS count_premium -- theo ngày
+FROM history_premium_accounts 
+WHERE started_date = '2024-05-11'
+group by type_premium
+ORDER BY count_premium DESC
+;
+
+
+SELECT TOP 1 type_premium, COUNT(type_premium) AS count_premium -- theo năm
+FROM history_premium_accounts 
+WHERE YEAR(history_premium_accounts.started_date) = 2024
+group by type_premium
+ORDER BY count_premium DESC
+;
+
+
+--Hàm lấy ra theo quý
+CREATE FUNCTION GetPremiumCounts (@type INT, @year INT) -- theo quý
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT TOP 1 PERCENT type_premium, COUNT(type_premium) AS count_premium
+    FROM history_premium_accounts
+    WHERE
+        (@type = 1 AND MONTH(started_date) IN (1, 2, 3)) and YEAR(started_date) = @year
+        OR (@type = 2 AND MONTH(started_date) IN (4, 5, 6)and YEAR(started_date) = @year)
+		OR(@type = 3 AND MONTH(started_date) IN (7, 8, 9)and YEAR(started_date) = @year)
+		OR(@type = 4 AND MONTH(started_date) IN (10, 11, 12)and YEAR(started_date) = @year)
+    GROUP BY type_premium
+    ORDER BY count_premium DESC
+);
+
+SELECT * FROM GetPremiumCounts(2,2024);
+drop function GetPremiumCounts;
+
+--Lấy ra danh sách history thuộc type nhiều nhất theo quý
+CREATE FUNCTION getPreciousPremiumList (@type INT, @year INT) 
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT *
+	FROM history_premium_accounts
+    WHERE type_premium = (
+    SELECT TOP 1 type_premium
+    FROM history_premium_accounts
+    GROUP BY type_premium
+    ORDER BY COUNT(*) DESC
+		)and(
+        (@type = 1 AND MONTH(started_date) IN (1, 2, 3)) and YEAR(started_date) = @year
+        OR (@type = 2 AND MONTH(started_date) IN (4, 5, 6)and YEAR(started_date) = @year)
+		OR(@type = 3 AND MONTH(started_date) IN (7, 8, 9)and YEAR(started_date) = @year)
+		OR(@type = 4 AND MONTH(started_date) IN (10, 11, 12)and YEAR(started_date) = @year))
+   
+);
+drop function getPreciousPremiumList;
+SELECT * FROM getPreciousPremiumList(2,2024);
+
+SELECT *
+FROM history_premium_accounts
+WHERE type_premium = (
+    SELECT TOP 1 type_premium
+    FROM history_premium_accounts
+    GROUP BY type_premium
+    ORDER BY COUNT(*) DESC
+) and  YEAR(started_date) =2024 ;
+
+select * from history_premium_accounts
+delete from history_premium_accounts
