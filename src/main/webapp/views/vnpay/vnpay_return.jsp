@@ -1,3 +1,7 @@
+<%@page import="Model.ELevel.Level"%>
+<%@page import="java.util.UUID"%>
+<%@page import="Model.Notification"%>
+<%@page import="database.DAONotification"%>
 <%@page import="Model.HistoryPremium"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.util.Date"%>
@@ -38,8 +42,8 @@
 <style>
 #back {
 	display: flex;
-    align-items: center;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 	font-size: 20px;
 	border-radius: 5px;
 	width: 120px;
@@ -119,43 +123,51 @@ a:hover {
 			<div class="form-group">
 				<label>Tình trạng giao dịch:</label> <label> <%
  if (signValue.equals(vnp_SecureHash)) {
+	Account acc = (Account) session.getAttribute("account");
+	String amount = session.getAttribute("amount").toString();
+	String period = session.getAttribute("period").toString();
+	
  	if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
  		out.print("Thành công");
- 		Account acc = (Account) session.getAttribute("account");
- 		
+
+ 		new DAONotification().insert(new Notification(UUID.randomUUID().toString(), acc.getUsername(), Level.INFO,
+ 		"Pay the " + amount + "₫ package in " + period + " successfully", null));
+
  		int typePre = 0;
- 		
+
  		switch ((String) request.getParameter("vnp_Amount").substring(0, 3)) {
- 			case "200": {
- 				typePre = 1;
- 				break;
- 			}
- 			case "700": {
- 				typePre = 2;
- 				break;
- 			}
- 			case "550": {
- 				typePre = 3;
- 				break;
- 			}
- 			case "255": {
- 				typePre = 4;
- 				break;
- 			}
- 			case "450": {
- 				typePre = 5;
- 				break;
- 			}
- 			case "225": {
- 				typePre = 6;
- 				break;
- 			}
+ 		case "200": {
+ 	typePre = 1;
+ 	break;
  		}
- 		
+ 		case "700": {
+ 	typePre = 2;
+ 	break;
+ 		}
+ 		case "550": {
+ 	typePre = 3;
+ 	break;
+ 		}
+ 		case "255": {
+ 	typePre = 4;
+ 	break;
+ 		}
+ 		case "450": {
+ 	typePre = 5;
+ 	break;
+ 		}
+ 		case "225": {
+ 	typePre = 6;
+ 	break;
+ 		}
+ 		}
+
  		HistoryPremium hist = new HistoryPremium(acc, typePre, null, null);
  		new DAOHistoryPremium().insert(hist);
  	} else {
  		out.print("Không thành công");
+ 		new DAONotification().insert(new Notification(UUID.randomUUID().toString(), acc.getUsername(), Level.INFO,
+ 		"Pay the " + amount + "₫ package in " + period + " failed", null));
  	}
 
  } else {

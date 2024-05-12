@@ -58,6 +58,7 @@ public class UpgradeSelectorController extends HttpServlet {
 			request.setAttribute("optionPrice1", "45000");
 			request.setAttribute("optionPrice2", "225000");
 		}
+		
 		request.getRequestDispatcher("/views/pages/upgrade_selector.jsp").forward(request, response);
 	}
 
