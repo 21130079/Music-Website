@@ -101,16 +101,16 @@ public class Song {
 		String result="";
 		long view1 = 0;
 		if(songView < 1000) {
-			result+=songView+" views";
+			result+=songView+" listeners";
 		}else if (songView>=1000&& songView <=999999) {
 			 view1 =songView/1000;
-			result += view1 +"k views";
+			result += view1 +"k listeners";
 		}else if(songView >= 1000000 && songView <= 999999999) {
 			view1 = songView/1000000;
-			result+=view1 +"tr views";
+			result+=view1 +"tr listeners";
 		}else {
 			view1 = songView/ 1000000000;
-			result+=view1+"T views";
+			result+=view1+"T listeners";
 		}
 		return result;
 	}
