@@ -60,8 +60,8 @@ function playMusic(id) {
 					data: {
 						idSong: id
 					},
-					success: function(response) {
-						console.log("Views updated");
+					success: function(reponse) {
+						console.log("Lượt view đã được cập nhật");
 					},
 					error: function(xhr, status, error) {
 						// Xử lý lỗi (nếu có)

@@ -8,13 +8,9 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.security.SecureRandom;
-import java.util.UUID;
 
-import Model.Account;
-import Model.ELevel.Level;
-import Model.Notification;
+
 import database.DAOAccount;
-import database.DAONotification;
 
 /**
  * Servlet implementation class ChangePasswordController
@@ -39,7 +35,6 @@ public class ChangePasswordController extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
-		Account acc = (Account) session.getAttribute("account");
 
 		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 		SecureRandom secureRandom = new SecureRandom();
@@ -54,11 +49,9 @@ public class ChangePasswordController extends HttpServlet {
 		request.setAttribute("newPass", sb.toString());
 		request.setAttribute("isSent", false);
 		request.setAttribute("isVerify", true);
-		new DAOAccount().updatePassword(email, sb.toString());;
+		System.out.println(email);
+	System.out.println(	new DAOAccount().updatePassword(email, sb.toString()));;
 
-		new DAONotification().insert(new Notification(UUID.randomUUID().toString(), acc.getUsername(), Level.INFO,
-		 		"Change password successfully", null));
-		
 		request.getRequestDispatcher("/views/pages/changePassword.jsp").forward(request, response);
 	}
 

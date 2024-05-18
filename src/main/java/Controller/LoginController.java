@@ -13,16 +13,13 @@ import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
-import java.util.UUID;
 
 import Model.Account;
 import Model.IPAddress;
 import Model.Log;
-import Model.Notification;
 import Model.ELevel.Level;
 import database.DAOAccount;
 import database.DAOLog;
-import database.DAONotification;
 
 /**
  * Servlet implementation class LoginController
@@ -87,6 +84,9 @@ public class LoginController extends HttpServlet {
 		}
 
 		HttpSession session = request.getSession();
+		
+		
+		//get throttle time
 		Long throttleTime = (Long) session.getAttribute("throttleTime");
 		
 		if (throttleTime != null && (System.currentTimeMillis() - throttleTime) < THROTTLE_TIME) {
@@ -98,6 +98,7 @@ public class LoginController extends HttpServlet {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.include(request, response);
 		} else {
+			//get login times
 			Integer loginTimes = (Integer) session.getAttribute("loginTimes");
 			if (loginTimes == null) {
 				loginTimes = 0;
@@ -113,9 +114,6 @@ public class LoginController extends HttpServlet {
 					session.setAttribute("throttleTime", currentTime);
 					
 					errorAccount = "Please wait 5 minutes to continue";
-					new DAONotification().insert(new Notification(UUID.randomUUID().toString(), "admin", Level.WARNING,
-					 		"Login failed 5 times", null));
-					System.out.println(1);
 					session.setAttribute("loginTimes", 0);
 				} else {
 					errorAccount = "Username or password is wrong";

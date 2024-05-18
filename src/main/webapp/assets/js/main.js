@@ -16,7 +16,7 @@ var played = [];
 var playedArrayTest = [];
 var count = 0;
 var ajaxDelayTimer;
-document.querySelector('#notification-board').style.display = 'none';
+
 
 if (played.length <= 1) {
     btnSkipBefore.disabled = true;
@@ -351,35 +351,23 @@ function appearImg(searchElement) {
 }
 
 function showMore() {
-	var quantity = document.querySelectorAll('.all-music-item').length;
-	$.ajax({
-		url: "/MusicWebsite/ShowMoreController",
-		type: "get",
-		data: {
-			data: quantity
-		},
-		success: function(data) {
-			if (data === '') {
-				$('.show-more-btn').css({ 'display': 'none' });
-			} else {
-				let content = document.querySelector(".table-divMusic");
-				content.innerHTML += data;
-			}
-		},
-		error: function(xhr, status, error) {
-			console.error("Lỗi: " + error);
-		}
-	});
+    var quantity = document.querySelectorAll('.all-music-item').length;
+    $.ajax({
+        url: "/MusicWebsite/ShowMoreController",
+        type: "get",
+        data: {
+            data: quantity
+        },
+        success: function(data) {
+            if (data === '') {
+                $('.show-more-btn').css({ 'display': 'none' });
+            } else {
+                let content = document.querySelector(".table-divMusic");
+                content.innerHTML += data;
+            }
+        },
+        error: function(xhr) {
+
+        }
+    });
 }
-
-function showNotificationBoard(button) {
-	let content = document.querySelector('#notification-board');
-	if (content.style.display === 'none') {
-		content.style.display = 'grid';
-	} else {
-		content.style.display = 'none';
-	}
-}
-
-
-
