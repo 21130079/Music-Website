@@ -38,6 +38,7 @@ public class DAOLog extends AbsDao<Log>{
 
 	@Override
 	public ArrayList<Log> selectAll() {
+		// TODO Auto-generated method stub
 		ArrayList<Log> result = new ArrayList<Log>();
 		try {
 			PreparedStatement stmt = connection.prepareStatement("select * from logs order by updated_date desc  ");

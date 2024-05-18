@@ -33,6 +33,7 @@ public class UpgradeSelectorController extends HttpServlet {
 		String type = request.getParameter("type");
 
 		if (type.equals("mini")) {
+			
 			request.setAttribute("title", "Mini");
 			request.setAttribute("color", "#CFF56A");
 			request.setAttribute("optionText1", "1 Week");
@@ -57,7 +58,6 @@ public class UpgradeSelectorController extends HttpServlet {
 			request.setAttribute("optionPrice1", "45000");
 			request.setAttribute("optionPrice2", "225000");
 		}
-		
 		request.getRequestDispatcher("/views/pages/upgrade_selector.jsp").forward(request, response);
 	}
 

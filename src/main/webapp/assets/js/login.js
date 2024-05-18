@@ -17,6 +17,16 @@ personicon.addEventListener('click', () => {
 	}
 });
 
+formLogin.addEventListener('submit', (e) => {
+	const captchaResponse = grecaptcha.getResponse();
+	console.log(captchaResponse)
+
+	if (!captchaResponse.length > 0) {
+		document.querySelector('.login-recaptcha-mess').innerHTML = "Please verify that you are not a robot.";
+		e.preventDefault();
+	}
+});
+
 if (!(typeof formLogin === 'undefined')) {
 	formLogin.addEventListener('submit', (e) => {
 		const captchaResponse = grecaptcha.getResponse();
