@@ -4,7 +4,8 @@ public class ELevel {
 	public enum Level {
 		INFO, ALERT, WARNING, DANGER;
 	}
-	public static Level getLevelLog (String levelString) {
+
+	public static Level getLevelLog(String levelString) {
 		switch (levelString) {
 		case "INFO": {
 			return Level.INFO;
@@ -18,11 +19,8 @@ public class ELevel {
 		case "DANGER": {
 			return Level.DANGER;
 		}
-		default :
+		default:
 			return null;
-		
-	}
-		
-		
+		}
 	}
 }

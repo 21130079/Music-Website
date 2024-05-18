@@ -37,7 +37,8 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<jsp:include page="views/components/header.jsp"></jsp:include>
+
+<jsp:include page="views/components/header.jsp" />
 <body>
 
 	<!--Container-->
@@ -246,20 +247,21 @@
 
 	<!--Fix Footer-->
 	<script type="text/javascript">
-	// Lưu trạng thái của âm nhạc trước khi chuyển trang
-	window.addEventListener('beforeunload', function() {
-	    sessionStorage.setItem('audioProgress', audio.currentTime);
-	});
+		// Lưu trạng thái của âm nhạc trước khi chuyển trang
+		window.addEventListener('beforeunload', function() {
+			sessionStorage.setItem('audioProgress', audio.currentTime);
+		});
 
-	// Khôi phục trạng thái của âm nhạc sau khi trang được tải
-	window.addEventListener('load', function() {
-	    var audio = document.querySelector('.auSO01');
-	    if(sessionStorage.getItem('audioProgress')) {
-	        audio.currentTime = parseFloat(sessionStorage.getItem('audioProgress'));
-	    }
-	});
-</script>
-    
+		// Khôi phục trạng thái của âm nhạc sau khi trang được tải
+		window.addEventListener('load', function() {
+			var audio = document.querySelector('.auSO01');
+			if (sessionStorage.getItem('audioProgress')) {
+				audio.currentTime = parseFloat(sessionStorage
+						.getItem('audioProgress'));
+			}
+		});
+	</script>
+
 	<jsp:include page="/views/components/footer.jsp"></jsp:include>
 	<script type="text/javascript" src="/MusicWebsite/assets/js/login.js"></script>
 	<script type="text/javascript" src="/MusicWebsite/assets/js/main.js"></script>

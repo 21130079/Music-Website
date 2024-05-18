@@ -3,47 +3,46 @@ use MusicWeb;
 
 --create table
 create table singers(
-	id_singer varchar(20) primary key,
+	id_singer nvarchar(20) primary key,
 	name_singer nvarchar(255) not null,
 	yearOfBirth int 
 );
-select * from singers order by id_singer offset 0 rows fetch next 3 rows only
+
 create table songs(
-	id_song varchar(20) primary key,
-	id_singer varchar(20) foreign key  references singers(id_singer),
+	id_song nvarchar(20) primary key,
+	id_singer nvarchar(20) foreign key  references singers(id_singer),
 	name_song nvarchar(255) not null,
 	duration time not null,
 	genre nvarchar(255) not null,
-	urlImg varchar(255) not null,
-	urlAudio varchar(255) not null,
+	urlImg nvarchar(255) not null,
+	urlAudio nvarchar(255) not null,
 	songview int
 );
 
 create table accounts(
-	username varchar(255) primary key,
-	email varchar(255)not null,
+	username nvarchar(255) primary key,
+	email nvarchar(255)not null,
 	password_account nvarchar(255) not null,
 );
 
 create table roles_accounts (
-	username varchar(255) foreign key references  accounts(username),
-	roleUser varchar(255),
+	username nvarchar(255) foreign key references  accounts(username),
+	roleUser nvarchar(255),
 	primary key(roleUser,username)
 )
 
 create table history_premium_accounts(
 	id int PRIMARY KEY IDENTITY,
-	username varchar(255) foreign key references  accounts(username),
+	username nvarchar(255) foreign key references  accounts(username),
 	type_premium int ,
 	started_date date,
 	finish_date date,
 );
 
---x quan ly playlist-nhac
 create table playlists(
-	id_playlist varchar(20) ,
+	id_playlist nvarchar(20) ,
 	name_playlist nvarchar(20) not null,
-	username varchar(255) foreign key references  accounts(username),
+	username nvarchar(255) foreign key references  accounts(username),
 	primary key(id_playlist,username)
 	
 );
@@ -52,39 +51,48 @@ create table playlists(
 
 	ALTER TABLE playlists
 	ADD CONSTRAINT playlist_insert 
-	DEFAULT  'PLA' + CAST(NEXT VALUE FOR seq_Playlist AS VARCHAR(17))
+	DEFAULT  'PLA' + CAST(NEXT VALUE FOR seq_Playlist AS nvarchar(17))
 	FOR id_playlist ;
 
 create table playlists_songs (
-	username varchar(255) ,
-	id_playlist varchar(20),
-	id_song varchar(20) foreign key references songs(id_song),
-	 foreign key(id_playlist,username) references playlists(id_playlist,username),
+	username nvarchar(255) ,
+	id_playlist nvarchar(20),
+	id_song nvarchar(20) foreign key references songs(id_song),
+	foreign key(id_playlist,username) references playlists(id_playlist,username),
 	primary key(id_playlist,id_song)
 );
---(x) ds yeu thich
+
 create table favorites(
-	id_song varchar(20) foreign key references songs(id_song),
-	username varchar(255) foreign key references  accounts(username),
+	id_song nvarchar(20) foreign key references songs(id_song),
+	username nvarchar(255) foreign key references  accounts(username),
 	primary key(username,id_song)
 );
 
 create table logs(
-	id_log varchar(255) primary key,
-	nationality varchar(255) not null ,
-	level_log varchar(255) not null,
-	address_performing varchar(255) not null,
-	pre_value varchar(255) ,
-	current_value varchar(255),
+	id_log nvarchar(255) primary key,
+	nationality nvarchar(255) not null ,
+	level_log nvarchar(255) not null,
+	address_performing nvarchar(255) not null,
+	pre_value nvarchar(255) ,
+	current_value nvarchar(255),
 	updated_date DATETIME DEFAULT GETDATE() not null ,
 	exec_status char(25) not null
 );
+
+create table notifications(
+	id_notification nvarchar(255) primary key,
+	username nvarchar(255) foreign key references accounts(username),
+	level_notification nvarchar(255) not null,
+	descript nvarchar(255) not null,
+	time_execute datetime not null default current_timestamp
+);
+
 CREATE SEQUENCE seq_logs
 	START WITH 1  INCREMENT BY 1;
 
 	ALTER TABLE logs
 	ADD CONSTRAINT logs_insert 
-	DEFAULT  'lOG' + CAST(NEXT VALUE FOR seq_logs AS VARCHAR(252))
+	DEFAULT  'lOG' + CAST(NEXT VALUE FOR seq_logs AS nvarchar(252))
 	FOR id_log ;
 
 
@@ -221,7 +229,7 @@ INSERT INTO SONGS(id_song,name_song,duration,genre,urlImg,urlAudio,songview,id_s
 
 	ALTER TABLE songs
 	ADD CONSTRAINT song_insert 
-	DEFAULT  'SO' + CAST(NEXT VALUE FOR seq_songs AS VARCHAR(17))
+	DEFAULT  'SO' + CAST(NEXT VALUE FOR seq_songs AS nvarchar(17))
 	FOR id_song ;
 
 	CREATE SEQUENCE seq_singers
@@ -229,7 +237,7 @@ INSERT INTO SONGS(id_song,name_song,duration,genre,urlImg,urlAudio,songview,id_s
 
 	ALTER TABLE singers
 	ADD CONSTRAINT singers_insert 
-	DEFAULT  'SN' + CAST(NEXT VALUE FOR seq_singers AS VARCHAR(17))
+	DEFAULT  'SN' + CAST(NEXT VALUE FOR seq_singers AS nvarchar(17))
 	FOR id_singer ;
 
 	ALTER TABLE roles_accounts
@@ -245,7 +253,7 @@ BEGIN
     -- Check for INSERT operation
     IF EXISTS (SELECT 1 FROM inserted)
     BEGIN
-        DECLARE @usernameinsert VARCHAR(255);
+        DECLARE @usernameinsert nvarchar(255);
 
         -- Assuming there is only one row being inserted
         SELECT @usernameinsert = username FROM inserted;
@@ -264,7 +272,7 @@ ON history_premium_accounts
 INSTEAD OF INSERT
 AS
 BEGIN
-    DECLARE @Username varchar(255);
+    DECLARE @Username nvarchar(255);
     DECLARE @TypePremium int;
     DECLARE @StartedDate date;
     DECLARE @FinishDate date;
@@ -317,9 +325,6 @@ BEGIN
         VALUES (@Username, @TypePremium, @StartedDate, @FinishDate);
     END
 END;
-	
-	Insert into accounts(username,password_account,email)
-	VALUES ('user','12dea96fec20593566ab75692c9949596833adc9','user@gmail.com');
 
 	Insert into accounts(username,password_account,email)
 	VALUES ('vvmtam','be1e329741ecc2be4562018d6e50c57ae91d11aa','21130168@st.hcmuaf.edu.vn');
@@ -363,6 +368,23 @@ BEGIN
 	
     RETURN @profit;
 END;
+	
+Insert into accounts(username,password_account,email)
+VALUES ('user','12dea96fec20593566ab75692c9949596833adc9','user@gmail.com');
+
+Insert into accounts(username,password_account,email)
+VALUES ('vvmtam','be1e329741ecc2be4562018d6e50c57ae91d11aa','21130168@st.hcmuaf.edu.vn');
+
+Insert into accounts(username,password_account,email)
+VALUES ('pldat','bf23fa1e1fe7c3d7c81a11ab021667a3d2b47c93','21130022@st.hcmuaf.edu.vn');
+
+Insert into accounts(username,password_account,email)
+VALUES ('ngtnkhoa','9b4dc469c95f3d9b0665ee14e8eeeda3f4dcef3e','21130079@st.hcmuaf.edu.vn');
+
+Insert into accounts(username,password_account,email)
+VALUES ('admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@gmail.com');
+
+update roles_accounts set roleUser = 'admin' where username = 'admin';
 
 CREATE FUNCTION dbo.CalculateProfitForToday()
 	RETURNS float
@@ -424,6 +446,7 @@ AS
 
 		RETURN @profit;
 END;
+
 CREATE FUNCTION dbo.CalculateTotalAmountForYear(@year int, @type int) -- theo năm
 RETURNS FLOAT
 AS
@@ -543,8 +566,3 @@ WHERE type_premium = (
 
 select * from history_premium_accounts
 delete from history_premium_accounts
-
-
-
-
-	
