@@ -134,7 +134,6 @@ input {
 				<form class="payment_option" action="/MusicWebsite/ajaxServlet"
 					id="frmCreateOrder1" method="post">
 					<input type="hidden" name = "amount" value="${optionPrice1}">
-					<input type="hidden" name = "period" value="${optionText1}">
 					<div class="script_payment">
 						<div>
 							<h2>${optionPrice1}₫ for ${optionText1}</h2>
@@ -153,7 +152,6 @@ input {
 					id="frmCreateOrder2" method="post">
 					<div class="script_payment">
 					<input type="hidden" name = "amount" value="${optionPrice2}">
-					<input type="hidden" name = "period" value="${optionText2}">
 						<div>
 							<h2>${optionPrice2}₫ for ${optionText2}</h2>
 						</div>
