@@ -29,9 +29,8 @@ public class RemoveAccountController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userName= request.getParameter("username");
-		new DAOAccount().deleteByUserName(userName);
-		String[] selectedIds = request.getParameterValues("selectedIds[]");
-		 new DAOAccount().deleteListAccountByUsername(selectedIds);
+		new DAOAccount().deleteByUsername(userName);
+		
 		
 		 response.sendRedirect("/MusicWebsite/views/admin/admin_account.jsp");
 	}

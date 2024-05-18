@@ -28,13 +28,26 @@ body {
 	background-color: #171717 !important;
 	overflow-x: hidden;
 }
+.topic-music{
+	width: 90%;
 
+}
+.singer_descriptiont{
+background-color: black;padding: 1px;height: 78.4px;width: 222.4px
+}
 .trendingTable {
 	border-collapse: collapse;
+	
 	display: grid;
-	grid-template-columns: 25% 25% 25% 25%;
+	    width: 80% ;
+	    margin-left:100px!important;
+	grid-template-columns: 1fr 1fr 1fr 1fr !important;
 	row-gap: 25px;
 	column-gap: 12px;
+}
+.table-allMusic {
+  
+    margin-top: 15px;
 }
 </style>
 </head>
@@ -55,13 +68,13 @@ body {
 								<img src="${song.url_Img}" class="card-img-top" alt="...">
 								<div class="icon-in-img">
 
-									<a class="inner-icon-in-img" href="navListSong.jsp"><i
+									<a class="inner-icon-in-img" href=""><i
 										style="font-size: 50px" class="bi-play-circle"></i></a>
 
 
 								</div>
 							</div>
-							<div>
+							<div class="singer_descriptiont">
 								<h5 class="title-trending">
 									<b>${song.getName_Song()}</b>
 								</h5>

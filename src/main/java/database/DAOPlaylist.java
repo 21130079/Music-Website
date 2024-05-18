@@ -35,6 +35,20 @@ public class DAOPlaylist extends AbsDao<Playlist>{
 	public int delete(Playlist t) {
 		return 0;
 	}
+	public int deleteByUsername (String username) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from playlists_songs where username = ?");
+			stmt.setString(1, username);
+			
+			stmt.execute();
+			return 1;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	public Playlist selectById(String id_playlist, String username) {
 		Playlist playlist = null;
 		try {

@@ -31,6 +31,20 @@ public class DAONotification extends AbsDao<Notification> {
 		}
 		return 0;
 	}
+	public int deleteByUsername (String username) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from notifications where username = ?");
+			stmt.setString(1, username);
+			
+			stmt.execute();
+			return 1;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	@Override
 	public ArrayList<Notification> selectAll() {

@@ -365,11 +365,16 @@ span.psw {
 
 .close {
 	position: absolute;
-	right: -80px;
-	top: -100px;
-	color: #dadada;
+	right:-7%;
+	top:-7%;
+	cursor:pointer;
+	
+	color: blue;
 	font-size: 40px;
 	font-weight: bold;
+}
+.close:hover{
+	color: red;
 }
 
 .trending-box {
@@ -816,34 +821,35 @@ a {
 
 .nav_person {
 	display: grid;
-	position: absolute;
-	left: -10px;
-	display: none;
-	height: 180px;
-	box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	width: 150px;
-	background-color: white;
-	z-index: 5;
-	border-radius: 5px;
-}
+    position: absolute;
+    left: 5px;
+    top: 19px;
+    display: none;
+    height: 135px;
+    box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 150px;
+    background-color: white;
+    z-index: 5;
+    border-radius: 5px;}
 
-.nav_person div, #notification-board div {
+.nav_person a, #notification-board div {
 	padding: 5px;
 	border-radius: 3px;
 	/*  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.3); */
 	background-color: transparent;
 }
 
-.nav_person div:not(:last-child), #notification-board div:not(:last-child) {
+.nav_person a:not(:last-child), #notification-board div:not(:last-child) {
 	border-bottom: 1px solid gray;
 }
 
-.nav_person div:hover {
+.nav_person a:hover {
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0.1);
+  text-decoration: none;
 }
 
 .remember {
