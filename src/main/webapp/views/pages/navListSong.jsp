@@ -44,6 +44,8 @@ body {
 	display: inline-flex;
 	justify-content: center;
 	height: 580px;
+	position: fixed;
+	margin-left: 300px;
 }
 
 .nav-Music-play {
@@ -52,6 +54,8 @@ body {
 
 .listSong {
 	display: grid;
+	margin-left: 800px;
+	width: 90%
 }
 
 .listSong-item-nav {
@@ -86,7 +90,6 @@ p {
 
 .listSong-title-nav {
 	display: inline-flex;
-	right: 90px;
 	position: absolute;
 	color: blue;
 }
@@ -181,7 +184,7 @@ p {
 					class="bi bi-music-note-list"></i>
 				<div class="listSong-title-nav">
 						
-					<label style="padding: 0px 300px; font-size: 20px" for="">Song</label> 
+					<label style="padding: 0px 250px 0px 246px; font-size: 20px" for="">Song</label> 
 						<label
 						style="font-size: 20px" for="">Duration</label>
 				</div>
