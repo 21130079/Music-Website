@@ -231,7 +231,7 @@ margin-right: 2px;
 	</div>
 	
 			<c:choose>
-				<c:when test="${errorAccount==null}">
+				<c:when test="${param.errorAccount==null}">
 					<c:set var="display" value="none"></c:set>
 				</c:when>
 				<c:otherwise>
@@ -258,7 +258,7 @@ margin-right: 2px;
 							</div>
 				</div>
 			</div>
-			<div style="color: red">${errorAccount}</div>
+			<div style="color: red">${param.errorAccount}</div>
 			<h4>Confirm Your Password</h4>
 			<input type="password" placeholder="your password" name="spAdminPassword" required="required">
 			<button type="submit">submit</button>
@@ -320,7 +320,7 @@ margin-right: 2px;
             }
         });
 
-        $('#deleteLogs_btn').click(function() {
+        $('#delecteAccounts_btn').click(function() {
 		    $('.checkbox:checked').each(function() {
 		        var checkbox = $(this);
 		        $.ajax({
@@ -340,10 +340,10 @@ margin-right: 2px;
 		    });
 		});
 
-		$(document).on('click', '.delete_btn', function() {
+		$(document).on('click', '.delete-btn', function() {
 	            let username = $(this).attr("id");
 	            let button = $(this);
-				console.log(idLog);
+				console.log(username);
 	            $.ajax({
 	                url: '/MusicWebsite/RemoveAccountController',
 	                type: 'get',
@@ -385,7 +385,7 @@ margin-right: 2px;
                         } else if (response.roles.includes("super admin")) {
                             $('#ra_edit_role_spadmin').prop('checked', true); 
                         }else{
-                        	$('#ra_edit_role_admin').prop('checked', true); 
+                        	$('#ra_edit_role_admin').prop('checked', false); 
                         	 $('#ra_edit_role_spadmin').prop('checked', false); 
                         }
                         

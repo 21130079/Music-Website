@@ -70,7 +70,7 @@ public class LazyLoadingController extends HttpServlet {
 						+ "\r\n"
 						+ "								</div>\r\n"
 						+ "							</div>\r\n"
-						+ "							<div>\r\n"
+						+ "							<div class = \" singer_descriptiont \">\r\n"
 						+ "								<h5 class=\"title-trending\">\r\n"
 						+ "									<b>" + song.getName_Song() + "</b>\r\n"
 						+ "								</h5>\r\n"

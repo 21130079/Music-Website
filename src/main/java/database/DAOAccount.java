@@ -90,16 +90,38 @@ public class DAOAccount extends AbsDao<Account>  {
 	    return 0;
 	}
 
-	
 	@Override
 	public int delete(Account t) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public int deleteByUsername(String t) {
 		try {
+			new DAOPlaylist().deleteByUsername(t);
+			new DAOFavorite().deleteByUsername(t);
+			new DAONotification().deleteByUsername(t);
+			deleteRoleByUsername(t);
 			PreparedStatement stmt = connection
-					.prepareStatement("delete from accounts where usename=? ");
-			stmt.setString(1, t.getUsername());
+					.prepareStatement("delete from accounts where username=? ");
+			stmt.setString(1, t);
 			stmt.executeUpdate();
 			return 1;
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	public int deleteRoleByUsername (String username) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from roles_accounts where username = ?");
+			stmt.setString(1, username);
+			
+			stmt.execute();
+			return 1;
+
+		} catch (Exception e) {
+			// TODO: handle exception
 			e.getStackTrace();
 		}
 		return 0;
@@ -291,54 +313,12 @@ public class DAOAccount extends AbsDao<Account>  {
 		}
 		return result;
 	}
-	public int deleteByUserName(String username) {
-		try {
-			PreparedStatement stmt = connection.prepareStatement("delete from accounts where username=? ");
-			stmt.setString(1,username);
-			stmt.executeUpdate();
-			return 1;
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
-		return 0;
-	}
+
 	
 	public void deleteListAccountByUsername(String[] idsToDelete) {
-	    PreparedStatement stmt = null;
-	    try {
-	        if (idsToDelete != null && idsToDelete.length > 0) {
-	            // Prepare SQL statement
-	            String sql = "DELETE FROM accounts WHERE username IN (";
-	            for (int i = 0; i < idsToDelete.length; i++) {
-	                if (i > 0) {
-	                    sql += ",";
-	                }
-	                sql += "?";
-	            }
-	            sql += ")";
-
-	            stmt = connection.prepareStatement(sql);
-
-	            // Set values for placeholders
-	            for (int i = 0; i < idsToDelete.length; i++) {
-	                stmt.setString(i + 1, idsToDelete[i]);
-	            }
-
-	            // Execute the DELETE statement
-	            stmt.executeUpdate();
-	        }
-
-
-	    } catch (Exception e) {
-	        System.out.println("Error: " + e.getMessage());
-	    } finally {
-	        // Close resources
-	        try {
-	            if (stmt != null) stmt.close();
-	        } catch (SQLException e) {
-	            System.out.println("Error closing database connection: " + e.getMessage());
-	        }
-	    }
+		for (String string : idsToDelete) {
+			deleteByUsername(string);
+		}
 	}
 	   public int countAccounts() {
 	        int accountCount = 0;

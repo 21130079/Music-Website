@@ -48,8 +48,9 @@ public class AddAccountController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Account adminaccount = (Account) session.getAttribute("account");
 		if(!adminaccount.getPassword().equals(passwordHashing(spAdminPassword))) {
-			request.setAttribute("errorAccount", "your password is wrong!");
-			request.getRequestDispatcher("/views/admin/admin_account.jsp").forward(request, response);
+
+			response.sendRedirect("/MusicWebsite/views/admin/admin_account.jsp?errorAccount=your password is wrong!");
+			return;
 		}else {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -68,7 +69,7 @@ public class AddAccountController extends HttpServlet {
         	roles.add(roleAdmin);
         }
         
-		String errorSignUp = "";
+		String errorAccount = null;
 		Account account = null;
 		DAOAccount daoAccount = new DAOAccount();
 		// lay ipaddress
@@ -81,19 +82,19 @@ public class AddAccountController extends HttpServlet {
 		
 		for (Account acc : daoAccount.selectAll()) {
 			if (acc.getUsername().equals(username)) {
-				errorSignUp = "Username already exists";
+				errorAccount = "Username already exists";
 				break;
 			} else if (acc.getEmail().equals(email)) {
-				errorSignUp = "Email already exists";
+				errorAccount = "Email already exists";
 				break;
 			} else {
 				if (username.trim().length() < 4 && username.trim().length() > 16) {
-					errorSignUp = "Username must be from 4 to 16 characters";
+					errorAccount = "Username must be from 4 to 16 characters";
 					break;
 				}
 
 				if (password.trim().length() <= 8) {
-					errorSignUp = "Password must be longer than 8 characters";
+					errorAccount = "Password must be longer than 8 characters";
 					break;
 				}
 				
@@ -101,11 +102,13 @@ public class AddAccountController extends HttpServlet {
 				daoAccount.insert(account);
 			}
 		}
+		if(errorAccount!= null) {
+			response.sendRedirect("/MusicWebsite/views/admin/admin_account.jsp?errorAccount="+errorAccount);
+		}else {
+			response.sendRedirect("/MusicWebsite/views/admin/admin_account.jsp");
+		}
 
-		if (account == null) {
-			request.setAttribute("errorAccount", errorSignUp);
-		} 
-		request.getRequestDispatcher("/views/admin/admin_account.jsp").forward(request, response);
+		
 		}
 	}
 	

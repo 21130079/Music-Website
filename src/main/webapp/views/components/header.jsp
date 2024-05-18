@@ -127,20 +127,19 @@
 				</div>
 
 				<div class="person_circle">
-					<i class="bi bi-person-circle"> </i>
+					
 					<div class="nav_person">
-						<div>My Information</div>
-						<div>Premium</div>
-						<div>Forgot Password</div>
-						<div>Logout</div>
+						
+					<a href="/MusicWebsite/views/pages/upgradePre.jsp"><div>Premium</div></a>
+						<a onclick="document.getElementById('change-password').style.display='flex'"><div>Forgot Password</div></a>
+						<a href="/MusicWebsite/LogOutController"><div>Logout</div></a>
 					</div>
 				</div>
 				<font color="White"> ${sessionScope.account.username} </font>
-				<a href="/MusicWebsite/LogOutController">
-					<button type="button" class="login-btn" onclick="reload()">Log
-						Out</button>
-				</a>
-
+				<i class="bi bi-person-circle"> </i>
+				
+					<button type="button" class="login-btn" onclick="reload()"></button>
+			
 				<c:choose>
 					<c:when test="${messageOldPass!=null || messageNewPass!=null}">
 						<c:set var="displayPass" value="flex"></c:set>

@@ -50,6 +50,20 @@ public class DAOFavorite extends AbsDao<Song> {
 	
 		return result;
 	}
+	public int deleteByUsername (String username) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from favorites where username = ?");
+			stmt.setString(1, username);
+			
+			stmt.execute();
+			return 1;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	
 	public ArrayList<Song> selectSongNotInAcc(String username){
 		ArrayList<Song>  result = new ArrayList<Song>();
