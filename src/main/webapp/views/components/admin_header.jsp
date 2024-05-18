@@ -40,7 +40,7 @@
 														href="/MusicWebsite/views/admin/admin-pane.jsp">Home</a></b>
 											</td>
 											<td style="padding-left: 10px"><b><a class="nav-link "
-														href="/MusicWebsite/index.jsp">User View</a></b></td>
+									href="/MusicWebsite/index.jsp">User View</a></b></td>
 											<td style="padding-left: 10px"><b><a class="song_admin nav-link"
 														href="/MusicWebsite/views/admin/admin_song.jsp">Song</a></b>
 											</td>
@@ -55,13 +55,6 @@
 								</div>
 							</li>
 						</ul>
-					</div>
-
-					</tr>
-					</table>
-					</div>
-					</li>
-					</ul>
 					</div>
 
 					<div class="search-box">
