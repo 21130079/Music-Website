@@ -102,6 +102,12 @@ img {
 #year_css,#month_css,#precious_css {
 	display: none;
 }
+#export_select{
+	padding: 10px 20px 10px 20px;
+}
+#export_select *{
+	margin-bottom: 10px 
+}
 </style>
 <jsp:include page="../components/admin_header.jsp" />
 <script
@@ -160,12 +166,21 @@ img {
 			
 			
 	</div>
-	<div style="background-color: white; color: black; width:30%;margin-left: 1000px"
+	<div style="background-color: white; color: black; width:50%;margin-left: 1000px"
 				id="export_select">
-				<input type="radio" id="export1" name="options" value="export1">
-				Export files by date<br> 
-				<input type="radio" id="export2"name="options" value="export2"> Best - selling product
-					 <select id="combo" name="combo" onchange="chooseOption()">
+				<input type="radio" id="export1" name="options" value="export1" onchange="chooseOption()">
+				Export files by 
+				 <select id="combo" name="combo" onchange="chooseOption()">
+					<option value="day">Day</option>
+					<option value="month">Month</option>
+					<option value="year">Year</option>
+					<option value="precious">Precious</option>
+
+				</select> 
+				<br> 
+				<input type="radio" id="export2"name="options" value="export2" onchange="chooseOption()">
+				 Best - selling product
+					 <select id="combo2" name="combo2" onchange="chooseOption()">
 					<option value="day">Day</option>
 					<option value="month">Month</option>
 					<option value="year">Year</option>
@@ -227,41 +242,73 @@ img {
 	}
 	
 	function chooseOption() {
+		var selectedOption_0 = document.querySelector('input[name="options"]:checked');
+		var selectedOption_0Value = selectedOption_0.value;
+
 		var selectedOption = document.getElementById("combo").value;
+		var selectedOption2 = document.getElementById("combo2").value;
+
 		var yearSelect = document.getElementById("year_css");
 		var monthSelect = document.getElementById("month_css")
 		var daySelect = document.getElementById("day");
 		var preciousSelect = document.getElementById("precious_css");
 		
-		if (selectedOption === "year") {			
-			yearSelect.style.display = "block";	
-			monthSelect.style.display ="none";
-			daySelect.style.display = "none";
-			preciousSelect.style.display = "none";
+		if(selectedOption_0Value === "export1"){
+			if (selectedOption === "year") {			
+				yearSelect.style.display = "block";	
+				monthSelect.style.display ="none";
+				daySelect.style.display = "none";
+				preciousSelect.style.display = "none";
 
-		}else if(selectedOption === "day"){			
-			yearSelect.style.display = "none";
-			monthSelect.style.display ="none";
-			daySelect.style.display = "block";
-			preciousSelect.style.display = "none";
+			}else if(selectedOption === "day"){			
+				yearSelect.style.display = "none";
+				monthSelect.style.display ="none";
+				daySelect.style.display = "block";
+				preciousSelect.style.display = "none";
 
-		}else if(selectedOption === "month"){
-			monthSelect.style.display ="block";
-			yearSelect.style.display = "block";			
-			daySelect.style.display = "none";
-			preciousSelect.style.display = "none";
+			}else if(selectedOption === "month"){
+				monthSelect.style.display ="block";
+				yearSelect.style.display = "block";			
+				daySelect.style.display = "none";
+				preciousSelect.style.display = "none";
 
+			}else {
+				preciousSelect.style.display = "block";
+				monthSelect.style.display ="none";
+				yearSelect.style.display = "block";			
+				daySelect.style.display = "none";
+			}
 		}else {
-			preciousSelect.style.display = "block";
-			monthSelect.style.display ="none";
-			yearSelect.style.display = "block";			
-			daySelect.style.display = "none";
+			if (selectedOption2 === "year") {			
+				yearSelect.style.display = "block";	
+				monthSelect.style.display ="none";
+				daySelect.style.display = "none";
+				preciousSelect.style.display = "none";
+
+			}else if(selectedOption2 === "day"){			
+				yearSelect.style.display = "none";
+				monthSelect.style.display ="none";
+				daySelect.style.display = "block";
+				preciousSelect.style.display = "none";
+
+			}else if(selectedOption2 === "month"){
+				monthSelect.style.display ="block";
+				yearSelect.style.display = "block";			
+				daySelect.style.display = "none";
+				preciousSelect.style.display = "none";
+
+			}else {
+				preciousSelect.style.display = "block";
+				monthSelect.style.display ="none";
+				yearSelect.style.display = "block";			
+				daySelect.style.display = "none";
+			}
 		}
+	
 	}
 	
 	function exportFile() {
-		var selectedOption = document
-				.querySelector('input[name="options"]:checked');
+		var selectedOption = document.querySelector('input[name="options"]:checked');
 		
 		var dropdownType = document.getElementById("combo");
 		var bestTypeSelect = dropdownType.value;
