@@ -446,6 +446,7 @@ AS
 
 		RETURN @profit;
 END;
+
 CREATE FUNCTION dbo.CalculateTotalAmountForYear(@year int, @type int) -- theo năm
 RETURNS FLOAT
 AS

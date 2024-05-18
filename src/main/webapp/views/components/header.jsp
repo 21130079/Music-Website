@@ -43,22 +43,38 @@
 							<c:choose>
 								<c:when
 									test="${fn:contains(sessionScope.account.roles, 'admin')}">
-									<td style="padding-left: 10px"><b><a
+									<td><b><a
 											class="nav-link ${param.activeRanking}"
 											href="/MusicWebsite/views/admin/admin-pane.jsp">Management</a></b></td>
 								</c:when>
 								<c:otherwise>
-									<td style="padding-left: 10px"><b><a class="nav-link"
+									<td><b><a class="nav-link"
 											href="/MusicWebsite/views/pages/upgradePre.jsp">Premium</a></b></td>
 								</c:otherwise>
 							</c:choose>
-							<td style="padding-left: 10px"><b><a class="nav-link"
+							<td><b><a class="nav-link"
 									href="/MusicWebsite/views/pages/playlist.jsp?type=playlist">Playlist</a></b></td>
-							<td style="padding-left: 10px"><b><a class="nav-link"
+							<td><b><a class="nav-link"
 									href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
-							<td style="padding-left: 10px"><b><a class="nav-link"
+							<td><b><a class="nav-link"
 									href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
+							<td><div class="dropdown">
 
+									<button class="btn btn-secondary dropdown-toggle" type="button"
+										data-bs-toggle="dropdown" aria-expanded="false"
+										style="margin-right: 10px; background-color: rgb(63, 63, 63); color: rgb(180, 180, 180); border: 0px; font-size: 20px; font-weight: 20px">
+										<b>Genre</b></button>
+									<ul class="dropdown-menu">
+										<jsp:useBean id="daoSong2" class="database.DAOSong"></jsp:useBean>
+										<c:forEach var="listGenre" items="${daoSong2.getAllGenre()}">
+											<p>
+											<li><a class="dropdown-item" href="#" id="${listGenre}"
+												onclick="searchByGenre(this.id)">${listGenre}</a></li>
+											</p>
+
+										</c:forEach>
+									</ul>
+								</div></td>
 						</tr>
 					</table>
 				</div>
@@ -81,26 +97,30 @@
 	<div class="sign-in">
 		<c:choose>
 			<c:when test="${sessionScope.account!=null}">
-				<jsp:useBean id="daoNotification" class="database.DAONotification" scope="session"></jsp:useBean>
-				<c:set var="listNotifications" value="${daoNotification.selectByUsername(sessionScope.account.username)}"></c:set>
-			
+				<jsp:useBean id="daoNotification" class="database.DAONotification"
+					scope="session"></jsp:useBean>
+				<c:set var="listNotifications"
+					value="${daoNotification.selectByUsername(sessionScope.account.username)}"></c:set>
+
 				<button style="background-color: transparent; border: none"
 					type="button" class="login-btn"
 					onclick="document.getElementById('change-password').style.display='flex'">
 					<i class="bi bi-key-fill"></i>
 				</button>
 
-				<button type="button" class="notification-btn" onclick="showNotificationBoard(this)">
+				<button type="button" class="notification-btn"
+					onclick="showNotificationBoard(this)">
 					<i class="bi bi-bell-fill"></i>
 				</button>
-				
+
 				<div id="notification-board">
 					<c:if test="${fn:length(listNotifications)!=0}">
 						<c:forEach begin="0" end="${fn:length(listNotifications) - 1}"
 							var="i">
 							<div class="notification-item">
 								<p class="notification-item-content">${listNotifications[i].descript }</p>
-								<p class="notification-item-content">Time: ${listNotifications[i].timeExecute }</p>
+								<p class="notification-item-content">Time:
+									${listNotifications[i].timeExecute }</p>
 							</div>
 						</c:forEach>
 					</c:if>
