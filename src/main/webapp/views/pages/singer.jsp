@@ -28,26 +28,30 @@ body {
 	background-color: #171717 !important;
 	overflow-x: hidden;
 }
-.topic-music{
-	width: 90%;
 
+.topic-music {
+	width: 90%;
 }
-.singer_descriptiont{
-background-color: black;padding: 1px;height: 78.4px;width: 222.4px
+
+.singer_descriptiont {
+	background-color: black;
+	padding: 1px;
+	height: 78.4px;
+	width: 222.4px
 }
+
 .trendingTable {
 	border-collapse: collapse;
-	
 	display: grid;
-	    width: 80% ;
-	    margin-left:100px!important;
+	width: 80%;
+	margin-left: 100px !important;
 	grid-template-columns: 1fr 1fr 1fr 1fr !important;
 	row-gap: 25px;
 	column-gap: 12px;
 }
+
 .table-allMusic {
-  
-    margin-top: 15px;
+	margin-top: 15px;
 }
 </style>
 </head>
@@ -62,22 +66,32 @@ background-color: black;padding: 1px;height: 78.4px;width: 222.4px
 			</h1>
 			<div class="trendingTable">
 				<c:forEach var="song" items="${singer.value}">
+					<c:set var="idSong" value="${song.getId_Song() }"></c:set>
+					<c:set var="idAuTag" value="au${song.getId_Song() }"></c:set>
+					<c:set var="idITag" value="bi${song.getId_Song() }"></c:set>
+					<c:set var="nameSong" value="${song.name_Song }"></c:set>
+					<c:set var="viewSong" value="${song.getSongViewUpdate()}"></c:set>
+					<c:set var="nameSinger" value="${song.singer.name_Singer }"></c:set>
+
 					<div class="item trending-box">
 						<div class="card background-music">
 							<div class="img-form">
 								<img src="${song.url_Img}" class="card-img-top" alt="...">
 								<div class="icon-in-img">
 
-									<a class="inner-icon-in-img" href=""><i
-										style="font-size: 50px" class="bi-play-circle"></i></a>
+									<button type="button" class="btn btn-music" id="${idSong}"
+										onclick="playMusic(this.id, '${nameSong}', '${nameSinger}', '${song.url_Img}')">
+										<audio src="${song.url_Audio}" class="${idAuTag}"></audio>
+										<i class="${idITag} bi-play-circle"></i>
+									</button>
 								</div>
 							</div>
-							<div class="singer_descriptiont">
+							<div class="singer_description">
 								<h5 class="title-trending">
-									<b>${song.getName_Song()}</b>
+									<b class="name-song">${song.getName_Song()}</b>
 								</h5>
 								<h6 class="title-trending">
-									<b>${song.getSinger().getName_Singer()}</b>
+									<b class="name-singer">${song.getSinger().getName_Singer()}</b>
 								</h6>
 							</div>
 						</div>
@@ -86,6 +100,8 @@ background-color: black;padding: 1px;height: 78.4px;width: 222.4px
 			</div>
 		</div>
 	</c:forEach>
+	
+	<jsp:include page="/views/components/footer.jsp"></jsp:include>
 </body>
 
 <script src="/MusicWebsite/assets/js/singer.js"></script>

@@ -222,7 +222,7 @@ function skipAfterMusic() {
     var item = document.querySelector('#' + nextId);
     var songAndSinger = item.querySelector('.song-singer');
     var song = songAndSinger.querySelector('b');
-    var singer = songAndSinger.querySelector('a');
+    var singer = songAndSinger.querySelector('.singer');
     var srcImg = item.querySelector('img');
 
     playMusic(nextId.toString(), song.innerHTML, singer.innerHTML, srcImg.src);

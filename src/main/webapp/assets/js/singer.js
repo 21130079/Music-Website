@@ -16,6 +16,11 @@ var played = [];
 var playedArrayTest = [];
 var count = 0;
 var ajaxDelayTimer;
+var currentIndexSong;
+var listSongs = document.querySelectorAll('.trending-box');
+
+
+document.querySelector('#notification-board').style.display = 'none';
 
 if (played.length <= 1) {
     btnSkipBefore.disabled = true;
@@ -32,6 +37,9 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
     var progress = document.querySelector('#progress');
     var nameSongFooter = footer.querySelector('.name-song');
     var imgSongFooter = footer.querySelector('.img-song');
+    var currentElemenSong = btn.parentElement.parentElement.parentElement.parentElement;
+    
+    currentIndexSong = Array.prototype.indexOf.call(listSongs, currentElemenSong);
 
     imgSongFooter.querySelector('img').src = srcImg;
     nameSongFooter.querySelector('b').innerHTML = nameSong;
@@ -168,13 +176,17 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 }
 
 function skipBeforeMusic() {
-    var nextId = played.pop();
-    var nextId = played.pop();
+	if (currentIndexSong <= 0) {
+		currentIndexSong = listSongs.length - 1;
+	} else {
+		currentIndexSong -= 1;
+	}
 
-    var item = document.querySelector('#' + nextId);
-    var songAndSinger = item.querySelector('.song-singer');
-    var song = songAndSinger.querySelector('b');
-    var singer = songAndSinger.querySelector('a');
+    var item = listSongs[currentIndexSong];
+    var nextId = item.querySelector('button').id;
+    var songAndSinger = item.querySelector('.singer_description');
+    var song = songAndSinger.querySelector('.name-song');
+    var singer = songAndSinger.querySelector('.name-singer');
     var srcImg = item.querySelector('img');
 
     playMusic(nextId.toString(), song.innerHTML, singer.innerHTML, srcImg.src);
@@ -185,43 +197,19 @@ function skipBeforeMusic() {
 }
 
 function skipAfterMusic() {
-    var nextId = "";
-    var getId = btnSkipAfter.id.slice(2, btnSkipAfter.id.length)
-    var currentId = parseInt(getId);
-    var itemLength = document.querySelectorAll('.all-music-item').length;
+	if (currentIndexSong >= listSongs.length - 1) {
+		currentIndexSong = 0;
+	} else {
+		currentIndexSong += 1;
+	}
 
-    if (isShuffle) {
-        var randomId = Math.floor(Math.random() * itemLength);
-        while (randomId == currentId) {
-            randomId = Math.floor(Math.random() * itemLength);
-        }
+	console.log(currentIndexSong)
 
-        if (randomId < 10) {
-            nextId = "0" + randomId.toString();
-        } else {
-            nextId = randomId.toString();
-        }
-
-        nextId = "SO" + nextId;
-    } else {
-        var increaseId = currentId + 1;
-        if (increaseId > itemLength) {
-            increaseId = 1;
-        }
-
-        if (increaseId < 10) {
-            nextId = "0" + increaseId.toString();
-        } else {
-            nextId = increaseId.toString();
-        }
-
-        nextId = "SO" + nextId;
-    }
-
-    var item = document.querySelector('#' + nextId);
-    var songAndSinger = item.querySelector('.song-singer');
-    var song = songAndSinger.querySelector('b');
-    var singer = songAndSinger.querySelector('a');
+    var item = listSongs[currentIndexSong];
+    var nextId = item.querySelector('button').id;
+    var songAndSinger = item.querySelector('.singer_description');
+    var song = songAndSinger.querySelector('.name-song');
+    var singer = songAndSinger.querySelector('.name-singer');
     var srcImg = item.querySelector('img');
 
     playMusic(nextId.toString(), song.innerHTML, singer.innerHTML, srcImg.src);
