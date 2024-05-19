@@ -45,17 +45,144 @@ public class ExportFileController extends HttpServlet {
 		String exportType = request.getParameter("exportTypeInput");
 		// theo ngày
 		if (exportType.equalsIgnoreCase("export1")) {
-			writer.println("Statistical sell today");
-			writer.println("Type,User,Price type,Time");
-			for (HistoryPremium historyPremium : historyList) {
+			String bestType = request.getParameter("bestType");
+			if (bestType.equalsIgnoreCase("day")) {
+				String dayValue = request.getParameter("dayValue");
+				try {
 
-				writer.println(writeTypePremium(historyPremium.getTypePrenium()) + ","
-						+ historyPremium.getAccount().getUsername().toString() + ","
-						+ historyPremium.getPriceByType(historyPremium.getTypePrenium()) + ","
-						+ historyPremium.getTimeAsString());
+					HistoryPremium dayPremium = daohistory.getBestTypeInDay(dayValue);
+					if (dayPremium != null) {
+						Date date = dayPremium.changeStringToDate(dayValue);
+						ArrayList<HistoryPremium> dayPremiums = daohistory.selectAllInDay(date);
+						double totalPrice = daohistory.getProfitForTime2(dayPremium.getStartedDate(), 0, 0,
+								bestType,0);
+						writer.println("Statistical selling in day: " + dayValue);
+						
+						writer.println("Type,User,Price type,Time");
+						for (HistoryPremium historyPremium : dayPremiums) {
 
+							writer.println(writeTypePremium(historyPremium.getTypePrenium()) + ","
+									+ historyPremium.getAccount().getUsername().toString() + ","
+									+ historyPremium.getPriceByType(historyPremium.getTypePrenium()) + ","
+									+ historyPremium.getTimeAsString());
+
+						}
+						writer.println(",Quantity,Total price");
+						writer.println("Summary"+ "," + dayPremiums.size() + ","
+								+ totalPrice );
+					} else {
+						writer.println("Type,Quantity,Total price,Date");
+					}
+
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} else if (bestType.equalsIgnoreCase("month")) {
+				String monthValue = request.getParameter("monthValue");
+				int month = Integer.parseInt(monthValue);
+
+				String yearValue = request.getParameter("yearValue");
+				int year = Integer.parseInt(yearValue);
+
+				try {
+					HistoryPremium monthPremium = daohistory.getBestTypeInMonth(month, year);
+
+					if (monthPremium != null) {
+						ArrayList<HistoryPremium> monthPremiums = daohistory.selectAllInMonth(month, year);
+						double totalPrice = daohistory.getProfitForTime2(null, month, year,
+								bestType,0);
+						;
+						writer.println("Statisticalselling in month: " + month+"/"+year);
+						
+						writer.println("Type,User,Price type,Time");
+						for (HistoryPremium historyPremium : monthPremiums) {
+
+							writer.println(writeTypePremium(historyPremium.getTypePrenium()) + ","
+									+ historyPremium.getAccount().getUsername().toString() + ","
+									+ historyPremium.getPriceByType(historyPremium.getTypePrenium()) + ","
+									+ historyPremium.getTimeAsString());
+
+						}
+						writer.println("Type,Quantity,Total price");
+						writer.println("Summary "+ "," + monthPremiums.size() + ","
+								+ totalPrice );
+					} else {
+						writer.println("Type,Quantity,Total price,Date");
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} else if (bestType.equalsIgnoreCase("year")) {
+
+				String yearValue = request.getParameter("yearValue");
+				int year = Integer.parseInt(yearValue);
+
+				try {
+					HistoryPremium yearPremium = daohistory.getBestTypeInYear(year);
+					if (yearPremium != null) {
+						ArrayList<HistoryPremium> yearPremiums = daohistory.selectAllInYear(year);
+						double totalPrice = daohistory.getProfitForTime2(null, 0, year,
+								bestType,0);
+						writer.println("Statistical selling in year: " +year);
+						
+						writer.println("Type,User,Price type,Time");
+						for (HistoryPremium historyPremium : yearPremiums) {
+
+							writer.println(writeTypePremium(historyPremium.getTypePrenium()) + ","
+									+ historyPremium.getAccount().getUsername().toString() + ","
+									+ historyPremium.getPriceByType(historyPremium.getTypePrenium()) + ","
+									+ historyPremium.getTimeAsString());
+
+						}
+						writer.println(",Quantity,Total price");
+						writer.println("Summary " + "," + yearPremiums.size() + ","
+								+ totalPrice );
+					} else {
+						writer.println("Type,Quantity,Total price,Date");
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}else {
+				String preciousValue = request.getParameter("preciousValue");
+				int precious = Integer.parseInt(preciousValue);
+				
+				String yearValue = request.getParameter("yearValue");
+				int year = Integer.parseInt(yearValue);
+
+				try {
+					HistoryPremium preciousPremium = daohistory.getBestTypeInPrecious(precious,year);
+					if (preciousPremium != null) {
+						ArrayList<HistoryPremium> premiums = daohistory.selectAllInPrecious(precious, year);
+						double totalPrice = daohistory.getProfitForTime2(null, 0, year,	bestType,precious);
+						writer.println("Statistical selling in precious: " +precious);
+						
+						writer.println("Type,User,Price type,Time");
+						for (HistoryPremium historyPremium : premiums) {
+
+							writer.println(writeTypePremium(historyPremium.getTypePrenium()) + ","
+									+ historyPremium.getAccount().getUsername().toString() + ","
+									+ historyPremium.getPriceByType(historyPremium.getTypePrenium()) + ","
+									+ historyPremium.getTimeAsString());
+
+						}
+						writer.println(",Quantity,Total price");
+						writer.println("Summary "+ "," + premiums.size() + ","
+								+ totalPrice );
+					} else {
+						writer.println("Type,Quantity,Total price,Date");
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-			writer.print("Tổng tiền: " + "," + "," + "," + daohistory.getProfitForToday());
 		} else {
 			String bestType = request.getParameter("bestType");
 			if (bestType.equalsIgnoreCase("day")) {

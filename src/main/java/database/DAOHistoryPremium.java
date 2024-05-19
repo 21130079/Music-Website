@@ -96,6 +96,31 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 		return result;
 	}
 
+	public ArrayList<HistoryPremium> selectAllInDay(Date date) {
+		ArrayList<HistoryPremium> result = new ArrayList<HistoryPremium>();
+		try {
+			PreparedStatement stmt = 
+					connection.prepareStatement("SELECT *\r\n"
+							+ "FROM history_premium_accounts\r\n"
+							+ "WHERE started_date = ?");
+
+			stmt.setDate(1, date);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Account account = new Account(rs.getString("username"), null, null, null, null, null);
+				int type = rs.getInt("type_premium");
+				Date started_date = rs.getDate("started_date");
+				Date finished_date = rs.getDate("finish_date");
+				HistoryPremium historyPremium = new HistoryPremium(account, type, started_date, finished_date);
+				result.add(historyPremium);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+		return result;
+	}
 	//lấy ra danh sách tháng đã chọn
 	public ArrayList<HistoryPremium> selectAllBestInMonth(int month, int year) {
 		ArrayList<HistoryPremium> result = new ArrayList<HistoryPremium>();
@@ -129,6 +154,32 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 		return result;
 	}
 	
+	public ArrayList<HistoryPremium> selectAllInMonth(int month, int year) {
+		ArrayList<HistoryPremium> result = new ArrayList<HistoryPremium>();
+		try {
+			PreparedStatement stmt = 
+					connection.prepareStatement("SELECT *\r\n"
+							+ "FROM history_premium_accounts\r\n"
+							+ "WHERE MONTH(started_date) =? and  YEAR(started_date) =? ;");
+
+			stmt.setInt(1, month);
+			stmt.setInt(2, year);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Account account = new Account(rs.getString("username"), null, null, null, null, null);
+				int type = rs.getInt("type_premium");
+				Date started_date = rs.getDate("started_date");
+				Date finished_date = rs.getDate("finish_date");
+				HistoryPremium historyPremium = new HistoryPremium(account, type, started_date, finished_date);
+				result.add(historyPremium);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+		return result;
+	}
 	public ArrayList<HistoryPremium> selectAllBestInYear(int year) {
 		ArrayList<HistoryPremium> result = new ArrayList<HistoryPremium>();
 		try {
@@ -159,12 +210,61 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 
 		return result;
 	}
-	
+	public ArrayList<HistoryPremium> selectAllInYear(int year) {
+		ArrayList<HistoryPremium> result = new ArrayList<HistoryPremium>();
+		try {
+			PreparedStatement stmt = 
+					connection.prepareStatement("SELECT *\r\n"
+							+ "	FROM history_premium_accounts\r\n"
+							+ "	WHERE YEAR(started_date) = ?");
+
+			stmt.setInt(1, year);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Account account = new Account(rs.getString("username"), null, null, null, null, null);
+				int type = rs.getInt("type_premium");
+				Date started_date = rs.getDate("started_date");
+				Date finished_date = rs.getDate("finish_date");
+				HistoryPremium historyPremium = new HistoryPremium(account, type, started_date, finished_date);
+				result.add(historyPremium);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+		return result;
+	}
 	public ArrayList<HistoryPremium> selectAllBestInPrecious(int precious,int year) {
 		ArrayList<HistoryPremium> result = new ArrayList<HistoryPremium>();
 		try {
 			PreparedStatement stmt = 
 					connection.prepareStatement("SELECT * FROM getPreciousPremiumList(?,?)");
+
+			stmt.setInt(1, precious);
+			stmt.setInt(2, year);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Account account = new Account(rs.getString("username"), null, null, null, null, null);
+				int type = rs.getInt("type_premium");
+				Date started_date = rs.getDate("started_date");
+				Date finished_date = rs.getDate("finish_date");
+				HistoryPremium historyPremium = new HistoryPremium(account, type, started_date, finished_date);
+				result.add(historyPremium);
+			}
+			stmt.close();
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+		return result;
+	}
+	
+	public ArrayList<HistoryPremium> selectAllInPrecious(int precious,int year) {
+		ArrayList<HistoryPremium> result = new ArrayList<HistoryPremium>();
+		try {
+			PreparedStatement stmt = 
+					connection.prepareStatement("SELECT * FROM GetPremiumByPrecious(?,?)");
 
 			stmt.setInt(1, precious);
 			stmt.setInt(2, year);
@@ -452,6 +552,33 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 		}
 		return 0;
 	}
+	
+	public double getProfitForTime2(Date date, int month, int year, String time, int precious) {
+		double rs = 0 ;
+		if (time.equalsIgnoreCase("day")) {
+			for (int i =1 ; i<=6; i++) {
+				rs +=getProfitForDay(date, i);
+			}
+			return rs;
+		} else if (time.equalsIgnoreCase("month")) {
+			for (int i =1 ; i<=6; i++) {
+				rs += getProfitForMonth(month, year, i);
+			}
+			return rs;
+		} else if (time.equalsIgnoreCase("year")) {
+			for (int i =1 ; i<=6; i++) {
+				rs += getProfitForYear(year, i);
+			}
+			return rs;
+		} else if (time.equalsIgnoreCase("precious")) {
+			for (int i =1 ; i<=6; i++) {
+				rs += getProfitForPrecious(year, precious, i);
+			}
+			return rs;
+		}
+		return 0;
+	}
+
 
 	public double getIncomeInThisMonth() {
 		int currentMonth = LocalDate.now().getMonthValue();
