@@ -79,72 +79,34 @@
 						<c:set var="viewSong" value="${listItems[i].getSongViewUpdate()}"></c:set>
 						<c:set var="nameSinger"
 							value="${listItems[i].singer.name_Singer }"></c:set>
-						<c:choose>
-							<c:when test="${i >= 12 }">
-								<div class="item all-music-item" style="display: none;">
-									<div class="inner-table" id="${idSong}">
-										<div class="inner-td">
-											<img src="${listItems[i].url_Img}" width=75px height=75px
-												alt="...">
-											<button type="button" class="btn btn-music" id="${idSong}"
-												onclick="playMusic(this.id, '${nameSong}', '${nameSinger}', '${listItems[i].url_Img}')">
-												<audio src="${listItems[i].url_Audio}" class="${idAuTag}"></audio>
-												<i class="${idITag} bi-play-circle"></i>
-											</button>
-										</div>
-										<div class="song-singer inner-td">
-											<b>${nameSong}</b> <br> <a href="" class="singer">${nameSinger}
-											</a> <br>
-											<div id="V${idSong}">${viewSong}</div>
-
-										</div>
-
-										<div class="inner-td">
-											<button class="btn btn-inner-td">
-												<i class="bi bi-share" style="color: white; font-size: 13px"></i>
-											</button>
-											<br>
-											<button class="btn btn-inner-td">
-												<i class="bi bi-download"
-													style="color: white; font-size: 13px"></i>
-											</button>
-										</div>
-									</div>
+						<div class="item all-music-item">
+							<div class="inner-table" id="${idSong}">
+								<div class="inner-td">
+									<img src="${listItems[i].url_Img}" width=75px height=75px
+										alt="...">
+									<button type="button" class="btn btn-music" id="${idSong}"
+										onclick="playMusic(this.id, '${nameSong}', '${nameSinger}', '${listItems[i].url_Img}')">
+										<audio src="${listItems[i].url_Audio}" class="${idAuTag}"></audio>
+										<i class="${idITag} bi-play-circle"></i>
+									</button>
 								</div>
-							</c:when>
-							<c:otherwise>
-								<div class="item all-music-item">
-									<div class="inner-table" id="${idSong}">
-										<div class="inner-td">
-											<img src="${listItems[i].url_Img}" width=75px height=75px
-												alt="...">
-											<button type="button" class="btn btn-music" id="${idSong}"
-												onclick="playMusic(this.id, '${nameSong}', '${nameSinger}', '${listItems[i].url_Img}')">
-												<audio src="${listItems[i].url_Audio}" class="${idAuTag}"></audio>
-												<i class="${idITag} bi-play-circle"></i>
-											</button>
-										</div>
-										<div class="song-singer inner-td">
-											<b>${nameSong} </b> <br> <a href="" class="singer">${nameSinger}
-											</a> <br>
-											<div id="V${idSong}">${viewSong}</div>
+								<div class="song-singer inner-td">
+									<b>${nameSong} </b> <br> <b class="singer">${nameSinger}
+									</b> <br>
+									<div id="V${idSong}">${viewSong}</div>
 
 
-										</div>
-										<div class="inner-td">
-											<button class="btn btn-inner-td">
-												<i class="bi bi-share" style="color: white; font-size: 13px"></i>
-											</button>
-											<br>
-											<button class="btn btn-inner-td">
-												<i class="bi bi-download"
-													style="color: white; font-size: 13px"></i>
-											</button>
-										</div>
-									</div>
 								</div>
-							</c:otherwise>
-						</c:choose>
+								<div class="inner-td">
+								
+									<i class="bi bi-share" style="color: white; font-size: 13px"></i>
+									<br> 
+									<a href="${listItems[i].url_Audio}" download> 
+										<i class="bi bi-download" style="color: white; font-size: 13px"></i>
+									</a>
+								</div>
+							</div>
+						</div>
 					</c:forEach>
 				</div>
 				<br />

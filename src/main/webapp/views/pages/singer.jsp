@@ -70,8 +70,6 @@ background-color: black;padding: 1px;height: 78.4px;width: 222.4px
 
 									<a class="inner-icon-in-img" href=""><i
 										style="font-size: 50px" class="bi-play-circle"></i></a>
-
-
 								</div>
 							</div>
 							<div class="singer_descriptiont">
@@ -90,6 +88,7 @@ background-color: black;padding: 1px;height: 78.4px;width: 222.4px
 	</c:forEach>
 </body>
 
+<script src="/MusicWebsite/assets/js/singer.js"></script>
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">

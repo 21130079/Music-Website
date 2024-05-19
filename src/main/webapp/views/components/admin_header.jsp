@@ -155,7 +155,7 @@
 
 								<div id="change-password" class="body-log" style="display: ${displayPass};">
 									<div class="wrapper">
-										<span style="z-index: 3;"
+										<span
 											onclick="document.getElementById('change-password').style.display='none'"
 											class="close" title="Close Modal">×</span>
 
@@ -205,7 +205,7 @@
 							<div id="login" class="body-log" style="display:${display};">
 
 								<div class="wrapper">
-									<span style="z-index: 3;"
+									<span
 										onclick="document.getElementById('login').style.display='none'" class="close"
 										title="Close Modal">×</span>
 

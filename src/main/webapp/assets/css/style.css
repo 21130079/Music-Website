@@ -365,10 +365,10 @@ span.psw {
 
 .close {
 	position: absolute;
-	right:-7%;
-	top:-7%;
+	right: 5%;
+	top: -15%;
 	cursor:pointer;
-	
+	z-index: 3;
 	color: blue;
 	font-size: 40px;
 	font-weight: bold;
