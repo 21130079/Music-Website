@@ -13,7 +13,7 @@ import java.util.Enumeration;
 import java.util.Map;
 import java.util.Set;
 
-import Listener.SessionManagerListener;
+import Listener.LoginListener;
 import Model.Account;
 import database.DAOAccount;
 
@@ -26,12 +26,12 @@ public class RemoveAccountController extends HttpServlet {
         new DAOAccount().deleteByUsername(userName);
         
 
-    	for (Map.Entry<String, HttpSession> entry :SessionManagerListener.getSessions().entrySet()) {
+    	for (Map.Entry<String, HttpSession> entry :LoginListener.getSessions().entrySet()) {
 			String key = entry.getKey();
 			HttpSession val = entry.getValue();	
 			if(key.equals(userName)) {
 				val.invalidate();
-				SessionManagerListener.getSessions().remove(key);
+				LoginListener.getSessions().remove(key);
 			}
 						
 		}

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import Listener.SessionManagerListener;
+import Listener.LoginListener;
 import Model.Account;
 import database.DAOAccount;
 
@@ -58,12 +58,12 @@ public class UpdateAccountController extends HttpServlet {
 	        }
 	        Account account = new Account(username, passwordHashing(password), email, roles,acc.getFavoriteList(), acc.getPlaylists());
 	        new DAOAccount().update(account);
-	        for (Map.Entry<String, HttpSession> entry :SessionManagerListener.getSessions().entrySet()) {
+	        for (Map.Entry<String, HttpSession> entry :LoginListener.getSessions().entrySet()) {
 				String key = entry.getKey();
 				HttpSession val = entry.getValue();	
 				if(key.equals(username)) {
 					val.invalidate();
-					SessionManagerListener.getSessions().remove(key);
+					LoginListener.getSessions().remove(key);
 				}
 							
 			}

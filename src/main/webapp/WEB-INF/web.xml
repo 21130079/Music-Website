@@ -564,10 +564,10 @@
     <url-pattern>/ExportFileController</url-pattern>
   </servlet-mapping>
   <listener>
-    <listener-class>Listener.LoginListener</listener-class>
+    <listener-class>Listener.LogoutListener</listener-class>
   </listener>
   <listener>
-    <listener-class>Listener.SessionManagerListener</listener-class>
+    <listener-class>Listener.LoginListener</listener-class>
   </listener>
 
 </web-app>

@@ -117,7 +117,6 @@ img {
 		<div id="cards_infor_header">
 			<div class="card_infor">
 				<div>
-					 ${fn:length(activeUsers)}
 					<h3>${daoAccount.countAccounts()}</h3>
 					<p>Number Of Users
 					<p />

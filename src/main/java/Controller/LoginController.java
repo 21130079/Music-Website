@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
-import Listener.SessionManagerListener;
+import Listener.LoginListener;
 import Model.Account;
 import Model.IPAddress;
 import Model.Log;
@@ -147,15 +147,6 @@ public class LoginController extends HttpServlet {
 				
 				response.addCookie(usernameCookie);
 				response.addCookie(passwordCookie);
-                // Thêm người dùng vào danh sách người dùng đang hoạt động
-                ServletContext context = getServletContext();
-               
-                    Set<Account> activeUsers = (Set<Account>) context.getAttribute("activeUsers");
-                    if (activeUsers == null) {
-                        activeUsers = new HashSet<>();
-                    }
-                    activeUsers.add(ac);
-                    context.setAttribute("activeUsers", activeUsers);
                 
 				session.setAttribute("account", ac);
 				response.sendRedirect("index.jsp");
