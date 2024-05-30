@@ -106,6 +106,7 @@ img {
 <jsp:include page="../components/admin_header.jsp" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <body>
 	<jsp:useBean id="daoSong" class="database.DAOSong" scope="session"></jsp:useBean>
 	<jsp:useBean id="daoHistoryPre" class="database.DAOHistoryPremium"
@@ -116,6 +117,7 @@ img {
 		<div id="cards_infor_header">
 			<div class="card_infor">
 				<div>
+					 ${fn:length(activeUsers)}
 					<h3>${daoAccount.countAccounts()}</h3>
 					<p>Number Of Users
 					<p />
