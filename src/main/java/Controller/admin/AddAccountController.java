@@ -100,6 +100,7 @@ public class AddAccountController extends HttpServlet {
 				
 				account = new Account(username, password, email, roles, null, null);
 				daoAccount.insert(account);
+				daoAccount.updateRole(account);
 			}
 		}
 		if(errorAccount!= null) {

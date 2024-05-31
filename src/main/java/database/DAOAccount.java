@@ -89,7 +89,27 @@ public class DAOAccount extends AbsDao<Account>  {
 	    }
 	    return 0;
 	}
-
+	public void updateRole(Account t) {
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement("delete from roles_accounts where username=? ");
+			stmt.setString(1, t.getUsername());
+			stmt.executeUpdate();
+			
+			for (String role : t.getRoles()) {
+				stmt = connection.prepareStatement("insert into roles_accounts (username, roleUser) values(?, ?) ");
+				stmt.setString(1, t.getUsername());
+				
+				stmt.setString(2, role);
+				stmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+	}
 	@Override
 	public int delete(Account t) {
 		// TODO Auto-generated method stub

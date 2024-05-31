@@ -112,6 +112,7 @@ img {
 <jsp:include page="../components/admin_header.jsp" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <body>
 	<jsp:useBean id="daoSong" class="database.DAOSong" scope="session"></jsp:useBean>
 	<jsp:useBean id="daoHistoryPre" class="database.DAOHistoryPremium"
