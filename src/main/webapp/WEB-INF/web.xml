@@ -456,16 +456,7 @@
     <servlet-name>RemoveAccountController</servlet-name>
     <url-pattern>/RemoveAccountController</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ProfitChartServlet</display-name>
-    <servlet-name>ProfitChartServlet</servlet-name>
-    <servlet-class>Controller.admin.ProfitChartServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ProfitChartServlet</servlet-name>
-    <url-pattern>/ProfitChartServlet</url-pattern>
-  </servlet-mapping>
+
   <servlet>
     <description></description>
     <display-name>AddSongAPI</display-name>
@@ -495,6 +486,16 @@
   <servlet-mapping>
     <servlet-name>TopSongsChartImage</servlet-name>
     <url-pattern>/TopSongsChartImage</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>ProfitChartServlet</display-name>
+    <servlet-name>ProfitChartServlet</servlet-name>
+    <servlet-class>Controller.chart.ProfitChartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfitChartServlet</servlet-name>
+    <url-pattern>/ProfitChartServlet</url-pattern>
   </servlet-mapping>
   <filter>
     <display-name>SuperAdminAuhtenFilter</display-name>
