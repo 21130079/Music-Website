@@ -27,14 +27,14 @@ public class DAOAccount extends AbsDao<Account>  {
 			stmt.setString(2, t.getPassword());
 			stmt.setString(3, t.getEmail());
 			stmt.execute();
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", "[Register: "+t+"]",
 					t.toString(), null, "successed");
 			daoLog.insert(log);
 			return 1;
 			
 		} catch (Exception e) {
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null,
-					t.toString(), null, "failed");
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", "[Register: "+t+"]",
+					null, null, "failed");
 			daoLog.insert(log);
 		}
 		return 0;
@@ -65,6 +65,7 @@ public class DAOAccount extends AbsDao<Account>  {
 	@Override
 
 	public int update(Account t) {
+		Account oldAcc =selectByUsername(t.getUsername());
 	    try {
 	        PreparedStatement stmt = connection.prepareStatement("update accounts set email=?, password_account=? where username=? ");
 	        stmt.setString(1, t.getEmail());
@@ -82,14 +83,19 @@ public class DAOAccount extends AbsDao<Account>  {
 	            stmt.setString(2, role);
 	            stmt.executeUpdate();
 	        }
-	        
+	        Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Accounts",  oldAcc.toString(), t.toString(),null,"successed");
+	        daoLog.insert(log);
 	        return 1;
 	    } catch (Exception e) {
+	    	  Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Accounts", t.toString(), t.toString(),null,"failed");
+		        daoLog.insert(log);
+		      
 	        e.printStackTrace(); // Print the exception for debugging
 	    }
 	    return 0;
 	}
 	public void updateRole(Account t) {
+		Account oldAcc =selectByUsername(t.getUsername());
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement("delete from roles_accounts where username=? ");
@@ -103,9 +109,15 @@ public class DAOAccount extends AbsDao<Account>  {
 				stmt.setString(2, role);
 				stmt.executeUpdate();
 			}
+			 Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Accounts", "[username: "+oldAcc.getUsername()+", roles: "+t.getRoles()+"]","[username: "+t.getUsername()+", roles: "+t.getRoles()+"]" ,null,"successed");
+		        daoLog.insert(log);
+		       
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			 Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Accounts", "[username: "+t.getUsername()+", roles: "+t.getRoles()+"]","[username: "+t.getUsername()+", roles: "+t.getRoles()+"]" ,null,"failed");
+		        daoLog.insert(log);
+		    
 			e.printStackTrace();
 		}
         
@@ -126,9 +138,12 @@ public class DAOAccount extends AbsDao<Account>  {
 					.prepareStatement("delete from accounts where username=? ");
 			stmt.setString(1, t);
 			stmt.executeUpdate();
+			new DAOLog().insert(new Log("", IPAddress.getNameCountry(ipAddress), Level.DANGER, "Account", "username: "+t, "null", null,"success" ));
 			return 1;
 		} catch (Exception e) {
+			new DAOLog().insert(new Log("", IPAddress.getNameCountry(ipAddress), Level.WARNING, "Account", "username: "+t, "username: "+t, null,"success" ));
 			e.printStackTrace();
+		
 		}
 		return 0;
 	}
@@ -243,7 +258,7 @@ public class DAOAccount extends AbsDao<Account>  {
 			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + account,null,"successed");
 			daoLog.insert(log); 
 		} catch (Exception e) {
-			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.INFO, "Accounts", null, "Login: " + username,null,"failed");
+			Log log = new Log("", IPAddress.getNameCountry(ipAddress), Level.ALERT, "Accounts", null, "Login: " + username,null,"failed");
 			daoLog.insert(log);
 		}
 		return account;

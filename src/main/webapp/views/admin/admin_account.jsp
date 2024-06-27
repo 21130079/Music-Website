@@ -174,6 +174,37 @@ margin-right: 2px;
 	height: 100vh;
 		 display: none;
 }
+.confirm_delete {
+background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    color:black !important;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   box-shadow: 0 0 20px rgba(0, 0, 0, 0.6); 
+   display: none;
+}
+
+.confirm_delete p {
+    margin-bottom: 10px;
+}
+
+.confirm_delete input[type="button"] {
+    background-color: #4CAF50;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirm_delete input[type="button"]:hover {
+    background-color: #45a049;
+}
+
 </style>
 <jsp:include page="../components/admin_header.jsp"/>
 </head>
@@ -184,7 +215,7 @@ margin-right: 2px;
 		<a>
 					<button id="add-account"> <i class="plus">+</i> Add Account</button>
 					</a>
-		<button  id="delecteAccounts_btn">Delete
+		<button onclick="showConfirmDeleteAll()"> Delete
 			selected</button>
 		</div>
 
@@ -261,26 +292,57 @@ margin-right: 2px;
 			<div style="color: red">${param.errorAccount}</div>
 			<h4>Confirm Your Password</h4>
 			<input type="password" placeholder="your password" name="spAdminPassword" required="required">
-			<button type="submit">submit</button>
+			<button type="submit" id="submit_to_add_acc">Submit</button>
 	</form>
 	</div>
-	<div class="wrapper_account"  id="wrapper_pass">
-	<div id="confirm_pass">
-	<div></div>
-			<i class="bi bi-x" onclick="hidenConfirmPass()"></i>
-		
-		<button type="button">submit</button>
-		</div>
-	</div>
+	<div class="confirm_delete" id="confirmdelete">
+	<i class="bi bi-x" onclick="hiddenDelete()" id="x_delete_acc"></i>
+    <p id ="msg"style="color: black;">Are you sure you want to delete?</p>
+        <input  class="delete-btn" type="button" onclick="hiddenDelete() " value="OK">
+</div>
+<div class="confirm_delete" id="confirm_delete_all">
+	<i class="bi bi-x" id="x_delete_all" onclick="hiddenDeleteAll()"></i>
+    <p id ="msg"style="color: black;">Are you sure you want to delete all selections?</p>
+        <input  id="delecteAccounts_btn" type="button" onclick="hiddenDeleteAll()" value="OK">
+</div>
+
 </body>
 
 <script src="/MusicWebsite/assets/js/login.js"></script>
 <script>
+	function showConfirmDelete(msg) {
+		$("#msg").text("Are you sure you want to delete " + msg + "?");
+		$("#confirmdelete").css("display","block");
+		 $(".delete-btn").attr("id", msg);
+	}
+	function showConfirmDeleteAll() {
+		$("#confirm_delete_all").css("display","block");
+	}
+	function hiddenDelete() {
+		$('#confirmdelete').css('display','none');
+}
 
+function hiddenDeleteAll() {
+		$('#confirm_delete_all').css('display','none');
+}
     $(document).ready(function() {
-    	
-    	
-    	  
+    	$(".delete-btn").click(function() {
+            let username = $(this).attr("id");
+            let button = $("div #"+username);
+			console.log(username);
+            $.ajax({
+                url: '/MusicWebsite/RemoveAccountController',
+                type: 'get',
+                data: { username:username},
+                success: function(response) {
+                	 $("#data").DataTable().row(button.closest("tr")).remove().draw(true);
+                },
+                error: function() {
+                    // Handle error
+                }
+            });
+        });
+
         $.ajax({
             url: "/MusicWebsite/AccountAPI",
             type: "get",
@@ -306,9 +368,9 @@ margin-right: 2px;
                             render: function(data, type, row) {
                                 return '<div style="display: flex; align-items: center; justify-content: center;">' +
                                     '<a class="edit-button" id="' + data.username + '" type="button" style="padding-right: 10px" ' +
-                                    '>' +
+                                    '  >' +
                                     '<i class="bi bi-pencil-square "></i></a>' +
-                                    '<div style="cursor: pointer;" class="delete-btn" id="' + data.username + '">' +
+                                    '<div onclick="showConfirmDelete(this.id)" style="cursor: pointer;" id="' + data.username + '">' +
                                     '<i class="bi bi-trash"></i></div></div>';
                             }
                         }
@@ -340,23 +402,7 @@ margin-right: 2px;
 		    });
 		});
 
-		$(document).on('click', '.delete-btn', function() {
-	            let username = $(this).attr("id");
-	            let button = $(this);
-				console.log(username);
-	            $.ajax({
-	                url: '/MusicWebsite/RemoveAccountController',
-	                type: 'get',
-	                data: { username:username},
-	                success: function(response) {
-	                	 $("#data").DataTable().row(button.closest("tr")).remove().draw(true);
-	                },
-	                error: function() {
-	                    // Handle error
-	                }
-	            });
-	        });
-	
+		
         $(document).on('click', '.edit-button', function() {
         	
                  let username = $(this).attr("id");
@@ -414,16 +460,10 @@ margin-right: 2px;
 		
 		
 		
+		
+		
     });
-    function showConfirmPass() {
-		$('#wrapper_pass').css('display','block');
-		$('#wrapper_add').css('display','none');
-		$('#wrapper_edit').css('display','none');
-	}
-    function hidenConfirmPass() {
-		$('#wrapper_pass').css('display','none');
-	
-	}
+
 </script>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
