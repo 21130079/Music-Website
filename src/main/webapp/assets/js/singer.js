@@ -16,7 +16,10 @@ var played = [];
 var playedArrayTest = [];
 var count = 0;
 var ajaxDelayTimer;
-
+var currentIndexSong;
+if (!(typeof formLogin === 'null')) {
+	document.querySelector('#notification-board').style.display = 'none';
+}
 
 if (played.length <= 1) {
     btnSkipBefore.disabled = true;
@@ -24,6 +27,9 @@ if (played.length <= 1) {
 
 function playMusic(id, nameSong, nameSinger, srcImg) {
     var btn = document.getElementById(id);
+    var currentElemenSong = btn.parentElement.parentElement.parentElement.parentElement;
+    currentIndexSong = parseInt(currentElemenSong.id);
+    
     var footer = document.getElementById("footer");
     var iTag = btn.querySelector('.bi' + id);
     var auTag = btn.querySelector('.au' + id);
@@ -169,63 +175,37 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 }
 
 function skipBeforeMusic() {
-    var nextId = played.pop();
-    var nextId = played.pop();
 
-    var item = document.querySelector('#' + nextId);
-    var songAndSinger = item.querySelector('.song-singer');
-    var song = songAndSinger.querySelector('b');
-    var singer = songAndSinger.querySelector('a');
+    var item = listSongs[currentIndexSong];
+    var nextId = item.querySelector('button').id;
+    var songAndSinger = item.querySelector('.singer_description');
+    var song = songAndSinger.querySelector('.name-song');
+    var singer = songAndSinger.querySelector('.name-singer');
     var srcImg = item.querySelector('img');
 
     playMusic(nextId.toString(), song.innerHTML, singer.innerHTML, srcImg.src);
-
+	
     if (played.length <= 1) {
         btnSkipBefore.disabled = true;
     }
 }
 
 function skipAfterMusic() {
-    var nextId = "";
-    var getId = btnSkipAfter.id.slice(2, btnSkipAfter.id.length)
-    var currentId = parseInt(getId);
-    var itemLength = document.querySelectorAll('.all-music-item').length;
+	if (currentIndexSong >= listSongs.length) {
+		currentIndexSong = 1;
+	} else {
+		currentIndexSong += 1;
+	}
 
-    if (isShuffle) {
-        var randomId = Math.floor(Math.random() * itemLength);
-        while (randomId == currentId) {
-            randomId = Math.floor(Math.random() * itemLength);
-        }
-
-        if (randomId < 10) {
-            nextId = "0" + randomId.toString();
-        } else {
-            nextId = randomId.toString();
-        }
-
-        nextId = "SO" + nextId;
-    } else {
-        var increaseId = currentId + 1;
-        if (increaseId > itemLength) {
-            increaseId = 1;
-        }
-
-        if (increaseId < 10) {
-            nextId = "0" + increaseId.toString();
-        } else {
-            nextId = increaseId.toString();
-        }
-
-        nextId = "SO" + nextId;
-    }
-
-    var item = document.querySelector('#' + nextId);
-    var songAndSinger = item.querySelector('.song-singer');
-    var song = songAndSinger.querySelector('b');
-    var singer = songAndSinger.querySelector('.singer');
+    var item = document.getElementById(`${currentIndexSong}`);
+    var nextId = item.querySelector('button').id;
+    var songAndSinger = item.querySelector('.singer_description');
+    var song = songAndSinger.querySelector('.name-song');
+    var singer = songAndSinger.querySelector('.name-singer');
     var srcImg = item.querySelector('img');
 
     playMusic(nextId.toString(), song.innerHTML, singer.innerHTML, srcImg.src);
+
 }
 
 function muteVolume() {
@@ -348,37 +328,6 @@ function appearImg(searchElement) {
         var bgElement = document.querySelector(".content-bg");
         bgElement.style.display = 'block';
     }
-}
-
-function showMore() {
-	var quantity = document.querySelectorAll('.all-music-item').length;
-	$.ajax({
-		url: "/MusicWebsite/ShowMoreController",
-		type: "get",
-		data: {
-			data: quantity
-		},
-		success: function(data) {
-			if (data === '') {
-				$('.show-more-btn').css({ 'display': 'none' });
-			} else {
-				let content = document.querySelector(".table-divMusic");
-				content.innerHTML += data;
-			}
-		},
-		error: function(xhr, status, error) {
-			console.error("Lỗi: " + error);
-		}
-	});
-}
-
-function showNotificationBoard(button) {
-	let content = document.querySelector('#notification-board');
-	if (content.style.display === 'none') {
-		content.style.display = 'grid';
-	} else {
-		content.style.display = 'none';
-	}
 }
 
 

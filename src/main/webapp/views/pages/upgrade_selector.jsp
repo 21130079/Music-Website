@@ -170,6 +170,8 @@ input {
 	</div>
 
 	<script src="https://pay.vnpay.vn/lib/vnpay/vnpay.min.js"></script>
+	<script src="/MusicWebsite/assets/js/login.js"></script>
+	<script src=""></script>
 	<script type="text/javascript">
 		$("#frmCreateOrder1").submit(function() {
 			var postData = $("#frmCreateOrder1").serialize();
