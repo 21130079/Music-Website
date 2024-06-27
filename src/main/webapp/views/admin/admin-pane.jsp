@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel</title>
-<link rel="stylesheet" href="adminPanel.css">
+<!-- <link rel="stylesheet" href="adminPanel.css">
 
-</head>
+ --></head>
 <style>
 #container_admin_pane {
 	width: 90%;
@@ -15,9 +15,10 @@
 	margin-bottom: 40px;
 	display: grid;
 	grid-template-areas: "header header header header"
-		"profit profit profit genre" "profit profit profit topview"
-		"profit profit profit topview";
-	gap: 40px;
+		"profit profit profit genre" 
+		"profit profit profit topview"
+		"feature feature feature topview";
+	gap: 20px;
 }
 
 #cards_infor_header {
@@ -78,20 +79,16 @@
 	justify-self: center;
 }
 
-#monthly_profit_chart button {
-	display: flex;
-	justify-self: right;
-	align-items: center;
-	justify-content: center;
-	width: 150px;
-	border-radius: 5px;
-}
 
 img {
 	border-radius: 5px;
 }
 
-#genre {
+#profit,#genre,#view_chart{
+background-color: white;
+border-radius: 10px;
+}
+#genre_chart {
 	grid-area: genre;
 }
 
@@ -103,17 +100,41 @@ img {
 	display: none;
 }
 #export_select{
-	padding: 10px 20px 10px 20px;
+	margin-right: 5%;
+	color: white;
+	grid-area:feature;
+	justify-self: right;
+	display: grid;
+	grid-template-areas: "exportOp exportOp date date"
+		"bestseller bestseller date date" 
+		"button button button button"
+		;
+		gap: 10px;
 }
-#export_select *{
-	margin-bottom: 10px 
+#export_option{
+	grid-area:exportOp;
 }
+#bestseller{
+	grid-area:bestseller;
+}
+#date{
+	grid-area:date;
+}
+#exportBtn{
+	grid-area:button;
+}
+
+
 </style>
 <jsp:include page="../components/admin_header.jsp" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	       <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <body>
-	<jsp:useBean id="daoSong" class="database.DAOSong" scope="session"></jsp:useBean>
+	<jsp:useBean id="daoSong" class="database.DAOSong" scope="request"></jsp:useBean>
 	<jsp:useBean id="daoHistoryPre" class="database.DAOHistoryPremium"
 		scope="session"></jsp:useBean>
 	<jsp:useBean id="daoAccount" class="database.DAOAccount"
@@ -153,21 +174,21 @@ img {
 				<i class="bi  bi-cash-stack"></i>
 			</div>
 		</div>
-		<div id="monthly_profit_chart">
-			<img src="/MusicWebsite/profitChartImage" alt="profitchart.png">
-			
+		<div style="width: 95%;" id="monthly_profit_chart">
+				<canvas id=profit></canvas>
+		</div>
+		<div style=" display: flex;
+    justify-content: center;
+    width: 100%" id=genre_chart>
+				<canvas width="100%" id=genre></canvas>
+		</div>
+		<div style="width: 100%;" id=top_view_chart>
+				<canvas id=view_chart></canvas>
 		</div>
 		
-		<img id="genre_chart" src="/MusicWebsite/GenreChartImage"
-			alt="genrechart.png"> <img id="top_view_chart"
-			src="/MusicWebsite/TopSongsChartImage" alt="topsongchart.png">
-		
-		
-			
-			
-	</div>
-	<div style="background-color: white; color: black; width:50%;margin-left: 1000px"
+		<div
 				id="export_select">
+				<div id="export_option">
 				<input type="radio" id="export1" name="options" value="export1" onchange="chooseOption()">
 				Export files by 
 				 <select id="combo" name="combo" onchange="chooseOption()">
@@ -176,8 +197,9 @@ img {
 					<option value="year">Year</option>
 					<option value="precious">Precious</option>
 
-				</select> 
-				<br> 
+				</select>
+				</div> 
+				<div id="bestseller">
 				<input type="radio" id="export2"name="options" value="export2" onchange="chooseOption()">
 				 Best - selling product
 					 <select id="combo2" name="combo2" onchange="chooseOption()">
@@ -186,32 +208,199 @@ img {
 					<option value="year">Year</option>
 					<option value="precious">Precious</option>
 
-				</select> <br>
-				<div style="display: flex;">
+				</select> 
+				</div> 
+				<div id="date">
+						<div id="date-chooser"  style="display: flex;">
 					<div id="precious_css">
-						<label style="margin-right: 10px">Precious:</label>
+						<label>Precious:</label>
 						<select id="precious"></select> 
 					</div>
-					<div id="month_css" style="margin-right: 10px">
-						<label style="margin-right: 10px">Month:</label>
+					<div id="month_css">
+						<label>Month:</label>
 						<select id="month"></select> 
 					</div>
 					<div id="year_css">
-						<label style="margin-right: 10px">Year: </label>
+						<label>Year: </label>
 						<select id="year"></select>
 					</div>
 						 
 				</div>
 				
 				 <input type="date"	class="form-control" id="day" name="day"
-					style="width: 50%">
+					>
+					</div>
 
 				<button id="exportBtn" onclick="exportFile()">Export to
 					excel</button>
 			</div>
+			
+			
+	</div>
+	
 </body>
 <script type="text/javascript">
+$(document).ready(function() {
+    $.ajax({
+        url: '/MusicWebsite/ProfitChartServlet',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var ctx = $('#profit');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: response.labels,
+                    datasets: [{
+                        label: 'Profit',
+                        data: response.data,
+                        backgroundColor: 'rgba(33, 150, 243, 0.2)',
+                        borderColor: 'rgba(33, 150, 243, 1)',
+                        borderWidth: 1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        },
+        error: function(error) {
+            console.log('Error:', error);
+        }
+    });
+    // Biểu đồ tròn
+    $.ajax({
+        url: '/MusicWebsite/GenreChartServlet',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var ctxPie = $('#genre');
+            var labels = Object.keys(response);
+            var data = Object.values(response);
+
+            var pieChart = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Music Genre Distribution',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(199, 199, 199, 0.2)',
+                            'rgba(83, 102, 255, 0.2)',
+                            'rgba(255, 152, 0, 0.2)',
+                            'rgba(76, 175, 80, 0.2)',
+                            'rgba(183, 28, 28, 0.2)',
+                            'rgba(255, 235, 59, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(199, 199, 199, 1)',
+                            'rgba(83, 102, 255, 1)',
+                            'rgba(255, 152, 0, 1)',
+                            'rgba(76, 175, 80, 1)',
+                            'rgba(183, 28, 28, 1)',
+                            'rgba(255, 235, 59, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'black' // Màu sắc của nhãn biểu đồ
+                            }
+                        } ,datalabels: {
+                            formatter: (value, ctx) => {
+                                let percentage = (value / data.reduce((sum, val) => sum + val, 0) * 100).toFixed(2) + '%';
+                                return percentage;
+                            },
+                            color: 'black',
+                            anchor: 'end',
+                            align: 'start',
+                            offset: -10,
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                layout: {
+                    padding: 10 
+                }
+                },
+                plugins: [ChartDataLabels] // Đăng ký plugin datalabels
+            });
+          
+        
+        },
+        error: function(error) {
+            console.log('Error:', error);
+        }
+    });
+    $.ajax({
+        url: '/MusicWebsite/TopSongsChartImage',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var ctxBar = $('#view_chart');
+            var labels = Object.keys(response);
+            var data = Object.values(response);
+
+            var barChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Number of Plays',
+                        data: data,
+                        backgroundColor: 'rgba(255, 102, 102, 0.7)', // Màu nền của cột
+                        borderColor: 'rgba(255, 102, 102, 1)', // Màu viền của cột
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'black' // Màu sắc của nhãn biểu đồ
+                            }
+                        },
+                       
+                    }
+                },
+               
+            });
+        },
+        error: function(error) {
+            console.log('Error:', error);
+        }
+    });
+});
+
 	//year
+	
 	var startYear = 2020;
 	var endYear = 2030;
 	
@@ -344,6 +533,7 @@ img {
 				link.click();
 			}
 		});
+		
 
 	}
 </script>

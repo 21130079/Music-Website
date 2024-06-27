@@ -1,5 +1,6 @@
 package database;
 
+import java.io.Console;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -589,11 +590,11 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 		double total = 0;
 		int currentMonth = LocalDate.now().getMonthValue();
 		for (int i = 1; i < 12; i++) {
-			if (i < currentMonth) {
+			if (i <= currentMonth) {
 				total += getProfitForMonth(i);
 			}
 		}
-		return total / (currentMonth - 1);
+		return total / currentMonth;
 	}
 
 	public static void main(String[] args) throws ParseException {

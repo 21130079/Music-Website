@@ -12,7 +12,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import Listener.LoginListener;
 import Model.Account;
 import database.DAOAccount;
 
@@ -56,6 +58,16 @@ public class UpdateAccountController extends HttpServlet {
 	        }
 	        Account account = new Account(username, passwordHashing(password), email, roles,acc.getFavoriteList(), acc.getPlaylists());
 	        new DAOAccount().update(account);
+	        for (Map.Entry<String, HttpSession> entry :LoginListener.getSessions().entrySet()) {
+				String key = entry.getKey();
+				HttpSession val = entry.getValue();	
+				if(key.equals(username)) {
+					val.invalidate();
+					LoginListener.getSessions().remove(key);
+				}
+							
+			}
+	       
 		}
 	        response.sendRedirect("/MusicWebsite/views/admin/admin_account.jsp");
 	}

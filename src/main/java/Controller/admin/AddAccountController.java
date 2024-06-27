@@ -1,8 +1,6 @@
 package Controller.admin;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -100,6 +98,7 @@ public class AddAccountController extends HttpServlet {
 				
 				account = new Account(username, password, email, roles, null, null);
 				daoAccount.insert(account);
+				daoAccount.updateRole(account);
 			}
 		}
 		if(errorAccount!= null) {

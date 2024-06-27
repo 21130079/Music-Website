@@ -877,7 +877,9 @@ a {
 	color: black;
 	line-height: 30px;
 }
-
+.navbar,.nav{
+						height: 100%
+					}
 
 
 

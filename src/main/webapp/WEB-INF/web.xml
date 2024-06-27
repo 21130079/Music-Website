@@ -496,6 +496,16 @@
     <servlet-name>TopSongsChartImage</servlet-name>
     <url-pattern>/TopSongsChartImage</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>ProfitChartServlet</display-name>
+    <servlet-name>ProfitChartServlet</servlet-name>
+    <servlet-class>Controller.chart.ProfitChartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfitChartServlet</servlet-name>
+    <url-pattern>/ProfitChartServlet</url-pattern>
+  </servlet-mapping>
   <filter>
     <display-name>SuperAdminAuhtenFilter</display-name>
     <filter-name>SuperAdminAuhtenFilter</filter-name>
@@ -563,4 +573,10 @@
     <servlet-name>ExportFileController</servlet-name>
     <url-pattern>/ExportFileController</url-pattern>
   </servlet-mapping>
+  <listener>
+    <listener-class>Listener.LogoutListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>Listener.LoginListener</listener-class>
+  </listener>
 </web-app>

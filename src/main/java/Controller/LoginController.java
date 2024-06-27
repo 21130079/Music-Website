@@ -1,6 +1,7 @@
 package Controller;
 
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
@@ -13,8 +14,13 @@ import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
+import Listener.LoginListener;
 import Model.Account;
 import Model.IPAddress;
 import Model.Log;
@@ -45,7 +51,7 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest  request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 	}
@@ -57,7 +63,7 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		boolean checkFAccount = false;
-		System.out.println(new LoginController().passwordHashing("superadmin1"));
+	
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String remember = request.getParameter("remember");
@@ -87,6 +93,7 @@ public class LoginController extends HttpServlet {
 		}
 
 		HttpSession session = request.getSession();
+	
 		Long throttleTime = (Long) session.getAttribute("throttleTime");
 		
 		if (throttleTime != null && (System.currentTimeMillis() - throttleTime) < THROTTLE_TIME) {
@@ -140,10 +147,10 @@ public class LoginController extends HttpServlet {
 				
 				response.addCookie(usernameCookie);
 				response.addCookie(passwordCookie);
-				
+                
 				session.setAttribute("account", ac);
 				response.sendRedirect("index.jsp");
-			}
+			 }
 		}
 	}
 	

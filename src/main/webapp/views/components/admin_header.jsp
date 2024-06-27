@@ -21,6 +21,30 @@
 						font-size: 18px;
 						color: rgb(180, 180, 180);
 					}
+					a{text-decoration: none;
+					}
+					.active_user{
+					height:55px;
+					padding-left: 10px;
+					display: flex;
+					color:olive;
+					align-items: center;
+					}	
+					.nav-item,.navbar{
+						width: 100%;
+					}
+					.mini_circle{
+						width: 10px;
+						height: 10px;
+						background-color: green;
+						border-radius: 50%;
+						margin-left: 3px;
+						filter: brightness(1.5);
+						 box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+					}
+					
+					
+					
 				</style>
 
 				<header id="header">
@@ -39,17 +63,17 @@
 											<td><b><a class="nav-link "
 														href="/MusicWebsite/views/admin/admin-pane.jsp">Home</a></b>
 											</td>
-											<td style="padding-left: 10px"><b><a class="nav-link "
-									href="/MusicWebsite/index.jsp">User View</a></b></td>
-											<td style="padding-left: 10px"><b><a class="song_admin nav-link"
+											<td style="padding-left: 5px"><b><a class="nav-link "
+									href="/MusicWebsite/index.jsp">Guest</a></b></td>
+											<td style="padding-left: 5px"><b><a class="song_admin nav-link"
 														href="/MusicWebsite/views/admin/admin_song.jsp">Song</a></b>
 											</td>
-											<td style="padding-left: 10px"><b><a class="log_admin nav-link"
+											<td style="padding-left: 5px"><b><a class="log_admin nav-link"
 														href="/MusicWebsite/views/admin/admin_account.jsp">Account</a></b>
 											</td>
-											<td style="padding-left: 10px"><b><a class="log_admin nav-link"
+											<td style="padding-left:5px"><b><a class="log_admin nav-link"
 														href="/MusicWebsite/views/admin/admin_log.jsp">Log</a></b></td>
-
+											<td style="padding-left: 5px" class="active_user"> Active user:  ${fn:length(activeUsers)} <div class="mini_circle"></div>	<td/>				
 										</tr>
 									</table>
 								</div>
@@ -58,7 +82,7 @@
 					</div>
 
 					<div class="search-box">
-						<form action="/MusicWebsite/SearchController" method="get" style="margin-left: -169px;">
+						<form action="/MusicWebsite/SearchController" method="get" style="margin-left:-230px;">
 							<button type="submit" class="btn-search" disabled="disabled">
 								<i class="bi bi-search" style="font-size: 22px"></i>
 							</button>
@@ -129,19 +153,14 @@
 								</div>
 
 								<div class="person_circle">
-									<i class="bi bi-person-circle"> </i>
 									<div class="nav_person">
-										<div>My Information</div>
-										<div>Premium</div>
-										<div>Forgot Password</div>
-										<div>Logout</div>
+									<a href="/MusicWebsite/views/pages/upgradePre.jsp"><div>Premium</div></a>
+										<a onclick="document.getElementById('change-password').style.display='flex'"><div>Forgot Password</div></a>
+										<a href="/MusicWebsite/LogOutController"><div>Logout</div></a>
 									</div>
 								</div>
 								<font color="White"> ${sessionScope.account.username} </font>
-								<a href="/MusicWebsite/LogOutController">
-									<button type="button" class="login-btn" onclick="reload()">Log
-										Out</button>
-								</a>
+								<i class="bi bi-person-circle"> </i>
 
 								<c:choose>
 									<c:when test="${messageOldPass!=null || messageNewPass!=null}">
@@ -331,5 +350,5 @@
 				<body>
 
 				</body>
-
+<script type="text/javascript" src="/MusicWebsite/assets/js/login.js"></script>
 	</html>
