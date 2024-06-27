@@ -35,6 +35,7 @@
 		<ul class="nav">
 			<li class="nav-item">
 				<div class="navbar">
+					<c:set var="currentPage" value="${pageContext.request.requestURI}" />
 					<table>
 						<tr>
 							<td><b><a class="nav-link "
@@ -43,8 +44,7 @@
 							<c:choose>
 								<c:when
 									test="${fn:contains(sessionScope.account.roles, 'admin')}">
-									<td><b><a
-											class="nav-link ${param.activeRanking}"
+									<td><b><a class="nav-link ${param.activeRanking}"
 											href="/MusicWebsite/views/admin/admin-pane.jsp">Management</a></b></td>
 								</c:when>
 								<c:otherwise>
@@ -58,23 +58,25 @@
 									href="/MusicWebsite/views/pages/favorite.jsp">Favorite</a></b></td>
 							<td><b><a class="nav-link"
 									href="/MusicWebsite/views/pages/singer.jsp">Artist</a></b></td>
-							<td><div class="dropdown">
-
-									<button class="btn btn-secondary dropdown-toggle" type="button"
-										data-bs-toggle="dropdown" aria-expanded="false"
-										style="margin-right: 10px; background-color: rgb(63, 63, 63); color: rgb(180, 180, 180); border: 0px; font-size: 20px; font-weight: 20px">
-										<b>Genre</b></button>
-									<ul class="dropdown-menu">
-										<jsp:useBean id="daoSong2" class="database.DAOSong"></jsp:useBean>
-										<c:forEach var="listGenre" items="${daoSong2.getAllGenre()}">
-											<p>
-											<li><a class="dropdown-item" href="#" id="${listGenre}"
-												onclick="searchByGenre(this.id)">${listGenre}</a></li>
-											</p>
-
-										</c:forEach>
-									</ul>
-								</div></td>
+								<c:if test="${fn:contains(currentPage, '/index.jsp') }">
+								<td>
+									<div class="dropdown">
+										<button class="btn btn-secondary dropdown-toggle"
+											type="button" data-bs-toggle="dropdown" aria-expanded="false"
+											style="margin-right: 10px; background-color: rgb(63, 63, 63); color: rgb(180, 180, 180); border: 0px; font-size: 20px; font-weight: 20px">
+											<b>Genre</b>
+										</button>
+										<ul class="dropdown-menu">
+											<jsp:useBean id="daoSong2" class="database.DAOSong"></jsp:useBean>
+											<c:forEach var="listGenre" items="${daoSong2.getAllGenre()}">
+												<li>
+													<a class="dropdown-item" href="#" id="${listGenre}" onclick="searchByGenre(this.id)">${listGenre}</a>
+												</li>
+											</c:forEach>
+										</ul>
+									</div>
+								</td>
+							</c:if>
 						</tr>
 					</table>
 				</div>
@@ -82,17 +84,19 @@
 		</ul>
 	</div>
 
-	<div class="search-box">
-		<form action="/MusicWebsite/SearchController" method="get"
-			style="margin-left: -169px;">
-			<button type="submit" class="btn-search" disabled="disabled">
-				<i class="bi bi-search" style="font-size: 22px"></i>
-			</button>
-			<input type="text" class="input-search" oninput="searchByName(this)"
-				onblur="appearImg(this)" placeholder="Search by name..."
-				name="searchInput">
-		</form>
-	</div>
+	<c:if test="${fn:contains(currentPage, '/index.jsp') }">
+		<div class="search-box">
+			<form action="/MusicWebsite/SearchController" method="get"
+				style="margin-left: -169px;">
+				<button type="submit" class="btn-search" disabled="disabled">
+					<i class="bi bi-search" style="font-size: 22px"></i>
+				</button>
+				<input type="text" class="input-search" oninput="searchByName(this)"
+					onblur="appearImg(this)" placeholder="Search by name..."
+					name="searchInput">
+			</form>
+		</div>
+	</c:if>
 
 	<div class="sign-in">
 		<c:choose>
@@ -127,19 +131,20 @@
 				</div>
 
 				<div class="person_circle">
-					
+
 					<div class="nav_person">
-						
-					<a href="/MusicWebsite/views/pages/upgradePre.jsp"><div>Premium</div></a>
-						<a onclick="document.getElementById('change-password').style.display='flex'"><div>Forgot Password</div></a>
-						<a href="/MusicWebsite/LogOutController"><div>Logout</div></a>
+
+						<a href="/MusicWebsite/views/pages/upgradePre.jsp"><div>Premium</div></a>
+						<a
+							onclick="document.getElementById('change-password').style.display='flex'"><div>Forgot
+								Password</div></a> <a href="/MusicWebsite/LogOutController"><div>Logout</div></a>
 					</div>
 				</div>
 				<font color="White"> ${sessionScope.account.username} </font>
 				<i class="bi bi-person-circle"> </i>
-				
-					<button type="button" class="login-btn" onclick="reload()"></button>
-			
+
+				<button type="button" class="login-btn" onclick="reload()"></button>
+
 				<c:choose>
 					<c:when test="${messageOldPass!=null || messageNewPass!=null}">
 						<c:set var="displayPass" value="flex"></c:set>

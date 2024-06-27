@@ -58,7 +58,7 @@ public class LazyLoadingController extends HttpServlet {
 					+ "			<div class=\"trendingTable\">");
 			
 			for (Song song : singer.getValue()) {
-				out.println("<div class=\"item trending-box\">\r\n"
+				out.println("<div class=\"item trending-box\" id=\"" + num + "\">\r\n"
 						+ "						<div class=\"card background-music\">\r\n"
 						+ "							<div class=\"img-form\">\r\n"
 						+ "								<img src=\"" + song.getUrl_Img() + "\" class=\"card-img-top\" alt=\"...\">\r\n"
@@ -81,6 +81,8 @@ public class LazyLoadingController extends HttpServlet {
 						+ "							</div>\r\n"
 						+ "						</div>\r\n"
 						+ "					</div>");
+				
+				num += 1;
 			}
 			
 			out.println("</div>\r\n"

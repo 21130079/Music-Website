@@ -16,7 +16,7 @@ var played = [];
 var playedArrayTest = [];
 var count = 0;
 var ajaxDelayTimer;
-document.querySelector('#notification-board').style.display = 'none';
+
 
 if (played.length <= 1) {
     btnSkipBefore.disabled = true;

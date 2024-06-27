@@ -17,10 +17,9 @@ var playedArrayTest = [];
 var count = 0;
 var ajaxDelayTimer;
 var currentIndexSong;
-var listSongs = document.querySelectorAll('.trending-box');
-
-
-document.querySelector('#notification-board').style.display = 'none';
+if (!(typeof formLogin === 'null')) {
+	document.querySelector('#notification-board').style.display = 'none';
+}
 
 if (played.length <= 1) {
     btnSkipBefore.disabled = true;
@@ -28,6 +27,9 @@ if (played.length <= 1) {
 
 function playMusic(id, nameSong, nameSinger, srcImg) {
     var btn = document.getElementById(id);
+    var currentElemenSong = btn.parentElement.parentElement.parentElement.parentElement;
+    currentIndexSong = parseInt(currentElemenSong.id);
+    
     var footer = document.getElementById("footer");
     var iTag = btn.querySelector('.bi' + id);
     var auTag = btn.querySelector('.au' + id);
@@ -37,9 +39,6 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
     var progress = document.querySelector('#progress');
     var nameSongFooter = footer.querySelector('.name-song');
     var imgSongFooter = footer.querySelector('.img-song');
-    var currentElemenSong = btn.parentElement.parentElement.parentElement.parentElement;
-    
-    currentIndexSong = Array.prototype.indexOf.call(listSongs, currentElemenSong);
 
     imgSongFooter.querySelector('img').src = srcImg;
     nameSongFooter.querySelector('b').innerHTML = nameSong;
@@ -176,11 +175,6 @@ function playMusic(id, nameSong, nameSinger, srcImg) {
 }
 
 function skipBeforeMusic() {
-	if (currentIndexSong <= 0) {
-		currentIndexSong = listSongs.length - 1;
-	} else {
-		currentIndexSong -= 1;
-	}
 
     var item = listSongs[currentIndexSong];
     var nextId = item.querySelector('button').id;
@@ -190,22 +184,20 @@ function skipBeforeMusic() {
     var srcImg = item.querySelector('img');
 
     playMusic(nextId.toString(), song.innerHTML, singer.innerHTML, srcImg.src);
-
+	
     if (played.length <= 1) {
         btnSkipBefore.disabled = true;
     }
 }
 
 function skipAfterMusic() {
-	if (currentIndexSong >= listSongs.length - 1) {
-		currentIndexSong = 0;
+	if (currentIndexSong >= listSongs.length) {
+		currentIndexSong = 1;
 	} else {
 		currentIndexSong += 1;
 	}
 
-	console.log(currentIndexSong)
-
-    var item = listSongs[currentIndexSong];
+    var item = document.getElementById(`${currentIndexSong}`);
     var nextId = item.querySelector('button').id;
     var songAndSinger = item.querySelector('.singer_description');
     var song = songAndSinger.querySelector('.name-song');
@@ -213,6 +205,7 @@ function skipAfterMusic() {
     var srcImg = item.querySelector('img');
 
     playMusic(nextId.toString(), song.innerHTML, singer.innerHTML, srcImg.src);
+
 }
 
 function muteVolume() {

@@ -58,6 +58,7 @@ body {
 <jsp:include page="../components/header.jsp"></jsp:include>
 <body>
 	<jsp:useBean id="daosinger" class="database.DAOSinger" scope="request"></jsp:useBean>
+	<c:set var="num" value="${1 }"></c:set>
 
 	<c:forEach var="singer" items="${daosinger.getSongsOfSinger(0)}">
 		<div class="table-allMusic">
@@ -73,7 +74,7 @@ body {
 					<c:set var="viewSong" value="${song.getSongViewUpdate()}"></c:set>
 					<c:set var="nameSinger" value="${song.singer.name_Singer }"></c:set>
 
-					<div class="item trending-box">
+					<div class="item trending-box" id="${num}">
 						<div class="card background-music">
 							<div class="img-form">
 								<img src="${song.url_Img}" class="card-img-top" alt="...">
@@ -96,6 +97,8 @@ body {
 							</div>
 						</div>
 					</div>
+					
+					<c:set var="num" value="${num + 1 }"></c:set>
 				</c:forEach>
 			</div>
 		</div>
@@ -104,10 +107,11 @@ body {
 	<jsp:include page="/views/components/footer.jsp"></jsp:include>
 </body>
 
-<script src="/MusicWebsite/assets/js/singer.js"></script>
 <script src="/MusicWebsite/assets/js/login.js"></script>
+<script src="/MusicWebsite/assets/js/singer.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript">
+	var listSongs = document.querySelectorAll('.trending-box');
 	$(document).ready(function() {
 		$(window).scroll(function() {
 			if ($(window).scrollTop() >= $(document).height() - $(window).height() * 1.1) {
@@ -116,6 +120,7 @@ body {
 					type : "get",
 					success : function(data) {
 						$('body').append(data);
+						listSongs = document.querySelectorAll('.trending-box');
 					}
 				});
 			}

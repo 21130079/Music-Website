@@ -348,7 +348,7 @@ span.psw {
 
 .body-log {
 	position: fixed;
-	z-index: 1;
+	z-index: 99;
 	left: 0;
 	top: 0;
 	width: 100%;
