@@ -133,6 +133,7 @@ public class DAOAccount extends AbsDao<Account>  {
 			new DAOPlaylist().deleteByUsername(t);
 			new DAOFavorite().deleteByUsername(t);
 			new DAONotification().deleteByUsername(t);
+			new DAOHistoryPremium().deleteByUsername(t);
 			deleteRoleByUsername(t);
 			PreparedStatement stmt = connection
 					.prepareStatement("delete from accounts where username=? ");

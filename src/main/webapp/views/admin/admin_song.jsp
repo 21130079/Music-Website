@@ -200,59 +200,66 @@ height: 18px;
 			selected</button>
 		</div>
 			
-				   <table id="data" class="table-bordered table-striped" style="width: 90%;margin-left: 5.5%">
-						<thead>
-							<tr style="color: black;background-color:lightgray;">
-							<th></th>
-							    <th>Song name</th>
-							     <th>Image</th>
-							    <th>Duration</th>
-							    <th>Genre</th>
-							    <th>Singer</th>
-							    <th>View</th>
-								<th></th>
-							</tr>
-					</thead>
-				
-					<jsp:useBean id="DAOSong" class="database.DAOSong"></jsp:useBean>
-					<tbody>
-					<c:forEach var="song" items="${DAOSong.selectAll()}">
-								
-								<tr>
-									<td><input type="checkbox" id="${song.id_Song}" class="checkbox">
-									</td>
-									<td>${song.name_Song}</td>
-									<td><img class="song_img" src="${song.url_Img}"></td>
-									<td>${song.duration}</td>
-									<td>${song.genre}</td>
-									<td>${song.singer.name_Singer}</td>
-									<td>${song.songView}</td>
-									<td>
-										<div style="display: flex; align-items: center; justify-content: center;"> <a class="edit-button" type="button"
-											style="padding-right: 10px"
-											href="/MusicWebsite/EditSongController?idSong=${song.id_Song}">
-											<i class="bi bi-pencil-square"></i>
-										</a> 
-										<div style=" cursor: pointer;" class="delete-btn" id="${song.id_Song}" ><i class="bi bi-trash"></i></div>
-										</div>
-									 </td>
-								 </tr>
-								
-						
-					</c:forEach>
-					</tbody>
-					</table>
+				  <table id="data" class="table-bordered table-striped" style="width: 90%;margin-left: 5.5%">
+        <thead>
+            <tr style="color: black;background-color:lightgray;">
+                <th></th>
+                <th>Song name</th>
+                <th>Image</th>
+                <th>Duration</th>
+                <th>Genre</th>
+                <th>Singer</th>
+                <th>View</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
 </body>
 		<script type="text/javascript">
 	
     $(document).ready(function () {
-        let table = $('#data').DataTable({
-            "paging":true,
-            "seaching":true
+    	let table = $('#data').DataTable({
+            "paging": true,
+            "searching": true,
+            "ajax": {
+                "url": "/MusicWebsite/SongAPI",
+                "dataSrc": "data"
+            },
+            "columns": [
+                {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return '<input type="checkbox" id="' + data.id_Song + '" class="checkbox">';
+                    }
+                },
+                { "data": "name_Song" },
+                {
+                    "data": "url_Img",
+                    "render": function (data, type, row) {
+                        return '<img class="song_img" src="' + data + '">';
+                    }
+                },
+                { "data": "duration" },
+                { "data": "genre" },
+                { "data": "singer.name_Singer" },
+                { "data": "songView" },
+                {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return '<div style="display: flex; align-items: center; justify-content: center;">' +
+                               '<a class="edit-button" type="button" style="padding-right: 10px" href="/MusicWebsite/EditSongController?idSong=' + data.id_Song + '">' +
+                               '<i class="bi bi-pencil-square"></i></a>' +
+                               '<div style="cursor: pointer;" class="delete-btn" id="' + data.id_Song + '"><i class="bi bi-trash"></i></div>' +
+                               '</div>';
+                    }
+                }
+            ]
         });
         
-        $('.delete-btn').click(function() {
+    	 $(document).on('click', '.delete-btn', function() {
             let idSong = $(this).attr("id");
             let button = $(this);
 
@@ -261,13 +268,14 @@ height: 18px;
                 type: 'get',
                 data: { idSong:idSong},
                 success: function(response) {
-                    table.row(button.closest("tr")).remove().draw(true);
+                    table.row(button.closest("tr")).remove().draw(false);
                 },
                 error: function() {
                     // Handle error
                 }
             });
         });
+       
         $('#deleteSongs_btn').click(function() {
             $('.checkbox:checked').each(function() {
                 var checkbox = $(this);
@@ -278,7 +286,7 @@ height: 18px;
                         idSong: checkbox.attr('id')
                     },
                     success: function(response) {
-                        table.row(checkbox.closest("tr")).remove().draw(true);
+                        table.row(checkbox.closest("tr")).remove().draw(false);
                     },
                     error: function() {
                         // Handle error

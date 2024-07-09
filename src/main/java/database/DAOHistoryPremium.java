@@ -583,7 +583,7 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 
 	public double getIncomeInThisMonth() {
 		int currentMonth = LocalDate.now().getMonthValue();
-		return getProfitForMonth(currentMonth);
+		 return Math.round( getProfitForMonth(currentMonth) * 100.0) / 100.0;
 	}
 
 	public double getAvgRevenue() {
@@ -594,9 +594,23 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 				total += getProfitForMonth(i);
 			}
 		}
-		return total / currentMonth;
+		 double average = total / currentMonth;
+		    return Math.round(average * 100.0) / 100.0;
 	}
+	public int deleteByUsername (String username) {
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from history_premium_accounts where username = ?");
+			stmt.setString(1, username);
+			
+			stmt.execute();
+			return 1;
 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	public static void main(String[] args) throws ParseException {
 		HistoryPremium hs = new HistoryPremium(new Account("pldat"), 1, null, null);
 		Date date = hs.changeStringToDate("2024-5-11");
