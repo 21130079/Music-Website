@@ -58,28 +58,31 @@ public class LazyLoadingController extends HttpServlet {
 					+ "			<div class=\"trendingTable\">");
 			
 			for (Song song : singer.getValue()) {
-				out.println("<div class=\"item trending-box\">\r\n"
+				out.println("<div class=\"item trending-box\" id=\"" + num + "\">\r\n"
 						+ "						<div class=\"card background-music\">\r\n"
 						+ "							<div class=\"img-form\">\r\n"
 						+ "								<img src=\"" + song.getUrl_Img() + "\" class=\"card-img-top\" alt=\"...\">\r\n"
 						+ "								<div class=\"icon-in-img\">\r\n"
 						+ "\r\n"
-						+ "									<a class=\"inner-icon-in-img\" href=\"navListSong.jsp\"><i\r\n"
-						+ "										style=\"font-size: 50px\" class=\"bi-play-circle\"></i></a>\r\n"
-						+ "\r\n"
-						+ "\r\n"
+						+ "									<button type=\"button\" class=\"btn btn-music\" id=\"" + song.getId_Song() + "\"\r\n"
+						+ "										onclick=\"playMusic(this.id, '" + song.getName_Song() + "', '" + song.getSinger().getName_Singer() + "', '" + song.getUrl_Img() + "')\">\r\n"
+						+ "										<audio src=\"" + song.getUrl_Audio() + "\" class=\"au" + song.getId_Song() + "\"></audio>\r\n"
+						+ "										<i class=\"bi" + song.getId_Song() + " bi-play-circle\"></i>\r\n"
+						+ "									</button>\r\n"
 						+ "								</div>\r\n"
 						+ "							</div>\r\n"
-						+ "							<div class = \" singer_descriptiont \">\r\n"
+						+ "							<div class=\"singer_description\">\r\n"
 						+ "								<h5 class=\"title-trending\">\r\n"
-						+ "									<b>" + song.getName_Song() + "</b>\r\n"
+						+ "									<b class=\"name-song\">" + song.getName_Song() + "</b>\r\n"
 						+ "								</h5>\r\n"
 						+ "								<h6 class=\"title-trending\">\r\n"
-						+ "									<b>" + song.getSinger().getName_Singer() + "</b>\r\n"
+						+ "									<b class=\"name-singer\">" + song.getSinger().getName_Singer() + "</b>\r\n"
 						+ "								</h6>\r\n"
 						+ "							</div>\r\n"
 						+ "						</div>\r\n"
 						+ "					</div>");
+				
+				num += 1;
 			}
 			
 			out.println("</div>\r\n"

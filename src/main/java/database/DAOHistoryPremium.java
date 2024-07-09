@@ -583,7 +583,7 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 
 	public double getIncomeInThisMonth() {
 		int currentMonth = LocalDate.now().getMonthValue();
-		return getProfitForMonth(currentMonth);
+		 return Math.round( getProfitForMonth(currentMonth) * 100.0) / 100.0;
 	}
 
 	public double getAvgRevenue() {
@@ -594,7 +594,8 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 				total += getProfitForMonth(i);
 			}
 		}
-		return total / currentMonth;
+		 double average = total / currentMonth;
+		    return Math.round(average * 100.0) / 100.0;
 	}
 	public int deleteByUsername (String username) {
 		try {
