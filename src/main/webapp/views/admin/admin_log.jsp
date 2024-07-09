@@ -144,8 +144,7 @@ font-weight: bold;
 		</div>
 
 	 <br>
-	<jsp:useBean id="daoLog" class="database.DAOLog"></jsp:useBean>
-	<c:set var="listItems" value="${daoLog.selectAll()}"></c:set>
+
 
 	<table id="data" class="table-bordered table-striped"
 		style="width: 90%;margin-left: 5.5%">
@@ -249,7 +248,7 @@ font-weight: bold;
 							            	idLog: checkbox.attr('id')
 							            },
 							            success: function(response) {
-							            	 $("#data").DataTable().row(checkbox.closest("tr")).remove().draw(true);
+							            	 $("#data").DataTable().row(checkbox.closest("tr")).remove().draw(false);
 							            },
 							            error: function() {
 							                // Handle error
@@ -268,7 +267,7 @@ font-weight: bold;
 						                type: 'get',
 						                data: { idLog:idLog},
 						                success: function(response) {
-						                	 $("#data").DataTable().row(button.closest("tr")).remove().draw(true);
+						                	 $("#data").DataTable().row(button.closest("tr")).remove().draw(false);
 						                },
 						                error: function() {
 						                    // Handle error
