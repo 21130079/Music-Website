@@ -136,9 +136,7 @@ font-weight: bold;
 
 	<br>
 	<div class="feature">
-		<a href="admin_add.jsp">
-					<button> <i class="plus">+</i> Add Account</button>
-					</a>
+		
 		<button id="deleteLogs_btn">Delete
 			selected</button>
 		</div>

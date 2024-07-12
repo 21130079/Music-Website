@@ -112,7 +112,7 @@ public class DAOLog extends AbsDao<Log>{
 			stmt.executeUpdate();
 			return 1;
 		} catch (Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 		}
 		return 0;
 	}

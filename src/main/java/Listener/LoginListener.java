@@ -36,7 +36,16 @@ public class LoginListener implements HttpSessionAttributeListener {
 	                activeUsers = new HashSet<>();
 	                
 	            }else {
-	            	activeUsers.add(account);
+	            	 boolean alreadyExists = false;
+	                 for (Account acc : activeUsers) {
+	                     if (acc.getUsername().equals(account.getUsername())) {
+	                         alreadyExists = true;
+	                         break;
+	                     }
+	                 }
+	                 if (!alreadyExists) {
+	                     activeUsers.add(account);
+	                 }
 	            }
 	            context.setAttribute("activeUsers", activeUsers);
 	       }
