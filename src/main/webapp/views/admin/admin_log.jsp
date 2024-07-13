@@ -32,9 +32,7 @@
 	href="/MusicWebsite/assets/css/style.css">
 
 <style>
-* {
-	color: white;
-}
+
 
 #data_wrapper{
 background-color: transparent;
@@ -129,6 +127,9 @@ color: white;
 font-size: 18px;
 font-weight: bold;
 }
+.justify-content-md-center thead tr td {
+	color:black !important;
+} 
 </style>
 </head>
 <jsp:include page="../components/admin_header.jsp"/>

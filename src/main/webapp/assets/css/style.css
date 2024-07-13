@@ -833,17 +833,28 @@ a {
     width: 150px;
     background-color: white;
     z-index: 5;
-    border-radius: 5px;}
+    border-radius: 5px;
+    }
 
-.nav_person a, #notification-board div {
+.nav_person a {
 	padding: 5px;
 	border-radius: 3px;
-	/*  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.3); */
+	
 	background-color: transparent;
 }
+#notification-board div{
+		padding: 5px;
+}
 
-.nav_person a:not(:last-child), #notification-board div:not(:last-child) {
+#notification-board div{
+	border-top: 1px solid gray ;
+}
+#notification-board div:last-child {
+    border-bottom: 1px solid gray ;
+}
+.nav_person a:not(:last-child){
 	border-bottom: 1px solid gray;
+	
 }
 
 .nav_person a:hover {
@@ -860,19 +871,26 @@ a {
 #notification-board {
 	display: none;
 	position: absolute;
+	flex-direction: column;
 	line-height: 50px;
 	box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
-	align-items: center;
-	justify-content: center;
 	text-align: center;
-	width: 450px;
-	background-color: white;
+	width: 400px;
+	height:600px;
+	background-color: #3C4043;
+	color:white;
 	z-index: 5;
 	border-radius: 5px;
-	left: 870px;
+	left: 900px;
     top: 60px;
+    
 }
-
+#notification-board h4{
+	   align-self: flex-start;
+    justify-self: left;
+    margin: 10px;
+    margin-bottom: 20px;
+}
 .notification-item-content {
 	color: black;
 	line-height: 30px;
@@ -880,7 +898,9 @@ a {
 .navbar,.nav{
 						height: 100%
 					}
-
+.none-notification{
+	
+}
 
 
 

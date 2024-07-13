@@ -22,6 +22,7 @@ body {
 	display: grid;	
 	justify-content: center;
 	margin: 0px;
+	 background-color: #3F3F3F;
 
 }
 
@@ -33,7 +34,9 @@ body {
 	display:grid;
 	border-radius: 10px;
 	padding: 10px 20px;
-	box-shadow: 0 4px 8px rgba(33, 38, 44, .16);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+	    background-color: #3C4043;
+    color: white;
 }
 
 #selector_header {
@@ -81,12 +84,14 @@ i {
 }
 
 .payment_box {
-	width: 90%;
-	margin-left: 3.5%;
-	border: 1px solid black;
-	margin-bottom: 10px;
-	padding: 10px;
-	border-radius: 10px;
+    width: 90%;
+    margin-left: 3.5%;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #36393C;
+    color: white;
+    border-radius: 10px;
 	
 }
 .payment_box:hover{
@@ -109,6 +114,9 @@ input {
 	background-color: transparent;
 	outline: none;
 	width: 100px
+}
+.description_box a{
+color: blue;
 }
 </style>
 <body>

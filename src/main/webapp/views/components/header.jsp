@@ -84,7 +84,7 @@
 		</ul>
 	</div>
 
-	<c:if test="${fn:contains(currentPage, '/index.jsp') }">
+	
 		<div class="search-box">
 			<form action="/MusicWebsite/SearchController" method="get"
 				style="margin-left: -169px;">
@@ -96,7 +96,7 @@
 					name="searchInput">
 			</form>
 		</div>
-	</c:if>
+
 
 	<div class="sign-in">
 		<c:choose>
@@ -118,16 +118,26 @@
 				</button>
 
 				<div id="notification-board">
-					<c:if test="${fn:length(listNotifications)!=0}">
+				<h4>Notifications</h4>
+				<c:choose>
+					<c:when test="${fn:length(listNotifications)!=0}">
 						<c:forEach begin="0" end="${fn:length(listNotifications) - 1}"
 							var="i">
 							<div class="notification-item">
 								<p class="notification-item-content">${listNotifications[i].descript }</p>
 								<p class="notification-item-content">Time:
 									${listNotifications[i].timeExecute }</p>
+									
 							</div>
 						</c:forEach>
-					</c:if>
+					</c:when>
+						
+					<c:otherwise>
+						<div class="none-notification">
+							There are currently no notifications
+						</div>
+					</c:otherwise>	
+					</c:choose>
 				</div>
 
 				<div class="person_circle">
@@ -136,8 +146,8 @@
 
 						<a href="/MusicWebsite/views/pages/upgradePre.jsp"><div>Premium</div></a>
 						<a
-							onclick="document.getElementById('change-password').style.display='flex'"><div>Forgot
-								Password</div></a> <a href="/MusicWebsite/LogOutController"><div>Logout</div></a>
+							onclick="document.getElementById('change-password').style.display='flex'"><div>
+							Change Password</div></a> <a href="/MusicWebsite/LogOutController"><div>Logout</div></a>
 					</div>
 				</div>
 				<font color="White"> ${sessionScope.account.username} </font>
@@ -324,4 +334,5 @@
 <body>
 
 </body>
+
 </html>

@@ -375,7 +375,7 @@ function showMore() {
 function showNotificationBoard(button) {
 	let content = document.querySelector('#notification-board');
 	if (content.style.display === 'none') {
-		content.style.display = 'grid';
+		content.style.display = 'flex';
 	} else {
 		content.style.display = 'none';
 	}

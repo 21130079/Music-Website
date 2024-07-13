@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Map;
@@ -30,8 +31,9 @@ public class RemoveAccountController extends HttpServlet {
 			String key = entry.getKey();
 			HttpSession val = entry.getValue();	
 			if(key.equals(userName)) {
-				val.invalidate();
-				LoginListener.getSessions().remove(key);
+				
+					val.invalidate();
+					LoginListener.getSessions().remove(key);
 			}
 						
 		}
