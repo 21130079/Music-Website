@@ -80,21 +80,21 @@ public class UpdateSongController extends HttpServlet {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		LocalTime localTime = LocalTime.parse(duration, formatter);
 		Time duratime = Time.valueOf(localTime);
-		String url_Img = "assets/img/" + genre + "/" + fileNameImg;
-		String url_Audio = "assets/audio/" + genre + "/" + fileNameAudio;
+		String url_Img = "/MusicWebsite/assets/img/" + genre + "/" + fileNameImg;
+		String url_Audio = "/MusicWebsite/assets/audio/" + genre + "/" + fileNameAudio;
 		if (fileImg.getSubmittedFileName().isEmpty()) {
 			url_Img = song.getUrl_Img();
 				
 		} else {
 			fileNameImg = Path.of(fileImg.getSubmittedFileName()).getFileName().toString();
-			url_Img = "assets/img/" + genre + "/" + fileNameImg;
+			url_Img = "/MusicWebsite/assets/img/" + genre + "/" + fileNameImg;
 		}
 
 		if (fileAudio.getSubmittedFileName().isEmpty()) {
 			url_Audio = song.getUrl_Audio();
 		} else {
 			fileNameAudio = Path.of(fileAudio.getSubmittedFileName()).getFileName().toString();
-			 url_Audio = "assets/audio/" + genre + "/" + fileNameAudio;
+			 url_Audio = "/MusicWebsite/assets/audio/" + genre + "/" + fileNameAudio;
 		}
 		
 		

@@ -241,7 +241,7 @@ background-color: #f9f9f9;
 	<div></div>
 			<i class="bi bi-x" id="x_edit_acc"></i>
 			<h2>Change Information Account</h2>
-			<input type="text" id="edit_username" placeholder="username" name="username" required="required">
+			<input type="text" id="edit_username"  readonly placeholder="username" name="username" required="required">
 			<input type="email"  id="edit_email" placeholder="email" name="email" required="required">
 			<input type="password" id="edit_password" placeholder="password" name="password" required="required">
 			<div >

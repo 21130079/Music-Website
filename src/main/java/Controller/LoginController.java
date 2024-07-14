@@ -110,6 +110,8 @@ public class LoginController extends HttpServlet {
 				loginTimes = 0;
 			}
 			
+			
+			
 			if (!checkFAccount) {
 				loginTimes += 1;
 				
@@ -147,7 +149,18 @@ public class LoginController extends HttpServlet {
 				
 				response.addCookie(usernameCookie);
 				response.addCookie(passwordCookie);
-                
+				// check user do da dang nhap chua
+				for (Map.Entry<String, HttpSession> entry :LoginListener.getSessions().entrySet()) {
+					String key = entry.getKey();
+					HttpSession val = entry.getValue();	
+					if(key.equals(username)) {
+						request.setAttribute("errorAccount", "Your account is logging!");
+						RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+						rd.include(request, response);
+						return;
+					}
+								
+				}
 				session.setAttribute("account", ac);
 				response.sendRedirect("index.jsp");
 			 }

@@ -31,7 +31,8 @@
 	display: grid;
 	justify-content: center;
 	align-items: center;
-	background-color: #171717;
+	    background-color: #171717;
+    color: white;
 }
 
 .wrapper_button {

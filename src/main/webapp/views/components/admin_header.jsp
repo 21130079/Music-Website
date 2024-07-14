@@ -108,7 +108,9 @@
 								</button>
 
 								<div id="notification-board">
-									<c:if test="${fn:length(listNotifications)!=0}">
+								<h4>Notifications</h4>
+								<c:choose>
+									<c:when test="${fn:length(listNotifications)!=0}">
 										<c:forEach begin="0" end="${fn:length(listNotifications) - 1}" var="i">
 											<c:choose>
 												<c:when test="${listNotifications[i].levelNotification=='ALERT' }">
@@ -149,7 +151,13 @@
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-									</c:if>
+									</c:when>
+									<c:otherwise>
+									<div class="none-notification">
+										There are currently no notifications
+									</div>
+									</c:otherwise>
+									</c:choose>
 								</div>
 
 								<div class="person_circle">
@@ -350,5 +358,6 @@
 				<body>
 
 				</body>
+<script type="text/javascript" src="/MusicWebsite/assets/js/main.js"></script>
 <script type="text/javascript" src="/MusicWebsite/assets/js/login.js"></script>
 	</html>

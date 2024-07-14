@@ -97,8 +97,8 @@ public class AddSongController extends HttpServlet {
 			String path_Audio = realpathAudio + "\\" + fileNameAudio;
 			fileAudio.write(path_Audio);
 
-			String url_Img = "assets/img/" + genre + "/" + fileNameImg;
-			String url_Audio = "assets/audio/" + genre + "/" + fileNameAudio;
+			String url_Img = "/MusicWebsite/assets/img/" + genre + "/" + fileNameImg;
+			String url_Audio = "/MusicWebsite/assets/audio/" + genre + "/" + fileNameAudio;
 
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 			LocalTime localTime = LocalTime.parse(duration, formatter);

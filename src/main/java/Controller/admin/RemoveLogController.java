@@ -27,7 +27,8 @@ public class RemoveLogController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idLog = request.getParameter("idlog");
+		String idLog = request.getParameter("idLog");
+		System.out.println(idLog);
 		new DAOLog().deleteById(idLog);
 		String[] selectedIds = request.getParameterValues("selectedIds[]");
 		 new DAOLog().deleteListLogByID(selectedIds);

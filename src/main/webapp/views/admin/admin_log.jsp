@@ -32,9 +32,7 @@
 	href="/MusicWebsite/assets/css/style.css">
 
 <style>
-* {
-	color: white;
-}
+
 
 #data_wrapper{
 background-color: transparent;
@@ -129,6 +127,9 @@ color: white;
 font-size: 18px;
 font-weight: bold;
 }
+.justify-content-md-center thead tr td {
+	color:black !important;
+} 
 </style>
 </head>
 <jsp:include page="../components/admin_header.jsp"/>
@@ -136,9 +137,7 @@ font-weight: bold;
 
 	<br>
 	<div class="feature">
-		<a href="admin_add.jsp">
-					<button> <i class="plus">+</i> Add Account</button>
-					</a>
+		
 		<button id="deleteLogs_btn">Delete
 			selected</button>
 		</div>
