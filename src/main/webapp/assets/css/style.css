@@ -71,8 +71,8 @@ button {
 .icon-in-img {
 	z-index: 2;
 	position: absolute;
-	top: 50%;
-	left: 50%;
+	top: 70%;
+	left: 35%;
 	transform: translate(-50%, -50%);
 	display: inline-block;
 }
@@ -136,7 +136,7 @@ button {
 	height: fit-content;
 	position: relative;
 	margin-top: 10px;
-    margin-left: -40px;
+	margin-left: -40px;
 }
 
 .search-icon {
@@ -325,12 +325,13 @@ button.btn-inner-td {
 	text-decoration: none;
 }
 
-.login-btn, .notification-btn {
+.login-btn,
+.notification-btn {
 	background-color: rgb(63, 63, 63);
 	border-style: none;
 	line-height: 71px;
 	color: rgb(180, 180, 180);
-	background-color: transparent; 
+	background-color: transparent;
 	border: none;
 }
 
@@ -367,13 +368,14 @@ span.psw {
 	position: absolute;
 	right: 5%;
 	top: -15%;
-	cursor:pointer;
+	cursor: pointer;
 	z-index: 3;
 	color: blue;
 	font-size: 40px;
 	font-weight: bold;
 }
-.close:hover{
+
+.close:hover {
 	color: red;
 }
 
@@ -791,7 +793,8 @@ a {
 	vertical-align: -3px;
 }
 
-.bi-key-fill, .bi-bell-fill {
+.bi-key-fill,
+.bi-bell-fill {
 	font-size: 30px;
 	vertical-align: -3px;
 	padding-right: 15px;
@@ -821,46 +824,49 @@ a {
 
 .nav_person {
 	display: grid;
-    position: absolute;
-    left: 5px;
-    top: 19px;
-    display: none;
-    height: 135px;
-    box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 150px;
-    background-color: white;
-    z-index: 5;
-    border-radius: 5px;
-    }
+	position: absolute;
+	left: 5px;
+	top: 19px;
+	display: none;
+	height: 135px;
+	box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	width: 150px;
+	background-color: white;
+	z-index: 5;
+	border-radius: 5px;
+}
 
 .nav_person a {
 	padding: 5px;
 	border-radius: 3px;
-	
+
 	background-color: transparent;
 }
-#notification-board div{
-		padding: 5px;
+
+#notification-board div {
+	padding: 5px;
 }
 
-#notification-board div{
-	border-top: 1px solid gray ;
+#notification-board div {
+	border-top: 1px solid gray;
 }
+
 #notification-board div:last-child {
-    border-bottom: 1px solid gray ;
-}
-.nav_person a:not(:last-child){
 	border-bottom: 1px solid gray;
-	
+}
+
+.nav_person a:not(:last-child) {
+	border-bottom: 1px solid gray;
+
 }
 
 .nav_person a:hover {
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.1);
-  text-decoration: none;
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.1);
+	text-decoration: none;
 }
 
 .remember {
@@ -876,110 +882,29 @@ a {
 	box-shadow: 0px 10px 5px 5px rgba(0, 0, 0, 0.3);
 	text-align: center;
 	width: 400px;
-	height:600px;
+	height: 600px;
 	background-color: #3C4043;
-	color:white;
+	color: white;
 	z-index: 5;
 	border-radius: 5px;
 	left: 900px;
-    top: 60px;
-    
+	top: 60px;
+
 }
-#notification-board h4{
-	   align-self: flex-start;
-    justify-self: left;
-    margin: 10px;
-    margin-bottom: 20px;
+
+#notification-board h4 {
+	align-self: flex-start;
+	justify-self: left;
+	margin: 10px;
+	margin-bottom: 20px;
 }
+
 .notification-item-content {
-	color: black;
+	color: white;
 	line-height: 30px;
 }
-.navbar,.nav{
-						height: 100%
-					}
-.none-notification{
-	
+
+.navbar,
+.nav {
+	height: 100%
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

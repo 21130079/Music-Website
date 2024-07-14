@@ -3,18 +3,10 @@ var personicon = document.querySelector('.bi-person-circle');
 const signUpLink = document.querySelector('.signUp-link');
 const signInLink = document.querySelector('.signIn-link');
 const checkCommand = document.querySelector('#hidden-input');
-let formSignUp = document.querySelectorAll('form')[1];
-let formLogin = document.querySelectorAll('form')[2];
+const formSignUp = document.querySelectorAll('form')[1];
+const formLogin = document.querySelectorAll('form')[2];
 const wrapper = document.querySelector('.wrapper');
 
-if (formSignUp.action !== '/MusicWebsite/SignUpController') {
-	formSignUp = document.querySelectorAll('form')[0];
-	formLogin = document.querySelectorAll('form')[1];
-}
-
-if (!(typeof formLogin !== 'undefined')) {
-	document.querySelector('#notification-board').style.display = 'none';	
-}
 
 personicon.addEventListener('click', () => {
 	let content = $('.nav_person');

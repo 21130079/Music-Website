@@ -17,6 +17,7 @@ var playedArrayTest = [];
 var count = 0;
 var ajaxDelayTimer;
 var currentIndexSong;
+
 if (!(typeof formLogin === 'null')) {
 	document.querySelector('#notification-board').style.display = 'none';
 }
