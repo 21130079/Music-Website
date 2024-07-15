@@ -297,8 +297,9 @@ public class DAOHistoryPremium extends AbsDao<HistoryPremium> {
 			rs.close();
 			stmt.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
+		
 		return false;
 	}
 

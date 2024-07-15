@@ -149,6 +149,7 @@ public class LoginController extends HttpServlet {
 				
 				response.addCookie(usernameCookie);
 				response.addCookie(passwordCookie);
+				
 				// check user do da dang nhap chua
 				for (Map.Entry<String, HttpSession> entry :LoginListener.getSessions().entrySet()) {
 					String key = entry.getKey();

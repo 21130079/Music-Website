@@ -26,7 +26,7 @@
 	rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">	
+	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script
@@ -98,12 +98,22 @@
 
 								</div>
 								<div class="inner-td">
-								
+
 									<i class="bi bi-share" style="color: white; font-size: 13px"></i>
-									<br> 
-									<a href="${listItems[i].url_Audio}" download> 
-										<i class="bi bi-download" style="color: white; font-size: 13px"></i>
-									</a>
+									<br>
+									<jsp:useBean id="daoPremium" class="database.DAOHistoryPremium"
+										scope="session"></jsp:useBean>
+									<c:choose>
+										<c:when test="${daoPremium.checkPremium(account)}">
+											<a href="${listItems[i].url_Audio}" download> <i
+												class="bi bi-download" style="color: white; font-size: 13px"></i>
+											</a>
+										</c:when>
+										<c:otherwise>
+											<i class="bi bi-download" disabled
+												style="color: white; font-size: 13px"></i>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</div>
 						</div>
